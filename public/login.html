@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | MSM PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+height:100vh;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+background:#020617;
+
+overflow:hidden;
+}
+
+.bg{
+
+position:absolute;
+
+width:700px;
+height:700px;
+
+background:#00ff9950;
+
+filter:blur(180px);
+
+top:-200px;
+right:-200px;
+}
+
+.login-box{
+
+position:relative;
+
+z-index:2;
+
+width:420px;
+
+padding:40px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(18px);
+
+color:white;
+}
+
+.logo{
+
+font-size:36px;
+
+font-weight:700;
+
+color:#00ff99;
+
+text-align:center;
+
+margin-bottom:10px;
+}
+
+.sub{
+
+text-align:center;
+
+color:#94a3b8;
+
+margin-bottom:35px;
+}
+
+.input-box{
+
+margin-bottom:20px;
+}
+
+.input-box input{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+outline:none;
+
+border-radius:15px;
+
+background:#0f172a;
+
+color:white;
+
+font-size:16px;
+}
+
+.btn{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+border-radius:15px;
+
+background:#00ff99;
+
+color:black;
+
+font-weight:700;
+
+cursor:pointer;
+
+font-size:16px;
+
+transition:0.3s;
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 0 25px rgba(0,255,153,0.4);
+}
+
+.google-btn{
+
+margin-top:15px;
+
+background:white;
+
+color:black;
+}
+
+.links{
+
+margin-top:20px;
+
+display:flex;
+
+justify-content:space-between;
+
+font-size:14px;
+}
+
+.links a{
+
+color:#00ff99;
+
+text-decoration:none;
+}
+
+.error{
+
+margin-top:15px;
+
+color:#ff4d6d;
+
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="login-box">
+
+<div class="logo">
+📈 MSM PRO
+</div>
+
+<div class="sub">
+Secure Trading Login
+</div>
+
+<div class="input-box">
+
+<input
+type="email"
+id="email"
+placeholder="Enter Email">
+
+</div>
+
+<div class="input-box">
+
+<input
+type="password"
+id="password"
+placeholder="Enter Password">
+
+</div>
+
+<button class="btn" onclick="loginUser()">
+
+Login
+
+</button>
+
+<button class="btn google-btn" onclick="googleLogin()">
+
+Continue With Google
+
+</button>
+
+<div class="links">
+
+<a href="signup.html">
+Create Account
+</a>
+
+<a href="#" onclick="forgotPassword()">
+Forgot Password
+</a>
+
+</div>
+
+<div class="error" id="error"></div>
+
+</div>
+
+<script>
+
+/* ====================================
+FIREBASE CONFIG
+==================================== */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCwprMXr02lRZzA_sVl0PyW-RbkUGgSpMI",
+
+authDomain: "manthansharemarket-2d1f9.firebaseapp.com",
+
+projectId: "manthansharemarket-2d1f9",
+
+storageBucket: "manthansharemarket-2d1f9.firebasestorage.app",
+
+messagingSenderId: "46940862623",
+
+appId: "1:46940862623:web:1fbabc4399db061ed68aaa",
+
+measurementId: "G-X8WQQLQ5B7"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+/* ====================================
+EMAIL LOGIN
+==================================== */
+
+function loginUser(){
+
+let email =
+document.getElementById("email").value;
+
+let password =
+document.getElementById("password").value;
+
+auth.signInWithEmailAndPassword(email,password)
+
+.then(()=>{
+
+window.location.href = "dashboard.html";
+
+})
+
+.catch((error)=>{
+
+document.getElementById("error").innerText =
+error.message;
+
+});
+
+}
+
+/* ====================================
+GOOGLE LOGIN
+==================================== */
+
+function googleLogin(){
+
+const provider =
+new firebase.auth.GoogleAuthProvider();
+
+auth.signInWithPopup(provider)
+
+.then(()=>{
+
+window.location.href = "dashboard.html";
+
+})
+
+.catch((error)=>{
+
+document.getElementById("error").innerText =
+error.message;
+
+});
+
+}
+/* ====================================
+FORGOT PASSWORD
+==================================== */
+
+function forgotPassword(){
+
+let email =
+document.getElementById("email").value;
+
+if(email == ""){
+
+document.getElementById("error").innerText =
+"Please enter your email first";
+
+return;
+
+}
+
+auth.sendPasswordResetEmail(email)
+
+.then(()=>{
+
+document.getElementById("error").style.color =
+"#00ff99";
+
+document.getElementById("error").innerText =
+"Password reset email sent successfully 🚀";
+
+})
+
+.catch((error)=>{
+
+document.getElementById("error").style.color =
+"#ff4d6d";
+
+document.getElementById("error").innerText =
+error.message;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

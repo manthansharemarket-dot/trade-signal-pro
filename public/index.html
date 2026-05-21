@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MSM PRO AI TRADING PLATFORM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#00ff99;
+border-radius:10px;
+}
+
+/* NAVBAR */
+
+.navbar{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+
+padding:18px 7%;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+z-index:1000;
+
+background:rgba(2,6,23,0.7);
+
+backdrop-filter:blur(18px);
+
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+
+font-size:34px;
+
+font-weight:800;
+
+color:#00ff99;
+}
+
+.nav-links{
+
+display:flex;
+gap:28px;
+}
+
+.nav-links a{
+
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:0.3s;
+position:relative;
+}
+
+.nav-links a:hover{
+
+color:#00ff99;
+}
+
+.nav-links a::after{
+
+content:'';
+
+position:absolute;
+
+left:0;
+bottom:-5px;
+
+width:0%;
+height:2px;
+
+background:#00ff99;
+
+transition:0.3s;
+}
+
+.nav-links a:hover::after{
+
+width:100%;
+}
+
+.btn{
+
+padding:12px 28px;
+
+background:#00ff99;
+
+color:black;
+
+font-weight:700;
+
+border-radius:14px;
+
+text-decoration:none;
+
+transition:0.3s;
+}
+
+.btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 0 25px rgba(0,255,153,0.4);
+}
+
+/* HERO */
+
+.hero{
+
+min-height:100vh;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:140px 7% 90px;
+
+position:relative;
+
+overflow:hidden;
+}
+
+.hero::before{
+
+content:'';
+
+position:absolute;
+
+width:700px;
+height:700px;
+
+background:#00ff9940;
+
+filter:blur(180px);
+
+top:-250px;
+right:-200px;
+}
+
+.hero-left{
+
+max-width:720px;
+
+position:relative;
+z-index:2;
+}
+
+.badge{
+
+display:inline-block;
+
+padding:10px 18px;
+
+background:rgba(0,255,153,0.12);
+
+border:1px solid rgba(0,255,153,0.3);
+
+border-radius:30px;
+
+color:#00ff99;
+
+font-weight:600;
+
+margin-bottom:25px;
+}
+
+.hero-left h1{
+
+font-size:78px;
+
+line-height:1.1;
+
+font-weight:800;
+
+margin-bottom:25px;
+}
+
+.hero-left h1 span{
+
+color:#00ff99;
+}
+
+.hero-left p{
+
+font-size:20px;
+
+line-height:1.9;
+
+color:#cbd5e1;
+
+margin-bottom:40px;
+}
+
+.hero-buttons{
+
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+/* HERO RIGHT */
+
+.hero-right{
+
+width:420px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+border-radius:30px;
+
+padding:30px;
+
+backdrop-filter:blur(20px);
+
+position:relative;
+z-index:2;
+}
+
+.market-card{
+
+background:#111827;
+
+padding:18px;
+
+border-radius:18px;
+
+margin-bottom:18px;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+}
+
+.market-card h3{
+
+font-size:18px;
+}
+
+.market-card .green{
+
+color:#00ff99;
+font-weight:700;
+}
+
+.market-card .red{
+
+color:#ff4d4d;
+font-weight:700;
+}
+
+/* TICKER */
+
+.ticker{
+
+background:#00ff99;
+
+color:black;
+
+padding:14px 0;
+
+font-weight:700;
+
+overflow:hidden;
+
+white-space:nowrap;
+}
+
+.ticker-content{
+
+display:inline-block;
+
+animation:ticker 25s linear infinite;
+}
+
+@keyframes ticker{
+
+0%{
+transform:translateX(100%);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
+}
+
+/* SECTION */
+
+.section{
+
+padding:90px 7%;
+}
+
+.section-title{
+
+font-size:52px;
+
+font-weight:800;
+
+text-align:center;
+
+margin-bottom:70px;
+}
+
+/* FEATURES */
+
+.cards{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:30px;
+}
+
+.card{
+
+background:rgba(255,255,255,0.03);
+
+border:1px solid rgba(255,255,255,0.06);
+
+padding:35px;
+
+border-radius:30px;
+
+transition:0.4s;
+
+backdrop-filter:blur(15px);
+}
+
+.card:hover{
+
+transform:translateY(-10px);
+
+border-color:#00ff99;
+
+box-shadow:0 0 35px rgba(0,255,153,0.15);
+}
+
+.card-icon{
+
+font-size:50px;
+
+margin-bottom:20px;
+}
+
+.card h2{
+
+font-size:28px;
+
+margin-bottom:18px;
+
+color:#00ff99;
+}
+
+.card p{
+
+color:#cbd5e1;
+
+line-height:1.9;
+}
+
+/* SIGNAL */
+
+.signal-box{
+
+background:linear-gradient(135deg,#00ff99,#00b36b);
+
+padding:55px;
+
+border-radius:35px;
+
+text-align:center;
+
+color:black;
+
+box-shadow:0 0 40px rgba(0,255,153,0.25);
+}
+
+.signal-box h1{
+
+font-size:60px;
+
+font-weight:800;
+
+margin-bottom:20px;
+}
+
+.signal-box p{
+
+font-size:22px;
+
+font-weight:600;
+}
+
+/* STATS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:25px;
+}
+
+.stat-card{
+
+background:#111827;
+
+padding:35px;
+
+border-radius:25px;
+
+text-align:center;
+}
+
+.stat-card h1{
+
+font-size:48px;
+
+color:#00ff99;
+
+margin-bottom:10px;
+}
+
+/* FOOTER */
+
+.footer{
+
+padding:40px 7%;
+
+text-align:center;
+
+color:#94a3b8;
+
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+.hero{
+
+flex-direction:column;
+gap:50px;
+text-align:center;
+}
+
+.hero-right{
+
+width:100%;
+max-width:500px;
+}
+
+.hero-left h1{
+
+font-size:56px;
+}
+
+}
+
+@media(max-width:900px){
+
+.nav-links{
+
+display:none;
+}
+
+.hero-left h1{
+
+font-size:44px;
+}
+
+.section-title{
+
+font-size:38px;
+}
+
+.signal-box h1{
+
+font-size:42px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+📈 MSM PRO
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="signals.html">Signals</a>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="watchlist.html">Watchlist</a>
+
+<a href="option-chain.html">Option Chain</a>
+
+<a href="alerts.html">Alerts</a>
+
+<a href="premium.html">Premium</a>
+
+<a href="profile.html">Profile</a>
+
+</div>
+
+<a href="login.html" class="btn">
+Login
+</a>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-left">
+
+<div class="badge">
+🚀 India's Advanced AI Trading Platform
+</div>
+
+<h1>
+
+Trade Smarter With <span>AI Signals</span>
+
+</h1>
+
+<p>
+
+Professional AI-powered trading dashboard with
+live option chain, smart money analysis,
+real-time signals, watchlists,
+market scanners & institutional data analysis.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="signup.html" class="btn">
+Get Started
+</a>
+
+<a href="option-chain.html" class="btn">
+Live Option Chain
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-right">
+
+<div class="market-card">
+
+<div>
+<h3>NIFTY 50</h3>
+</div>
+
+<div class="green">
+▲ 24,850
+</div>
+
+</div>
+
+<div class="market-card">
+
+<div>
+<h3>BANKNIFTY</h3>
+</div>
+
+<div class="green">
+▲ 55,420
+</div>
+
+</div>
+
+<div class="market-card">
+
+<div>
+<h3>SENSEX</h3>
+</div>
+
+<div class="green">
+▲ 81,230
+</div>
+
+</div>
+
+<div class="market-card">
+
+<div>
+<h3>AI SIGNAL</h3>
+</div>
+
+<div class="green">
+BUY CALL
+</div>
+
+</div>
+
+<div class="market-card">
+
+<div>
+<h3>Confidence</h3>
+</div>
+
+<div class="green">
+82%
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TICKER -->
+
+<div class="ticker">
+
+<div class="ticker-content">
+
+NIFTY ▲ 24,850 +120 • BANKNIFTY ▲ 55,420 +240 • SENSEX ▲ 81,230 +350 • RELIANCE ▲ 2.4% • TCS ▲ 1.8% • INFY ▲ 1.6% • HDFCBANK ▲ 1.1% • ICICIBANK ▲ 1.4%
+
+</div>
+
+</div>
+
+<!-- FEATURES -->
+
+<section class="section">
+
+<h1 class="section-title">
+🔥 Powerful Features
+</h1>
+
+<div class="cards">
+
+<div class="card">
+
+<div class="card-icon">
+📊
+</div>
+
+<h2>Live Market</h2>
+
+<p>
+
+Real-time NSE/BSE market data with AI analysis,
+live charts and institutional money flow tracking.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+🤖
+</div>
+
+<h2>AI Signals</h2>
+
+<p>
+
+Advanced BUY/SELL signals using EMA, RSI,
+VWAP, OI, PCR & smart money concepts.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+📉
+</div>
+
+<h2>Option Chain</h2>
+
+<p>
+
+Live option chain with OI buildup,
+PCR analysis, Max Pain & support resistance.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+🔔
+</div>
+
+<h2>Smart Alerts</h2>
+
+<p>
+
+Get instant Telegram, browser and app alerts
+for every premium trade setup.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+⭐
+</div>
+
+<h2>Watchlist</h2>
+
+<p>
+
+Create custom stock watchlists with live updates,
+AI insights and technical signals.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<div class="card-icon">
+🧠
+</div>
+
+<h2>AI Prediction</h2>
+
+<p>
+
+Machine learning based trend prediction
+with confidence score & risk management.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LIVE SIGNAL -->
+
+<section class="section">
+
+<div class="signal-box">
+
+<h1>
+🟢 LIVE BUY SIGNAL
+</h1>
+
+<p>
+
+BANKNIFTY 55400 CE • Entry: 245 • Target: 340 • SL: 180
+
+</p>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="section">
+
+<h1 class="section-title">
+📈 Platform Statistics
+</h1>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h1>
+92%
+</h1>
+
+<p>
+Signal Accuracy
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h1>
+50K+
+</h1>
+
+<p>
+Active Traders
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h1>
+24/7
+</h1>
+
+<p>
+AI Monitoring
+</p>
+
+</div>
+
+<div class="stat-card">
+
+<h1>
+₹12Cr+
+</h1>
+
+<p>
+Daily Volume
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+© 2026 MSM PRO • Powered By AI + Node.js + NSE Live Data
+
+</div>
+
+</body>
+</html>

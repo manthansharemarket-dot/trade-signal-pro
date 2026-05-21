@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Profile | MSM PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+
+body{
+background:#020617;
+color:white;
+font-family:Poppins;
+padding:40px;
+}
+
+.card{
+
+max-width:700px;
+
+margin:auto;
+
+background:rgba(255,255,255,0.04);
+
+padding:40px;
+
+border-radius:30px;
+
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.title{
+
+font-size:40px;
+
+font-weight:700;
+
+color:#00ff99;
+
+margin-bottom:30px;
+}
+
+.info{
+
+margin-bottom:20px;
+}
+
+.label{
+
+color:#94a3b8;
+}
+
+.value{
+
+font-size:24px;
+
+margin-top:8px;
+}
+
+.btn{
+
+margin-top:25px;
+
+padding:14px 30px;
+
+background:#00ff99;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:700;
+
+color:black;
+
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<div class="title">
+👤 User Profile
+</div>
+
+<div class="info">
+
+<div class="label">
+Name
+</div>
+
+<div class="value" id="name">
+Loading...
+</div>
+
+</div>
+
+<div class="info">
+
+<div class="label">
+Email
+</div>
+
+<div class="value" id="email">
+Loading...
+</div>
+
+</div>
+
+<div class="info">
+
+<div class="label">
+Plan
+</div>
+
+<div class="value" id="plan">
+FREE
+</div>
+
+</div>
+
+<button class="btn" onclick="logout()">
+Logout
+</button>
+
+</div>
+
+<script>
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCwprMXr02lRZzA_sVl0PyW-RbkUGgSpMI",
+
+authDomain: "manthansharemarket-2d1f9.firebaseapp.com",
+
+projectId: "manthansharemarket-2d1f9",
+
+storageBucket: "manthansharemarket-2d1f9.firebasestorage.app",
+
+messagingSenderId: "46940862623",
+
+appId: "1:46940862623:web:1fbabc4399db061ed68aaa"
+
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+auth.onAuthStateChanged((user)=>{
+
+if(user){
+
+db.collection("users").doc(user.uid).get()
+
+.then((doc)=>{
+
+let data = doc.data();
+
+document.getElementById("name").innerText = data.name;
+document.getElementById("email").innerText = data.email;
+document.getElementById("plan").innerText = data.plan;
+
+});
+
+}else{
+
+window.location.href="login.html";
+
+}
+
+});
+
+function logout(){
+
+auth.signOut();
+
+window.location.href="login.html";
+
+}
+
+</script>
+
+</body>
+</html>

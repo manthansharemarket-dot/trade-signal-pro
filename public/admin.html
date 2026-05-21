@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MSM PRO ADMIN PANEL</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* =========================
+SIDEBAR
+========================= */
+
+.sidebar{
+
+width:270px;
+height:100vh;
+
+position:fixed;
+left:0;
+top:0;
+
+background:rgba(255,255,255,0.04);
+
+border-right:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+padding:25px;
+
+overflow-y:auto;
+}
+
+.logo{
+
+font-size:32px;
+font-weight:800;
+color:#00ff99;
+
+margin-bottom:35px;
+}
+
+.menu{
+
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.menu a{
+
+padding:15px;
+border-radius:16px;
+
+background:rgba(255,255,255,0.03);
+
+transition:0.3s;
+
+text-decoration:none;
+color:white;
+font-weight:500;
+}
+
+.menu a:hover{
+
+background:#00ff9920;
+
+transform:translateX(5px);
+}
+
+/* =========================
+MAIN
+========================= */
+
+.main{
+
+margin-left:270px;
+padding:30px;
+}
+
+/* =========================
+TOPBAR
+========================= */
+
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+margin-bottom:30px;
+}
+
+.live{
+
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.dot{
+
+width:12px;
+height:12px;
+
+background:#00ff99;
+
+border-radius:50%;
+
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+50%{
+opacity:0.2;
+}
+
+}
+
+/* =========================
+CARDS
+========================= */
+
+.grid-box{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+margin-bottom:30px;
+}
+
+.card{
+
+padding:25px;
+
+border-radius:24px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+transition:0.3s;
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+}
+
+.card h2{
+
+font-size:40px;
+margin-top:10px;
+font-weight:700;
+}
+
+/* =========================
+FORM
+========================= */
+
+.glass{
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:25px;
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:16px;
+
+background:#0f172a;
+
+border:none;
+
+outline:none;
+
+border-radius:15px;
+
+color:white;
+font-size:15px;
+}
+
+button{
+
+padding:16px;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:0.3s;
+}
+
+button:hover{
+
+transform:translateY(-3px);
+}
+
+.buy{
+
+color:#00ff99;
+font-weight:700;
+}
+
+.sell{
+
+color:#ff4d6d;
+font-weight:700;
+}
+
+.active{
+
+color:#00ff99;
+}
+
+.closed{
+
+color:#ff4d6d;
+}
+
+.running{
+
+color:#facc15;
+}
+
+/* =========================
+TABLE
+========================= */
+
+table{
+
+width:100%;
+border-collapse:collapse;
+}
+
+th,
+td{
+
+padding:16px;
+text-align:center;
+}
+
+th{
+
+background:#111827;
+}
+
+tr:nth-child(even){
+
+background:#0f172a;
+}
+
+/* =========================
+STATUS
+========================= */
+
+.badge{
+
+padding:8px 15px;
+
+border-radius:999px;
+
+font-size:12px;
+font-weight:700;
+}
+
+.green{
+
+background:#00ff9920;
+color:#00ff99;
+}
+
+.red{
+
+background:#ff4d6d20;
+color:#ff4d6d;
+}
+
+.yellow{
+
+background:#facc1520;
+color:#facc15;
+}
+
+/* =========================
+MOBILE
+========================= */
+
+@media(max-width:900px){
+
+.sidebar{
+
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main{
+
+margin-left:0;
+}
+
+.topbar{
+
+flex-direction:column;
+align-items:flex-start;
+gap:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+📈 MSM PRO
+</div>
+
+<div class="menu">
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="signals.html">🔥 Signals</a>
+
+<a href="watchlist.html">⭐ Watchlist</a>
+
+<a href="option-chain.html">📉 Option Chain</a>
+
+<a href="alerts.html">🔔 Alerts</a>
+
+<a href="premium.html">💎 Premium</a>
+
+<a href="reports.html">📋 Reports</a>
+
+<a href="profile.html">👤 Profile</a>
+
+<a href="admin.html">⚙ Admin</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div>
+
+<h1 class="text-5xl font-bold text-green-400">
+🚀 MSM ADMIN
+</h1>
+
+<p class="text-gray-400 mt-2">
+Enterprise Trading Management System
+</p>
+
+</div>
+
+<div class="live">
+
+<div class="dot"></div>
+
+<div class="text-green-400 font-bold">
+SERVER LIVE
+</div>
+
+</div>
+
+</div>
+
+<!-- STATS -->
+
+<div class="grid-box">
+
+<div class="card">
+
+<p class="text-gray-400">
+TOTAL SIGNALS
+</p>
+
+<h2 id="totalSignals">
+0
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+BUY SIGNALS
+</p>
+
+<h2 class="text-green-400" id="buySignals">
+0
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+SELL SIGNALS
+</p>
+
+<h2 class="text-red-400" id="sellSignals">
+0
+</h2>
+
+</div>
+
+<div class="card">
+
+<p class="text-gray-400">
+ACTIVE USERS
+</p>
+
+<h2 class="text-yellow-400">
+245
+</h2>
+
+</div>
+
+</div>
+
+<!-- ADD SIGNAL -->
+
+<div class="glass p-8 mb-8">
+
+<h2 class="text-3xl font-bold mb-8 text-green-400">
+➕ Add Trading Signal
+</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+<input type="text" id="symbol" placeholder="BANKNIFTY 54000 CE">
+
+<select id="type">
+
+<option value="BUY">BUY</option>
+
+<option value="SELL">SELL</option>
+
+</select>
+
+<input type="text" id="entry" placeholder="Entry Price">
+
+<input type="text" id="target" placeholder="Target">
+
+<input type="text" id="sl" placeholder="Stoploss">
+
+<select id="status">
+
+<option value="ACTIVE">ACTIVE</option>
+
+<option value="RUNNING">RUNNING</option>
+
+<option value="CLOSED">CLOSED</option>
+
+</select>
+
+<input type="number" id="confidence" placeholder="AI Confidence %">
+
+<input type="text" id="accuracy" placeholder="Accuracy %">
+
+<select id="market">
+
+<option>NIFTY</option>
+
+<option>BANKNIFTY</option>
+
+<option>STOCK OPTION</option>
+
+<option>FINNIFTY</option>
+
+</select>
+
+</div>
+
+<textarea
+id="analysis"
+rows="5"
+class="mt-5"
+placeholder="AI Analysis / Smart Money Concept / PCR Analysis"></textarea>
+
+<button
+onclick="addSignal()"
+class="bg-green-500 text-black w-full mt-6">
+
+🚀 PUBLISH SIGNAL
+
+</button>
+
+</div>
+
+<!-- LIVE SIGNAL TABLE -->
+
+<div class="glass p-8">
+
+<div class="flex justify-between items-center mb-8">
+
+<h2 class="text-3xl font-bold">
+📜 Live Signals
+</h2>
+
+<button
+onclick="clearAllSignals()"
+class="bg-red-500 px-6 py-3">
+
+DELETE ALL
+
+</button>
+
+</div>
+
+<div class="overflow-auto">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Symbol</th>
+<th>Type</th>
+<th>Entry</th>
+<th>Target</th>
+<th>SL</th>
+<th>Status</th>
+<th>Confidence</th>
+<th>Market</th>
+<th>Time</th>
+<th>Delete</th>
+
+</tr>
+
+</thead>
+
+<tbody id="signalTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================
+FIREBASE CONFIG
+========================= */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCwprMXr02lRZzA_sVl0PyW-RbkUGgSpMI",
+
+authDomain: "manthansharemarket-2d1f9.firebaseapp.com",
+
+projectId: "manthansharemarket-2d1f9",
+
+storageBucket: "manthansharemarket-2d1f9.firebasestorage.app",
+
+messagingSenderId: "46940862623",
+
+appId: "1:46940862623:web:1fbabc4399db061ed68aaa",
+
+measurementId: "G-X8WQQLQ5B7"
+
+};
+
+if (!firebase.apps.length){
+
+firebase.initializeApp(firebaseConfig);
+
+}
+
+const db = firebase.firestore();
+
+
+/* =========================
+AUTO CREATE COLLECTIONS
+========================= */
+
+async function createCollections(){
+
+try{
+
+/* USERS */
+await db.collection("users").doc("demoUser").set({
+name:"Demo User",
+email:"demo@gmail.com",
+createdAt:new Date()
+});
+
+/* SIGNALS */
+await db.collection("signals").doc("demoSignal").set({
+symbol:"BANKNIFTY",
+type:"BUY",
+entry:"52000",
+target:"52500",
+sl:"51800",
+status:"ACTIVE",
+time:new Date().toLocaleTimeString()
+});
+
+/* WATCHLIST */
+await db.collection("watchlist").doc("demoWatch").set({
+symbol:"NIFTY",
+price:"23500"
+});
+
+/* ALERTS */
+await db.collection("alerts").doc("demoAlert").set({
+title:"Market Alert",
+message:"Nifty Breakout Coming"
+});
+
+/* NEWS */
+await db.collection("news").doc("demoNews").set({
+title:"Market News",
+description:"Nifty bullish today"
+});
+
+/* PREMIUM USERS */
+await db.collection("premium_users").doc("demoPremium").set({
+name:"Premium User",
+plan:"VIP"
+});
+
+console.log("🔥 All Collections Created Successfully");
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+createCollections();
+
+
+/* =========================
+ADD SIGNAL
+========================= */
+
+function addSignal(){
+
+let symbol =
+document.getElementById("symbol").value;
+
+let type =
+document.getElementById("type").value;
+
+let entry =
+document.getElementById("entry").value;
+
+let target =
+document.getElementById("target").value;
+
+let sl =
+document.getElementById("sl").value;
+
+let status =
+document.getElementById("status").value;
+
+let confidence =
+document.getElementById("confidence").value;
+
+let accuracy =
+document.getElementById("accuracy").value;
+
+let market =
+document.getElementById("market").value;
+
+let analysis =
+document.getElementById("analysis").value;
+
+if(
+symbol=="" ||
+entry=="" ||
+target=="" ||
+sl==""
+){
+
+alert("Please Fill All Fields");
+
+return;
+
+}
+
+db.collection("signals").add({
+
+symbol:symbol,
+
+type:type,
+
+entry:entry,
+
+target:target,
+
+sl:sl,
+
+status:status,
+
+confidence:confidence,
+
+accuracy:accuracy,
+
+market:market,
+
+analysis:analysis,
+
+time:new Date().toLocaleTimeString(),
+
+created:new Date()
+
+})
+
+.then(()=>{
+
+alert("🚀 Signal Published Successfully");
+
+document.getElementById("symbol").value="";
+document.getElementById("entry").value="";
+document.getElementById("target").value="";
+document.getElementById("sl").value="";
+document.getElementById("confidence").value="";
+document.getElementById("accuracy").value="";
+document.getElementById("analysis").value="";
+
+});
+
+}
+
+/* =========================
+LOAD SIGNALS
+========================= */
+
+db.collection("signals")
+.orderBy("created","desc")
+.onSnapshot((snapshot)=>{
+
+let html = "";
+
+let total = 0;
+let buy = 0;
+let sell = 0;
+
+snapshot.forEach((doc)=>{
+
+total++;
+
+let s = doc.data();
+
+if(s.type=="BUY"){
+buy++;
+}else{
+sell++;
+}
+
+html += `
+
+<tr>
+
+<td>${s.symbol}</td>
+
+<td class="${s.type=='BUY'?'buy':'sell'}">
+
+${s.type}
+
+</td>
+
+<td>${s.entry}</td>
+
+<td>${s.target}</td>
+
+<td>${s.sl}</td>
+
+<td>
+
+<span class="badge
+${s.status=='ACTIVE'?'green':
+s.status=='RUNNING'?'yellow':'red'}">
+
+${s.status}
+
+</span>
+
+</td>
+
+<td>${s.confidence}%</td>
+
+<td>${s.market}</td>
+
+<td>${s.time}</td>
+
+<td>
+
+<button
+onclick="deleteSignal('${doc.id}')"
+class="bg-red-500 px-4 py-2">
+
+Delete
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("signalTable").innerHTML = html;
+
+document.getElementById("totalSignals").innerText = total;
+
+document.getElementById("buySignals").innerText = buy;
+
+document.getElementById("sellSignals").innerText = sell;
+
+});
+
+/* =========================
+DELETE SIGNAL
+========================= */
+
+function deleteSignal(id){
+
+if(confirm("Delete this signal?")){
+
+db.collection("signals")
+.doc(id)
+.delete();
+
+}
+
+}
+
+/* =========================
+CLEAR ALL SIGNALS
+========================= */
+
+function clearAllSignals(){
+
+let pass = prompt("Enter Admin Password");
+
+if(pass != "msmadmin"){
+
+alert("Wrong Password");
+
+return;
+
+}
+
+db.collection("signals")
+.get()
+.then((snapshot)=>{
+
+snapshot.forEach((doc)=>{
+
+doc.ref.delete();
+
+});
+
+alert("All Signals Deleted");
+
+});
+
+}
+
+/* =========================
+LIVE CLOCK
+========================= */
+
+setInterval(()=>{
+
+document.title =
+"🟢 MSM ADMIN LIVE";
+
+},1000);
+
+</script>
+
+</body>
+</html>

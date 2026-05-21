@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Live Signals | MSM PRO</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- FIREBASE -->
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* ==========================
+BACKGROUND EFFECT
+========================== */
+
+.bg1{
+position:fixed;
+width:500px;
+height:500px;
+background:#00ff9950;
+filter:blur(180px);
+top:-200px;
+left:-200px;
+z-index:-1;
+}
+
+.bg2{
+position:fixed;
+width:500px;
+height:500px;
+background:#3b82f650;
+filter:blur(180px);
+bottom:-200px;
+right:-200px;
+z-index:-1;
+}
+
+/* ==========================
+NAVBAR
+========================== */
+
+.navbar{
+
+width:100%;
+
+padding:22px 8%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+position:sticky;
+top:0;
+z-index:999;
+
+background:rgba(255,255,255,0.04);
+
+backdrop-filter:blur(20px);
+
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.logo{
+
+font-size:34px;
+font-weight:800;
+color:#00ff99;
+}
+
+.nav-links{
+
+display:flex;
+gap:28px;
+align-items:center;
+}
+
+.nav-links a{
+
+text-decoration:none;
+color:white;
+font-weight:500;
+transition:0.3s;
+}
+
+.nav-links a:hover{
+
+color:#00ff99;
+}
+
+.live-badge{
+
+padding:10px 18px;
+
+border-radius:50px;
+
+background:#00ff9920;
+
+color:#00ff99;
+
+font-size:13px;
+
+font-weight:700;
+
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.dot{
+
+width:10px;
+height:10px;
+
+border-radius:50%;
+
+background:#00ff99;
+
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+
+50%{
+opacity:0.2;
+}
+
+}
+
+/* ==========================
+HEADER
+========================== */
+
+.header{
+
+padding:70px 8% 40px;
+}
+
+.header h1{
+
+font-size:70px;
+font-weight:800;
+line-height:1.1;
+}
+
+.gradient{
+
+background:linear-gradient(to right,#00ff99,#38bdf8);
+
+-webkit-background-clip:text;
+
+-webkit-text-fill-color:transparent;
+}
+
+.header p{
+
+margin-top:20px;
+
+font-size:20px;
+
+color:#94a3b8;
+
+max-width:750px;
+}
+
+/* ==========================
+TOP STATS
+========================== */
+
+.stats{
+
+padding:0 8%;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:25px;
+
+margin-bottom:50px;
+}
+
+.stat-card{
+
+padding:28px;
+
+border-radius:28px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+transition:0.3s;
+}
+
+.stat-card:hover{
+
+transform:translateY(-6px);
+
+border-color:#00ff99;
+}
+
+.stat-card p{
+
+color:#94a3b8;
+}
+
+.stat-card h2{
+
+font-size:52px;
+
+margin-top:15px;
+
+font-weight:700;
+}
+
+.green{
+color:#00ff99;
+}
+
+.red{
+color:#ff4d6d;
+}
+
+.yellow{
+color:#ffd166;
+}
+
+.blue{
+color:#38bdf8;
+}
+
+/* ==========================
+FILTERS
+========================== */
+
+.filters{
+
+padding:0 8%;
+
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+
+margin-bottom:40px;
+}
+
+.filter-btn{
+
+padding:14px 24px;
+
+border:none;
+
+border-radius:15px;
+
+background:#111827;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:0.3s;
+}
+
+.filter-btn:hover{
+
+background:#00ff99;
+
+color:black;
+
+transform:translateY(-3px);
+}
+
+.search-box{
+
+flex:1;
+min-width:250px;
+}
+
+.search-box input{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+outline:none;
+
+border-radius:15px;
+
+background:#0f172a;
+
+color:white;
+}
+
+/* ==========================
+SIGNALS GRID
+========================== */
+
+.signal-grid{
+
+padding:0 8% 100px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
+
+gap:30px;
+}
+
+.signal-card{
+
+position:relative;
+
+padding:30px;
+
+border-radius:30px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+overflow:hidden;
+
+transition:0.4s;
+}
+
+.signal-card:hover{
+
+transform:translateY(-8px) scale(1.01);
+}
+
+.buy-card{
+
+border:1px solid rgba(0,255,153,0.25);
+
+box-shadow:0 0 35px rgba(0,255,153,0.12);
+}
+
+.sell-card{
+
+border:1px solid rgba(255,77,109,0.25);
+
+box-shadow:0 0 35px rgba(255,77,109,0.12);
+}
+
+.type-badge{
+
+position:absolute;
+
+top:22px;
+right:22px;
+
+padding:9px 18px;
+
+border-radius:50px;
+
+font-size:13px;
+
+font-weight:700;
+}
+
+.buy-badge{
+
+background:#00ff99;
+color:black;
+}
+
+.sell-badge{
+
+background:#ff4d6d;
+color:white;
+}
+
+.signal-card h3{
+
+font-size:30px;
+
+margin-bottom:25px;
+
+font-weight:700;
+}
+
+.info{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:15px 0;
+
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.info span:first-child{
+
+color:#94a3b8;
+}
+
+.status{
+
+padding:8px 16px;
+
+border-radius:12px;
+
+font-size:13px;
+
+font-weight:700;
+}
+
+.active{
+
+background:#00ff9920;
+color:#00ff99;
+}
+
+.running{
+
+background:#ffd16620;
+color:#ffd166;
+}
+
+.closed{
+
+background:#ff4d6d20;
+color:#ff4d6d;
+}
+
+.analysis{
+
+margin-top:20px;
+
+padding:18px;
+
+border-radius:18px;
+
+background:#0f172a;
+
+color:#cbd5e1;
+
+line-height:1.7;
+}
+
+.footer{
+
+text-align:center;
+
+padding:40px;
+
+color:#64748b;
+}
+
+/* ==========================
+RESPONSIVE
+========================== */
+
+@media(max-width:900px){
+
+.nav-links{
+display:none;
+}
+
+.header h1{
+font-size:45px;
+}
+
+.header p{
+font-size:16px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg1"></div>
+<div class="bg2"></div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+📈 MSM PRO
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Home</a>
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="signals.html">Signals</a>
+
+<a href="watchlist.html">Watchlist</a>
+
+<a href="admin.html">Admin</a>
+
+<a href="login.html">Login</a>
+
+<div class="live-badge">
+
+<div class="dot"></div>
+
+LIVE MARKET
+
+</div>
+
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>
+
+AI Powered <span class="gradient">Live Trading Signals</span>
+
+</h1>
+
+<p>
+
+Advanced AI Based NIFTY / BANKNIFTY / STOCK OPTION Signals
+with Smart Money Concepts, Institutional Data & Real-Time Updates.
+
+</p>
+
+</div>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat-card">
+
+<p>Total Signals</p>
+
+<h2 class="green" id="totalSignals">
+0
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<p>BUY Signals</p>
+
+<h2 class="green" id="buySignals">
+0
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<p>SELL Signals</p>
+
+<h2 class="red" id="sellSignals">
+0
+</h2>
+
+</div>
+
+<div class="stat-card">
+
+<p>AI Accuracy</p>
+
+<h2 class="blue">
+92%
+</h2>
+
+</div>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filters">
+
+<button class="filter-btn" onclick="filterSignals('ALL')">
+ALL
+</button>
+
+<button class="filter-btn" onclick="filterSignals('BUY')">
+BUY
+</button>
+
+<button class="filter-btn" onclick="filterSignals('SELL')">
+SELL
+</button>
+
+<button class="filter-btn" onclick="filterStatus('ACTIVE')">
+ACTIVE
+</button>
+
+<button class="filter-btn" onclick="filterStatus('RUNNING')">
+RUNNING
+</button>
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Signal..."
+onkeyup="searchSignals()">
+
+</div>
+
+</div>
+
+<!-- SIGNAL GRID -->
+
+<div class="signal-grid" id="signalContainer">
+
+</div>
+
+<div class="footer">
+
+Powered By Firebase + MSM AI Engine 🚀
+
+</div>
+
+<script>
+
+/* ==========================
+FIREBASE CONFIG
+========================== */
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyCwprMXr02lRZzA_sVl0PyW-RbkUGgSpMI",
+
+authDomain: "manthansharemarket-2d1f9.firebaseapp.com",
+
+projectId: "manthansharemarket-2d1f9",
+
+storageBucket: "manthansharemarket-2d1f9.firebasestorage.app",
+
+messagingSenderId: "46940862623",
+
+appId: "1:46940862623:web:1fbabc4399db061ed68aaa",
+
+measurementId: "G-X8WQQLQ5B7"
+
+};
+
+if(!firebase.apps.length){
+
+firebase.initializeApp(firebaseConfig);
+
+}
+
+const db = firebase.firestore();
+
+/* ==========================
+LOAD SIGNALS LIVE
+========================== */
+
+let allSignals = [];
+
+db.collection("signals")
+.orderBy("created","desc")
+.onSnapshot((snapshot)=>{
+
+allSignals = [];
+
+snapshot.forEach((doc)=>{
+
+allSignals.push({
+
+id:doc.id,
+...doc.data()
+
+});
+
+});
+
+updateStats();
+
+renderSignals(allSignals);
+
+});
+
+/* ==========================
+RENDER SIGNALS
+========================== */
+
+function renderSignals(data){
+
+let html = "";
+
+if(data.length == 0){
+
+html = `
+
+<div style="
+grid-column:1/-1;
+text-align:center;
+padding:60px;
+font-size:22px;
+color:#94a3b8;
+">
+
+No Signals Found 🚫
+
+</div>
+
+`;
+
+document.getElementById("signalContainer").innerHTML = html;
+
+return;
+
+}
+
+data.forEach((s)=>{
+
+html += `
+
+<div class="signal-card ${s.type=='BUY'?'buy-card':'sell-card'}">
+
+<div class="type-badge ${s.type=='BUY'?'buy-badge':'sell-badge'}">
+
+${s.type}
+
+</div>
+
+<h3>
+${s.symbol || 'N/A'}
+</h3>
+
+<div class="info">
+
+<span>Entry</span>
+
+<span>${s.entry || '--'}</span>
+
+</div>
+
+<div class="info">
+
+<span>Target</span>
+
+<span class="green">
+${s.target || '--'}
+</span>
+
+</div>
+
+<div class="info">
+
+<span>Stoploss</span>
+
+<span class="red">
+${s.sl || '--'}
+</span>
+
+</div>
+
+<div class="info">
+
+<span>Status</span>
+
+<span class="status ${String(s.status).toLowerCase()}">
+
+${s.status || '--'}
+
+</span>
+
+</div>
+
+<div class="info">
+
+<span>Confidence</span>
+
+<span class="yellow">
+
+${s.confidence || '0'}%
+
+</span>
+
+</div>
+
+<div class="info">
+
+<span>Market</span>
+
+<span>
+
+${s.market || '--'}
+
+</span>
+
+</div>
+
+<div class="info">
+
+<span>Time</span>
+
+<span>
+
+${s.time || '--'}
+
+</span>
+
+</div>
+
+<div class="analysis">
+
+🧠 ${s.analysis || 'AI analysis not available.'}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("signalContainer").innerHTML = html;
+
+}
+
+/* ==========================
+FILTER TYPE
+========================== */
+
+function filterSignals(type){
+
+if(type == "ALL"){
+
+renderSignals(allSignals);
+
+return;
+
+}
+
+let filtered = allSignals.filter(
+
+s => s.type == type
+
+);
+
+renderSignals(filtered);
+
+}
+
+/* ==========================
+FILTER STATUS
+========================== */
+
+function filterStatus(status){
+
+let filtered = allSignals.filter(
+
+s => s.status == status
+
+);
+
+renderSignals(filtered);
+
+}
+
+/* ==========================
+SEARCH SIGNALS
+========================== */
+
+function searchSignals(){
+
+let value = document
+.getElementById("searchInput")
+.value
+.toLowerCase();
+
+let filtered = allSignals.filter((s)=>
+
+String(s.symbol)
+.toLowerCase()
+.includes(value)
+
+);
+
+renderSignals(filtered);
+
+}
+
+/* ==========================
+UPDATE STATS
+========================== */
+
+function updateStats(){
+
+document.getElementById("totalSignals").innerText =
+allSignals.length;
+
+document.getElementById("buySignals").innerText =
+allSignals.filter(s=>s.type=="BUY").length;
+
+document.getElementById("sellSignals").innerText =
+allSignals.filter(s=>s.type=="SELL").length;
+
+}
+
+/* ==========================
+AUTO TITLE LIVE
+========================== */
+
+setInterval(()=>{
+
+document.title =
+"🟢 MSM PRO LIVE SIGNALS";
+
+},1000);
+
+</script>
+
+</body>
+</html>

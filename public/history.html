@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MSM PRO | Advanced Market History</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#020617;
+color:white;
+overflow-x:hidden;
+}
+
+/* =========================
+NAVBAR
+========================= */
+
+.navbar{
+
+width:100%;
+
+padding:20px 5%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+background:rgba(255,255,255,0.04);
+
+border-bottom:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(18px);
+
+position:sticky;
+top:0;
+z-index:999;
+}
+
+.logo{
+
+font-size:32px;
+font-weight:800;
+color:#00ff99;
+}
+
+.nav-links{
+
+display:flex;
+gap:22px;
+}
+
+.nav-links a{
+
+text-decoration:none;
+color:white;
+transition:0.3s;
+font-weight:500;
+}
+
+.nav-links a:hover{
+
+color:#00ff99;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+
+padding:50px 5%;
+}
+
+.header h1{
+
+font-size:58px;
+font-weight:800;
+margin-bottom:15px;
+}
+
+.header p{
+
+color:#94a3b8;
+font-size:18px;
+}
+
+/* =========================
+FILTER BOX
+========================= */
+
+.filter-box{
+
+margin:0 5% 30px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+border-radius:28px;
+
+padding:25px;
+}
+
+.filter-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+}
+
+select,
+button{
+
+width:100%;
+
+padding:16px;
+
+border:none;
+
+outline:none;
+
+border-radius:16px;
+
+font-weight:600;
+}
+
+select{
+
+background:#0f172a;
+color:white;
+}
+
+button{
+
+background:#00ff99;
+color:black;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 0 25px rgba(0,255,153,0.35);
+}
+
+/* =========================
+LIVE GLOBAL BOX
+========================= */
+
+.live-grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+gap:20px;
+
+padding:0 5%;
+
+margin-bottom:30px;
+}
+
+.live-card{
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+padding:25px;
+
+border-radius:24px;
+
+transition:0.3s;
+}
+
+.live-card:hover{
+
+transform:translateY(-5px);
+
+border-color:#00ff99;
+}
+
+.live-card h2{
+
+font-size:36px;
+margin-top:12px;
+}
+
+.green{
+color:#00ff99;
+}
+
+.red{
+color:#ff4d6d;
+}
+
+.yellow{
+color:#ffd166;
+}
+
+/* =========================
+CHART
+========================= */
+
+.chart-box{
+
+margin:0 5% 30px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+border-radius:28px;
+
+padding:30px;
+}
+
+.chart-box h2{
+
+font-size:30px;
+margin-bottom:25px;
+}
+
+/* =========================
+TABLE
+========================= */
+
+.table-box{
+
+margin:0 5% 60px;
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+border-radius:28px;
+
+padding:30px;
+
+overflow:auto;
+}
+
+table{
+
+width:100%;
+border-collapse:collapse;
+}
+
+th,
+td{
+
+padding:16px;
+text-align:center;
+}
+
+th{
+
+background:#111827;
+font-size:15px;
+}
+
+tr:nth-child(even){
+
+background:#0f172a;
+}
+
+tr:hover{
+
+background:rgba(255,255,255,0.03);
+}
+
+/* =========================
+SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+width:8px;
+height:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#00ff99;
+border-radius:20px;
+}
+
+/* =========================
+RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+.header h1{
+font-size:42px;
+}
+
+.nav-links{
+display:none;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">
+📈 MSM PRO
+</div>
+
+<div class="nav-links">
+
+<a href="dashboard.html">Dashboard</a>
+
+<a href="signals.html">Signals</a>
+
+<a href="history.html">History</a>
+
+<a href="watchlist.html">Watchlist</a>
+
+<a href="admin.html">Admin</a>
+
+</div>
+
+</div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+<h1>
+📊 Advanced Market History
+</h1>
+
+<p>
+10 Years Historical Analysis + Global Market Intelligence
+</p>
+
+</div>
+
+<!-- FILTERS -->
+
+<div class="filter-box">
+
+<div class="filter-grid">
+
+<select id="marketSelect">
+
+<option value="%5ENSEI">NIFTY 50</option>
+
+<option value="%5ENSEBANK">BANKNIFTY</option>
+
+<option value="%5EBSESN">SENSEX</option>
+
+<option value="%5ENSEMDCP50">MIDCAP</option>
+
+<option value="RELIANCE.NS">RELIANCE</option>
+
+<option value="TCS.NS">TCS</option>
+
+</select>
+
+<select id="rangeSelect">
+
+<option value="1y">1 Year</option>
+
+<option value="3y">3 Year</option>
+
+<option value="5y">5 Year</option>
+
+<option value="10y">10 Year</option>
+
+</select>
+
+<select id="intervalSelect">
+
+<option value="1d">Daily</option>
+
+<option value="1wk">Weekly</option>
+
+<option value="1mo">Monthly</option>
+
+</select>
+
+<button onclick="loadMarketHistory()">
+
+LOAD ANALYSIS
+
+</button>
+
+</div>
+
+</div>
+
+<!-- GLOBAL MARKET -->
+
+<div class="live-grid">
+
+<div class="live-card">
+
+<p class="text-gray-400">
+NIFTY
+</p>
+
+<h2 class="green" id="niftyLive">
+Loading...
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+BANKNIFTY
+</p>
+
+<h2 class="green" id="bankLive">
+Loading...
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+USD / INR
+</p>
+
+<h2 class="yellow" id="usdInr">
+Loading...
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+BRENT
+</p>
+
+<h2 class="red" id="brent">
+Loading...
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+US 10Y BOND
+</p>
+
+<h2 class="yellow">
+4.25%
+</h2>
+
+</div>
+
+</div>
+
+<!-- ANALYSIS -->
+
+<div class="live-grid">
+
+<div class="live-card">
+
+<p class="text-gray-400">
+Current Price
+</p>
+
+<h2 class="green" id="currentPrice">
+--
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+Highest
+</p>
+
+<h2 class="green" id="highPrice">
+--
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+Lowest
+</p>
+
+<h2 class="red" id="lowPrice">
+--
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+Average
+</p>
+
+<h2 class="yellow" id="avgPrice">
+--
+</h2>
+
+</div>
+
+<div class="live-card">
+
+<p class="text-gray-400">
+Trend
+</p>
+
+<h2 class="green" id="trend">
+BULLISH
+</h2>
+
+</div>
+
+</div>
+
+<!-- CHART -->
+
+<div class="chart-box">
+
+<h2>
+📉 Historical Chart
+</h2>
+
+<canvas id="historyChart"></canvas>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="table-box">
+
+<h2 class="text-3xl font-bold mb-6">
+📜 Historical Market Data
+</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Date</th>
+<th>Open</th>
+<th>High</th>
+<th>Low</th>
+<th>Close</th>
+<th>Volume</th>
+
+</tr>
+
+</thead>
+
+<tbody id="historyTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script>
+
+let chart;
+
+/* =========================
+GLOBAL MARKET
+========================= */
+
+async function loadGlobal(){
+
+try{
+
+async function getPrice(symbol){
+
+const res = await fetch(
+`https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`
+);
+
+const data = await res.json();
+
+return data.chart.result[0].meta.regularMarketPrice;
+
+}
+
+/* NIFTY */
+
+document.getElementById("niftyLive").innerText =
+await getPrice("%5ENSEI");
+
+/* BANKNIFTY */
+
+document.getElementById("bankLive").innerText =
+await getPrice("%5ENSEBANK");
+
+/* USD INR */
+
+document.getElementById("usdInr").innerText =
+await getPrice("INR=X");
+
+/* BRENT */
+
+document.getElementById("brent").innerText =
+await getPrice("BZ=F");
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+loadGlobal();
+
+/* =========================
+LOAD HISTORY
+========================= */
+
+async function loadMarketHistory(){
+
+try{
+
+let symbol =
+document.getElementById("marketSelect").value;
+
+let range =
+document.getElementById("rangeSelect").value;
+
+let interval =
+document.getElementById("intervalSelect").value;
+
+const url =
+`https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
+
+const response = await fetch(url);
+
+const data = await response.json();
+
+const result =
+data.chart.result[0];
+
+const timestamps =
+result.timestamp;
+
+const quote =
+result.indicators.quote[0];
+
+const close =
+quote.close;
+
+const open =
+quote.open;
+
+const high =
+quote.high;
+
+const low =
+quote.low;
+
+const volume =
+quote.volume;
+
+/* FILTER VALID */
+
+let validClose =
+close.filter(v => v != null);
+
+/* STATS */
+
+let current =
+validClose[validClose.length-1];
+
+let highest =
+Math.max(...validClose);
+
+let lowest =
+Math.min(...validClose);
+
+let average =
+(
+validClose.reduce((a,b)=>a+b,0)
+/
+validClose.length
+).toFixed(2);
+
+document.getElementById("currentPrice").innerText =
+current.toFixed(2);
+
+document.getElementById("highPrice").innerText =
+highest.toFixed(2);
+
+document.getElementById("lowPrice").innerText =
+lowest.toFixed(2);
+
+document.getElementById("avgPrice").innerText =
+average;
+
+/* TREND */
+
+if(current > average){
+
+document.getElementById("trend").innerText =
+"BULLISH";
+
+document.getElementById("trend").className =
+"green";
+
+}else{
+
+document.getElementById("trend").innerText =
+"BEARISH";
+
+document.getElementById("trend").className =
+"red";
+
+}
+
+/* LABELS */
+
+const labels = timestamps.map(ts=>{
+
+let d = new Date(ts*1000);
+
+return d.toLocaleDateString();
+
+});
+
+/* CHART */
+
+if(chart){
+chart.destroy();
+}
+
+const ctx =
+document.getElementById("historyChart");
+
+chart = new Chart(ctx,{
+
+type:'line',
+
+data:{
+
+labels:labels,
+
+datasets:[{
+
+label:'Market History',
+
+data:close,
+
+borderColor:'#00ff99',
+
+backgroundColor:'rgba(0,255,153,0.08)',
+
+fill:true,
+
+tension:0.2,
+
+borderWidth:2
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+labels:{
+color:'white'
+}
+
+}
+
+},
+
+scales:{
+
+x:{
+
+ticks:{
+color:'white'
+},
+
+grid:{
+color:'rgba(255,255,255,0.05)'
+}
+
+},
+
+y:{
+
+ticks:{
+color:'white'
+},
+
+grid:{
+color:'rgba(255,255,255,0.05)'
+}
+
+}
+
+}
+
+}
+
+});
+
+/* TABLE */
+
+let html = "";
+
+for(let i=0;i<labels.length;i++){
+
+html += `
+
+<tr>
+
+<td>${labels[i]}</td>
+
+<td>${open[i]?.toFixed(2) || '--'}</td>
+
+<td class="green">
+${high[i]?.toFixed(2) || '--'}
+</td>
+
+<td class="red">
+${low[i]?.toFixed(2) || '--'}
+</td>
+
+<td>
+${close[i]?.toFixed(2) || '--'}
+</td>
+
+<td>
+${volume[i]?.toLocaleString() || '--'}
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById("historyTable").innerHTML =
+html;
+
+}
+catch(error){
+
+console.log(error);
+
+alert("Market Data Failed To Load");
+
+}
+
+}
+
+/* =========================
+AUTO LOAD
+========================= */
+
+loadMarketHistory();
+
+</script>
+
+</body>
+</html>

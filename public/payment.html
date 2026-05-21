@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Payment</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+
+background:#020617;
+
+color:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:100vh;
+
+font-family:Poppins;
+}
+
+.card{
+
+background:#111827;
+
+padding:50px;
+
+border-radius:30px;
+
+text-align:center;
+}
+
+button{
+
+margin-top:30px;
+
+padding:16px 35px;
+
+background:#00ff99;
+
+color:black;
+
+border:none;
+
+border-radius:15px;
+
+font-weight:700;
+
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1 class="text-5xl font-bold text-green-400">
+💳 Upgrade PRO
+</h1>
+
+<button onclick="payNow()">
+Pay ₹999
+</button>
+
+</div>
+
+<script>
+
+function payNow(){
+
+var options = {
+
+key:"RAZORPAY_KEY",
+
+amount:"99900",
+
+currency:"INR",
+
+name:"MSM PRO",
+
+description:"Premium Membership",
+
+handler:function(response){
+
+alert("Payment Successful");
+
+}
+
+};
+
+var rzp1 = new Razorpay(options);
+
+rzp1.open();
+
+}
+
+</script>
+
+</body>
+</html>
