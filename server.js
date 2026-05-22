@@ -1,6 +1,8 @@
 const express = require("express");
-const axios = require("axios");
+
 const cors = require("cors");
+
+const axios = require("axios");
 
 const app = express();
 
@@ -8,269 +10,216 @@ app.use(cors());
 
 app.use(express.static("public"));
 
-const HEADERS = {
-    "User-Agent":
-    "Mozilla/5.0",
-    "Accept-Language":
-    "en-US,en;q=0.9"
-};
 
-let cookie = "";
 
-async function refreshCookie(){
+/* =========================================
+AXIOS INSTANCE
+========================================= */
 
-    try{
+const axiosInstance = axios.create({
 
-        const response =
-        await axios.get(
-            "https://www.nseindia.com",
-            {
-                headers:HEADERS
-            }
-        );
+headers: {
 
-        cookie =
-        response.headers["set-cookie"]
-        .map(c=>c.split(";")[0])
-        .join("; ");
+"user-agent":
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
 
-        console.log("Cookie Refreshed");
+"accept-language":
+"en-US,en;q=0.9",
 
-    }catch(err){
+"accept":
+"*/*"
 
-        console.log(err.message);
-    }
 }
 
-async function getOptionChain(index){
-
-    try{
-
-        if(!cookie){
-
-            await refreshCookie();
-        }
-
-        let url =
-        "";
-
-        if(index === "BANKNIFTY"){
-
-            url =
-            "https://www.nseindia.com/api/option-chain-indices?symbol=BANKNIFTY";
-        }
-
-        else{
-
-            url =
-            "https://www.nseindia.com/api/option-chain-indices?symbol=NIFTY";
-        }
-
-        const response =
-        await axios.get(url,{
-            headers:{
-                ...HEADERS,
-                Cookie:cookie
-            }
-        });
-
-        return response.data;
-
-    }catch(err){
-
-        console.log(err.message);
-
-        await refreshCookie();
-
-        return null;
-    }
-}
-
-app.get("/api/option-chain",async(req,res)=>{
-
-    const index =
-    req.query.index || "NIFTY";
-
-    const data =
-    await getOptionChain(index);
-
-    if(!data){
-
-        return res.json({
-            error:"Unable to fetch NSE data"
-        });
-    }
-
-    const records =
-    data.records.data;
-
-    const spot =
-    data.records.underlyingValue;
-
-    const step =
-    index === "BANKNIFTY"
-    ? 100
-    : 50;
-
-    const atm =
-    Math.round(spot/step)*step;
-
-    let rows = [];
-
-    let totalCE = 0;
-
-    let totalPE = 0;
-
-    records.forEach(item=>{
-
-        if(
-            item.strikePrice >= atm-(step*5)
-            &&
-            item.strikePrice <= atm+(step*5)
-        ){
-
-            const ceOI =
-            item.CE
-            ? item.CE.openInterest
-            : 0;
-
-            const peOI =
-            item.PE
-            ? item.PE.openInterest
-            : 0;
-
-            const ceChange =
-            item.CE
-            ? item.CE.changeinOpenInterest
-            : 0;
-
-            const peChange =
-            item.PE
-            ? item.PE.changeinOpenInterest
-            : 0;
-
-            const pcr =
-            ceOI > 0
-            ? (peOI / ceOI).toFixed(2)
-            : 0;
-
-            totalCE += ceOI;
-
-            totalPE += peOI;
-
-            let signal =
-            "SIDEWAYS";
-
-            if(
-                pcr > 1.15
-                &&
-                peChange > ceChange
-            ){
-
-                signal =
-                "BUY";
-            }
-
-            else if(
-                pcr < 0.85
-                &&
-                ceChange > peChange
-            ){
-
-                signal =
-                "SELL";
-            }
-
-            rows.push({
-
-                strike:item.strikePrice,
-
-                ceOI,
-
-                peOI,
-
-                ceChange,
-
-                peChange,
-
-                pcr,
-
-                signal
-            });
-        }
-    });
-
-    const finalPCR =
-    (totalPE / totalCE)
-    .toFixed(2);
-
-    let finalSignal =
-    "SIDEWAYS";
-
-    let confidence =
-    "55%";
-
-    if(finalPCR > 1.1){
-
-        finalSignal =
-        "BUY CALL";
-
-        confidence =
-        "82%";
-    }
-
-    else if(finalPCR < 0.9){
-
-        finalSignal =
-        "BUY PUT";
-
-        confidence =
-        "82%";
-    }
-
-    const entry =
-    index === "BANKNIFTY"
-    ? 250
-    : 120;
-
-    const sl =
-    Math.round(entry*0.75);
-
-    const target1 =
-    Math.round(entry*1.30);
-
-    const target2 =
-    Math.round(entry*1.60);
-
-    res.json({
-
-        index,
-
-        spot,
-
-        atm,
-
-        finalPCR,
-
-        finalSignal,
-
-        confidence,
-
-        entry,
-
-        sl,
-
-        target1,
-
-        target2,
-
-        rows
-    });
 });
 
-app.listen(3000,()=>{
 
-    console.log(
-        "LIVE SERVER RUNNING ON 3000"
-    );
+
+/* =========================================
+GET NSE COOKIE
+========================================= */
+
+async function getCookies(){
+
+await axiosInstance.get(
+"https://www.nseindia.com"
+);
+
+}
+
+
+
+/* =========================================
+OPTION CHAIN API
+========================================= */
+
+app.get("/api/option-chain", async(req,res)=>{
+
+try{
+
+await getCookies();
+
+const index =
+req.query.index || "NIFTY";
+
+const url =
+`https://www.nseindia.com/api/option-chain-indices?symbol=${index}`;
+
+const response =
+await axiosInstance.get(url);
+
+const raw =
+response.data;
+
+
+
+/* SAFETY CHECK */
+
+if(
+!raw ||
+!raw.records ||
+!raw.records.data
+){
+
+return res.json({
+
+error:"No data from NSE"
+
+});
+
+}
+
+const records =
+raw.records.data;
+
+let totalCE = 0;
+let totalPE = 0;
+
+let chain = [];
+
+records.forEach((item)=>{
+
+if(item.CE && item.PE){
+
+const ceOI =
+item.CE.openInterest || 0;
+
+const peOI =
+item.PE.openInterest || 0;
+
+const pcr =
+(peOI / ceOI).toFixed(2);
+
+let signal = "SIDEWAYS";
+
+if(pcr > 1.1){
+
+signal = "BUY";
+
+}
+
+else if(pcr < 0.9){
+
+signal = "SELL";
+
+}
+
+totalCE += ceOI;
+totalPE += peOI;
+
+chain.push({
+
+strike:item.strikePrice,
+
+ceOI,
+
+peOI,
+
+pcr,
+
+signal
+
+});
+
+}
+
+});
+
+const finalPCR =
+(totalPE / totalCE).toFixed(2);
+
+let finalSignal = "SIDEWAYS";
+
+if(finalPCR > 1.1){
+
+finalSignal = "BUY CALL";
+
+}
+
+else if(finalPCR < 0.9){
+
+finalSignal = "BUY PUT";
+
+}
+
+res.json({
+
+spot:
+raw.records.underlyingValue,
+
+finalPCR,
+
+finalSignal,
+
+confidence:"82%",
+
+chain
+
+});
+
+}catch(err){
+
+console.log(err.message);
+
+res.json({
+
+error:err.message
+
+});
+
+}
+
+});
+
+
+
+/* =========================================
+TEST API
+========================================= */
+
+app.get("/api/test",(req,res)=>{
+
+res.json({
+
+status:"SERVER WORKING"
+
+});
+
+});
+
+
+
+/* =========================================
+START SERVER
+========================================= */
+
+const PORT =
+process.env.PORT || 3000;
+
+app.listen(PORT,()=>{
+
+console.log(
+`LIVE SERVER RUNNING ON ${PORT}`
+);
+
 });

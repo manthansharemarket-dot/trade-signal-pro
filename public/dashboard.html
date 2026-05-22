@@ -16,7 +16,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
 <!-- TRADINGVIEW -->
 
@@ -37,11 +36,22 @@ color:white;
 overflow-x:hidden;
 }
 
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#00ff99;
+border-radius:10px;
+}
+
 /* SIDEBAR */
 
 .sidebar{
 
-width:260px;
+width:270px;
 height:100vh;
 
 position:fixed;
@@ -50,17 +60,20 @@ top:0;
 
 background:#071120;
 
-padding:25px;
-
 border-right:1px solid rgba(255,255,255,0.08);
 
+padding:25px;
+
 overflow-y:auto;
+
+z-index:1000;
 }
 
 .logo{
 
-font-size:32px;
+font-size:34px;
 font-weight:800;
+
 color:#00ff99;
 
 margin-bottom:35px;
@@ -70,17 +83,20 @@ margin-bottom:35px;
 
 display:flex;
 flex-direction:column;
+
 gap:14px;
 }
 
 .menu a{
 
-padding:15px;
+padding:16px;
+
 border-radius:16px;
 
 background:rgba(255,255,255,0.03);
 
 text-decoration:none;
+
 color:white;
 
 transition:0.3s;
@@ -89,6 +105,7 @@ transition:0.3s;
 .menu a:hover{
 
 background:#00ff9920;
+
 transform:translateX(5px);
 }
 
@@ -96,13 +113,14 @@ transform:translateX(5px);
 
 .main{
 
-margin-left:260px;
+margin-left:270px;
+
 padding:30px;
 }
 
-/* TOP */
+/* TOPBAR */
 
-.top{
+.topbar{
 
 display:flex;
 justify-content:space-between;
@@ -115,6 +133,7 @@ margin-bottom:30px;
 
 display:flex;
 align-items:center;
+
 gap:10px;
 }
 
@@ -140,18 +159,18 @@ opacity:0.3;
 
 /* CARDS */
 
-.grid-box{
+.market-grid{
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
 
 gap:20px;
 
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
-.card{
+.market-card{
 
 background:rgba(255,255,255,0.04);
 
@@ -164,15 +183,36 @@ border-radius:25px;
 transition:0.3s;
 }
 
-.card:hover{
+.market-card:hover{
 
 transform:translateY(-5px);
+
+border-color:#00ff99;
 }
 
-.card h2{
+.market-card h2{
 
-font-size:40px;
-margin-top:10px;
+font-size:42px;
+
+margin-top:12px;
+}
+
+/* COLORS */
+
+.green{
+color:#00ff99;
+}
+
+.red{
+color:#ff4d6d;
+}
+
+.yellow{
+color:#ffd60a;
+}
+
+.blue{
+color:#4dabff;
 }
 
 /* CHART */
@@ -185,12 +225,23 @@ border:1px solid rgba(255,255,255,0.08);
 
 border-radius:25px;
 
-padding:20px;
+padding:25px;
 
-margin-bottom:25px;
+margin-bottom:30px;
 }
 
-/* SIGNALS */
+/* SIGNAL BOX */
+
+.signal-section{
+
+display:grid;
+
+grid-template-columns:2fr 1fr;
+
+gap:25px;
+
+margin-bottom:30px;
+}
 
 .signal-box{
 
@@ -198,20 +249,20 @@ background:rgba(255,255,255,0.04);
 
 border:1px solid rgba(255,255,255,0.08);
 
-border-radius:25px;
-
 padding:25px;
+
+border-radius:25px;
 }
 
-.signal{
+.signal-card{
+
+background:#0f172a;
 
 padding:20px;
 
 border-radius:18px;
 
 margin-bottom:15px;
-
-background:#0f172a;
 }
 
 .buy{
@@ -222,12 +273,66 @@ border-left:5px solid #00ff99;
 border-left:5px solid #ff4d6d;
 }
 
-.green{
-color:#00ff99;
+/* AI BOX */
+
+.ai-box{
+
+background:linear-gradient(135deg,#00ff99,#00b36b);
+
+padding:35px;
+
+border-radius:25px;
+
+color:black;
+
+text-align:center;
 }
 
-.red{
-color:#ff4d6d;
+.ai-box h1{
+
+font-size:52px;
+
+font-weight:800;
+
+margin-bottom:20px;
+}
+
+/* TABLE */
+
+.table-box{
+
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+padding:25px;
+
+border-radius:25px;
+
+overflow:auto;
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:20px;
+}
+
+th,td{
+
+padding:16px;
+
+text-align:center;
+
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+th{
+
+background:#0f172a;
 }
 
 /* LOADER */
@@ -235,6 +340,7 @@ color:#ff4d6d;
 .loader{
 
 position:fixed;
+
 top:0;
 left:0;
 
@@ -247,13 +353,25 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-z-index:9999;
-font-size:30px;
-font-weight:700;
+font-size:32px;
+
+font-weight:800;
+
 color:#00ff99;
+
+z-index:9999;
 }
 
 /* MOBILE */
+
+@media(max-width:1000px){
+
+.signal-section{
+
+grid-template-columns:1fr;
+}
+
+}
 
 @media(max-width:900px){
 
@@ -261,16 +379,20 @@ color:#00ff99;
 
 width:100%;
 height:auto;
+
 position:relative;
 }
 
 .main{
+
 margin-left:0;
 }
 
-.top{
+.topbar{
+
 flex-direction:column;
 align-items:flex-start;
+
 gap:15px;
 }
 
@@ -300,13 +422,12 @@ gap:15px;
 
 <a href="dashboard.html">🏠 Dashboard</a>
 <a href="signals.html">🔥 Signals</a>
-<a href="watchlist.html">⭐ Watchlist</a>
 <a href="option-chain.html">📉 Option Chain</a>
+<a href="watchlist.html">⭐ Watchlist</a>
 <a href="alerts.html">🔔 Alerts</a>
 <a href="premium.html">💎 Premium</a>
 <a href="profile.html">👤 Profile</a>
 <a href="admin.html">⚙ Admin</a>
-<a href="history.html">📊 History Analysis</a>
 
 </div>
 
@@ -316,18 +437,18 @@ gap:15px;
 
 <div class="main">
 
-<!-- TOP -->
+<!-- TOPBAR -->
 
-<div class="top">
+<div class="topbar">
 
 <div>
 
-<h1 class="text-5xl font-bold text-green-400">
+<h1 class="text-5xl font-bold green">
 Trading Dashboard
 </h1>
 
 <p class="text-gray-400 mt-2">
-AI Powered Trading Platform
+Realtime AI Powered Trading Platform
 </p>
 
 </div>
@@ -336,7 +457,7 @@ AI Powered Trading Platform
 
 <div class="dot"></div>
 
-<div class="text-green-400 font-bold">
+<div class="green font-bold">
 LIVE MARKET
 </div>
 
@@ -344,11 +465,11 @@ LIVE MARKET
 
 </div>
 
-<!-- LIVE MARKET -->
+<!-- MARKET CARDS -->
 
-<div class="grid-box">
+<div class="market-grid">
 
-<div class="card">
+<div class="market-card">
 
 <p class="text-gray-400">
 NIFTY 50
@@ -360,7 +481,7 @@ Loading...
 
 </div>
 
-<div class="card">
+<div class="market-card">
 
 <p class="text-gray-400">
 BANKNIFTY
@@ -372,26 +493,26 @@ Loading...
 
 </div>
 
-<div class="card">
+<div class="market-card">
 
 <p class="text-gray-400">
-AI Accuracy
+PCR
 </p>
 
-<h2 class="text-yellow-400">
-92%
+<h2 class="yellow" id="pcr">
+1.12
 </h2>
 
 </div>
 
-<div class="card">
+<div class="market-card">
 
 <p class="text-gray-400">
-Premium Users
+AI SIGNAL
 </p>
 
-<h2 class="text-blue-400">
-VIP
+<h2 class="blue" id="signalType">
+BUY CALL
 </h2>
 
 </div>
@@ -403,14 +524,18 @@ VIP
 <div class="chart-box">
 
 <h2 class="text-3xl font-bold mb-5">
-📉 Live Chart
+📉 Live Trading Chart
 </h2>
 
 <div id="tradingview_chart"></div>
 
 </div>
 
-<!-- SIGNALS -->
+<!-- SIGNAL SECTION -->
+
+<div class="signal-section">
+
+<!-- LIVE SIGNALS -->
 
 <div class="signal-box">
 
@@ -420,12 +545,9 @@ VIP
 🔥 Live Signals
 </h2>
 
-<a href="signals.html"
-class="bg-green-500 text-black px-5 py-3 rounded-xl font-bold">
-
-View All
-
-</a>
+<div class="green font-bold">
+Realtime
+</div>
 
 </div>
 
@@ -435,11 +557,85 @@ View All
 
 </div>
 
+<!-- AI BOX -->
+
+<div class="ai-box">
+
+<h1 id="mainSignal">
+BUY
+</h1>
+
+<p id="signalDetails">
+
+BANKNIFTY 55400 CE
+
+</p>
+
+<div class="mt-6">
+
+<div class="text-xl">
+Confidence
+</div>
+
+<div class="text-4xl font-bold mt-3" id="confidence">
+
+82%
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- OPTION TABLE -->
+
+<div class="table-box">
+
+<div class="flex justify-between items-center">
+
+<h2 class="text-3xl font-bold">
+📊 Option Chain Summary
+</h2>
+
+<div class="yellow font-bold">
+AUTO REFRESH
+</div>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Strike</th>
+<th>CE OI</th>
+<th>PE OI</th>
+<th>PCR</th>
+<th>Signal</th>
+
+</tr>
+
+</thead>
+
+<tbody id="optionTable">
+
+</tbody>
+
+</table>
+
+</div>
+
 </div>
 
 <script>
 
-/* FIREBASE */
+/* =========================================
+FIREBASE
+========================================= */
 
 const firebaseConfig = {
 
@@ -461,7 +657,10 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-/* LOADER */
+
+/* =========================================
+LOADER
+========================================= */
 
 window.onload = ()=>{
 
@@ -469,176 +668,19 @@ setTimeout(()=>{
 
 document.getElementById("loader").style.display = "none";
 
-},2000);
+},1500);
 
 };
 
-/* LIVE MARKET */
 
-/* =====================================
-REAL LIVE MARKET DATA
-===================================== */
-
-
-/* =====================================
-REAL LIVE MARKET DATA
-===================================== */
-
-async function loadMarketData(){
-
-try{
-
-/* NIFTY */
-
-const niftyRes = await fetch(
-"https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEI"
-);
-
-const niftyData = await niftyRes.json();
-
-const niftyMeta =
-niftyData.chart.result[0].meta;
-
-let niftyPrice =
-niftyMeta.regularMarketPrice;
-
-let niftyPrev =
-niftyMeta.previousClose;
-
-let niftyChange =
-(niftyPrice - niftyPrev).toFixed(2);
-
-/* BANKNIFTY */
-
-const bankRes = await fetch(
-"https://api.allorigins.win/raw?url=https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEBANK"
-);
-
-const bankData = await bankRes.json();
-
-const bankMeta =
-bankData.chart.result[0].meta;
-
-let bankPrice =
-bankMeta.regularMarketPrice;
-
-let bankPrev =
-bankMeta.previousClose;
-
-let bankChange =
-(bankPrice - bankPrev).toFixed(2);
-
-/* UPDATE UI */
-
-document.getElementById("nifty").innerHTML = `
-
-${niftyPrice}
-
-<div style="font-size:14px;margin-top:8px;color:
-${niftyChange >= 0 ? '#00ff99' : '#ff4d6d'}">
-
-${niftyChange >= 0 ? '▲' : '▼'}
-${niftyChange}
-
-</div>
-
-<div style="
-font-size:12px;
-color:#94a3b8;
-margin-top:5px;">
-
-Last Close: ${niftyPrev}
-
-</div>
-
-`;
-
-document.getElementById("banknifty").innerHTML = `
-
-${bankPrice}
-
-<div style="font-size:14px;margin-top:8px;color:
-${bankChange >= 0 ? '#00ff99' : '#ff4d6d'}">
-
-${bankChange >= 0 ? '▲' : '▼'}
-${bankChange}
-
-</div>
-
-<div style="
-font-size:12px;
-color:#94a3b8;
-margin-top:5px;">
-
-Last Close: ${bankPrev}
-
-</div>
-
-`;
-
-/* MARKET STATUS */
-
-const marketStatus =
-niftyMeta.marketState;
-
-if(marketStatus != "REGULAR"){
-
-document.querySelector(".live").innerHTML = `
-
-<div style="
-width:12px;
-height:12px;
-border-radius:50%;
-background:#ff4d6d;">
-</div>
-
-<div style="color:#ff4d6d;font-weight:bold;">
-
-MARKET CLOSED
-
-</div>
-
-`;
-
-}
-
-}
-catch(error){
-
-console.log(error);
-
-document.getElementById("nifty").innerHTML =
-"Unable To Load";
-
-document.getElementById("banknifty").innerHTML =
-"Unable To Load";
-
-}
-
-}
-
-/* LOAD */
-
-loadMarketData();
-
-/* AUTO REFRESH */
-
-setInterval(loadMarketData,15000);
-
-/* LOAD */
-
-loadMarketData();
-
-/* AUTO REFRESH */
-
-setInterval(loadMarketData,5000);
-
-/* TRADINGVIEW */
+/* =========================================
+TRADINGVIEW
+========================================= */
 
 new TradingView.widget({
 
 "width":"100%",
-"height":500,
+"height":520,
 "symbol":"NSE:NIFTY",
 "interval":"5",
 "timezone":"Asia/Kolkata",
@@ -647,13 +689,63 @@ new TradingView.widget({
 "locale":"en",
 "toolbar_bg":"#020617",
 "enable_publishing":false,
-"hide_top_toolbar":false,
 "allow_symbol_change":true,
 "container_id":"tradingview_chart"
 
 });
 
-/* LIVE SIGNALS */
+
+/* =========================================
+LIVE MARKET FIRESTORE
+========================================= */
+
+db.collection("market_data")
+.doc("live")
+
+.onSnapshot((doc)=>{
+
+const data = doc.data();
+
+if(!data) return;
+
+document.getElementById("nifty").innerHTML = `
+
+${data.nifty}
+
+<div style="
+font-size:14px;
+margin-top:8px;
+color:${data.niftyChange >= 0 ? '#00ff99' : '#ff4d6d'}">
+
+${data.niftyChange >= 0 ? '▲' : '▼'}
+${data.niftyChange}
+
+</div>
+
+`;
+
+document.getElementById("banknifty").innerHTML = `
+
+${data.banknifty}
+
+<div style="
+font-size:14px;
+margin-top:8px;
+color:${data.bankChange >= 0 ? '#00ff99' : '#ff4d6d'}">
+
+${data.bankChange >= 0 ? '▲' : '▼'}
+${data.bankChange}
+
+</div>
+
+`;
+
+});
+
+
+/* =========================================
+LIVE SIGNALS
+========================================= */
 
 db.collection("signals")
 .orderBy("created","desc")
@@ -665,16 +757,18 @@ let html = "";
 
 snapshot.forEach((doc)=>{
 
-let s = doc.data();
+const s = doc.data();
 
 html += `
 
-<div class="signal ${s.type=='BUY'?'buy':'sell'}">
+<div class="signal-card ${s.type=='BUY'?'buy':'sell'}">
 
-<div class="flex justify-between">
+<div class="flex justify-between items-center">
 
 <h2 class="text-2xl font-bold">
+
 ${s.symbol}
+
 </h2>
 
 <div class="${s.type=='BUY'?'green':'red'} font-bold">
@@ -748,7 +842,102 @@ html;
 
 });
 
+
+/* =========================================
+MAIN SIGNAL
+========================================= */
+
+db.collection("signals")
+.doc("main")
+
+.onSnapshot((doc)=>{
+
+const s = doc.data();
+
+if(!s) return;
+
+document.getElementById("mainSignal").innerText =
+s.signal;
+
+document.getElementById("signalDetails").innerText =
+
+s.symbol +
+" | Entry " +
+s.entry;
+
+document.getElementById("confidence").innerText =
+s.confidence;
+
+document.getElementById("signalType").innerText =
+s.signal;
+
+document.getElementById("pcr").innerText =
+s.pcr;
+
+});
+
+
+/* =========================================
+OPTION CHAIN
+========================================= */
+
+db.collection("option_chain")
+.doc("nifty")
+
+.onSnapshot((doc)=>{
+
+const data = doc.data();
+
+if(!data) return;
+
+let html = "";
+
+data.chain.forEach((item)=>{
+
+html += `
+
+<tr>
+
+<td>
+${item.strike}
+</td>
+
+<td>
+${item.ceOI}
+</td>
+
+<td>
+${item.peOI}
+</td>
+
+<td>
+${item.pcr}
+</td>
+
+<td class="
+${item.signal=='BUY'
+?'green'
+:item.signal=='SELL'
+?'red'
+:'yellow'}">
+
+${item.signal}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("optionTable").innerHTML =
+html;
+
+});
+
 </script>
 
 </body>
+
 </html>
