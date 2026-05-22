@@ -1,151 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AI OPTION CHAIN PRO</title>
+<title>MSM PRO - LIVE AI OPTION CHAIN</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
 body{
-    background:#020617;
-    color:white;
-    font-family:Poppins,sans-serif;
-    padding:20px;
+background:#020617;
+color:white;
+font-family:Poppins,sans-serif;
+padding:20px;
+overflow-x:hidden;
 }
+
+/* CARD */
 
 .card{
-    background:#0f172a;
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:20px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:22px;
+padding:25px;
+margin-bottom:20px;
 }
 
+/* TABLE */
+
 table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:20px;
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
 }
 
 th,td{
-    padding:16px;
-    text-align:center;
-    border:1px solid rgba(255,255,255,0.08);
+padding:16px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.08);
 }
 
 th{
-    background:#00ff99;
-    color:black;
+background:#00ff99;
+color:black;
+font-weight:bold;
 }
 
 tr:hover{
-    background:rgba(255,255,255,0.04);
+background:rgba(255,255,255,0.04);
 }
+
+/* FORM */
 
 select{
-    background:#111827;
-    color:white;
-    border:1px solid #374151;
-    padding:12px 18px;
-    border-radius:12px;
-    font-size:16px;
+background:#111827;
+color:white;
+border:1px solid #374151;
+padding:12px 18px;
+border-radius:12px;
+font-size:16px;
+outline:none;
 }
 
-.buyBox{
-    background:rgba(0,255,153,0.12);
-    border:2px solid #00ff99;
-}
-
-.sellBox{
-    background:rgba(255,0,0,0.12);
-    border:2px solid #ff4d4d;
-}
-
-.sidewaysBox{
-    background:rgba(255,255,0,0.08);
-    border:2px solid yellow;
-}
-
-.signalBox{
-    padding:25px;
-    border-radius:20px;
-    margin-top:25px;
-}
-
-.bigText{
-    font-size:42px;
-    font-weight:bold;
-}
-
-.smallText{
-    margin-top:10px;
-    font-size:18px;
-}
-
-.infoGrid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
-    margin-top:20px;
-}
-
-.infoCard{
-    background:#111827;
-    padding:20px;
-    border-radius:14px;
-    text-align:center;
-}
-
-.label{
-    color:#9ca3af;
-    font-size:14px;
-}
-
-.value{
-    font-size:30px;
-    font-weight:bold;
-    margin-top:10px;
-}
+/* COLORS */
 
 .green{
-    color:#00ff99;
+color:#00ff99;
 }
 
 .red{
-    color:#ff4d4d;
+color:#ff4d4d;
 }
 
 .yellow{
-    color:yellow;
+color:yellow;
 }
+
+.blue{
+color:#4dabff;
+}
+
+/* SIGNAL BOX */
+
+.buyBox{
+background:rgba(0,255,153,0.12);
+border:2px solid #00ff99;
+}
+
+.sellBox{
+background:rgba(255,0,0,0.12);
+border:2px solid #ff4d4d;
+}
+
+.sidewaysBox{
+background:rgba(255,255,0,0.08);
+border:2px solid yellow;
+}
+
+.signalBox{
+padding:30px;
+border-radius:24px;
+margin-top:25px;
+text-align:center;
+animation:fade 0.5s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.bigText{
+font-size:48px;
+font-weight:bold;
+}
+
+.smallText{
+margin-top:10px;
+font-size:18px;
+}
+
+/* INFO GRID */
+
+.infoGrid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:25px;
+}
+
+.infoCard{
+background:#111827;
+padding:22px;
+border-radius:18px;
+text-align:center;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.label{
+color:#9ca3af;
+font-size:14px;
+}
+
+.value{
+font-size:34px;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* ATM ROW */
 
 .atmRow{
-    background:rgba(0,255,153,0.08);
+background:rgba(0,255,153,0.08);
 }
 
+/* TRADE PANEL */
+
 .tradePanel{
-    margin-top:20px;
-    padding:20px;
-    border-radius:16px;
-    background:#111827;
+margin-top:25px;
+padding:25px;
+border-radius:18px;
+background:#111827;
+border:1px solid rgba(255,255,255,0.06);
 }
 
 .tradeTitle{
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:15px;
+font-size:30px;
+font-weight:bold;
+margin-bottom:18px;
 }
 
 .tradeRow{
-    display:flex;
-    justify-content:space-between;
-    padding:10px 0;
-    border-bottom:1px solid rgba(255,255,255,0.06);
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+/* LIVE */
+
+.liveDot{
+width:12px;
+height:12px;
+border-radius:50%;
+background:#00ff99;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+50%{
+opacity:0.3;
+}
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+.bigText{
+font-size:34px;
+}
+
+.value{
+font-size:26px;
+}
+
+.tradeTitle{
+font-size:24px;
+}
+
 }
 
 </style>
@@ -154,11 +227,35 @@ select{
 
 <body>
 
+<!-- HEADER -->
+
 <div class="card">
 
+<div class="flex justify-between items-center flex-wrap gap-4">
+
+<div>
+
 <h1 class="text-5xl font-bold text-green-400">
-📉 AI OPTION CHAIN PRO
+📉 MSM PRO LIVE
 </h1>
+
+<p class="mt-3 text-gray-400">
+Realtime AI Option Chain Dashboard
+</p>
+
+</div>
+
+<div class="flex items-center gap-3">
+
+<div class="liveDot"></div>
+
+<div class="green font-bold">
+LIVE MARKET
+</div>
+
+</div>
+
+</div>
 
 <div class="mt-8 flex gap-4 flex-wrap">
 
@@ -176,8 +273,10 @@ select{
 
 <button
 onclick="loadOptionChain()"
-class="bg-green-400 text-black px-6 py-3 rounded-xl font-bold">
-LOAD SIGNAL
+class="bg-green-400 text-black px-6 py-3 rounded-xl font-bold hover:scale-105 transition">
+
+LOAD LIVE DATA
+
 </button>
 
 </div>
@@ -187,23 +286,51 @@ LOAD SIGNAL
 <div class="infoGrid">
 
 <div class="infoCard">
-<div class="label">LIVE PRICE</div>
-<div id="livePrice" class="value">--</div>
+
+<div class="label">
+LIVE PRICE
+</div>
+
+<div id="livePrice" class="value">
+--
+</div>
+
 </div>
 
 <div class="infoCard">
-<div class="label">ATM STRIKE</div>
-<div id="atmStrike" class="value yellow">--</div>
+
+<div class="label">
+ATM STRIKE
+</div>
+
+<div id="atmStrike" class="value yellow">
+--
+</div>
+
 </div>
 
 <div class="infoCard">
-<div class="label">PCR</div>
-<div id="pcrValue" class="value">--</div>
+
+<div class="label">
+PCR
+</div>
+
+<div id="pcrValue" class="value">
+--
+</div>
+
 </div>
 
 <div class="infoCard">
-<div class="label">TREND</div>
-<div id="trendValue" class="value">--</div>
+
+<div class="label">
+TREND
+</div>
+
+<div id="trendValue" class="value blue">
+--
+</div>
+
 </div>
 
 </div>
@@ -212,11 +339,23 @@ LOAD SIGNAL
 
 </div>
 
+<!-- OPTION CHAIN -->
+
 <div class="card">
+
+<div class="flex justify-between items-center flex-wrap gap-4">
 
 <h2 class="text-3xl font-bold text-green-400">
 OPTION CHAIN
 </h2>
+
+<div class="yellow font-bold">
+AUTO REFRESH 10 SEC
+</div>
+
+</div>
+
+<div class="overflow-auto">
 
 <table>
 
@@ -227,305 +366,363 @@ OPTION CHAIN
 <th>Strike</th>
 <th>CE OI</th>
 <th>PE OI</th>
-<th>OI CHANGE</th>
 <th>PCR</th>
-<th>SIGNAL</th>
+<th>Signal</th>
 
 </tr>
 
 </thead>
 
-<tbody id="optionData"></tbody>
+<tbody id="optionData">
+
+</tbody>
 
 </table>
 
 </div>
 
+</div>
+
+<!-- SCRIPT -->
+
 <script>
 
 async function loadOptionChain(){
 
-    const selectedIndex =
-    document.getElementById("indexSelect").value;
+try{
 
-    let livePrice = 0;
-    let step = 50;
+const selectedIndex =
+document.getElementById("indexSelect").value;
 
-    // Demo Live Prices
 
-    if(selectedIndex === "NIFTY"){
 
-        livePrice = 24850;
-        step = 50;
-    }
+/* =====================================
+LIVE API
+===================================== */
 
-    else if(selectedIndex === "BANKNIFTY"){
+const response = await fetch(
 
-        livePrice = 55600;
-        step = 100;
-    }
+`https://trade-signal-pro.onrender.com/api/option-chain?index=${selectedIndex}`
 
-    else if(selectedIndex === "SENSEX"){
+);
 
-        livePrice = 81500;
-        step = 100;
-    }
+const data = await response.json();
 
-    else if(selectedIndex === "NIFTYIT"){
 
-        livePrice = 38400;
-        step = 50;
-    }
 
-    document.getElementById("livePrice").innerHTML =
-    livePrice.toLocaleString();
+/* =====================================
+ERROR
+===================================== */
 
-    // ATM
+if(data.error){
 
-    const atm =
-    Math.round(livePrice / step) * step;
+console.log(data.error);
 
-    document.getElementById("atmStrike").innerHTML =
-    atm.toLocaleString();
+return;
 
-    const tbody =
-    document.getElementById("optionData");
-
-    tbody.innerHTML = "";
-
-    let totalCE = 0;
-    let totalPE = 0;
-
-    let strongestStrike = atm;
-    let strongestSignal = "SIDEWAYS";
-
-    let maxDifference = 0;
-
-    // Generate Chain
-
-    for(let i=-5;i<=5;i++){
-
-        const strike = atm + (i*step);
-
-        const ceOI =
-        Math.floor(Math.random()*500000)+100000;
-
-        const peOI =
-        Math.floor(Math.random()*500000)+100000;
-
-        const oiChange =
-        Math.floor(Math.random()*100000)-50000;
-
-        const pcr =
-        (peOI / ceOI).toFixed(2);
-
-        totalCE += ceOI;
-        totalPE += peOI;
-
-        let rowSignal = "SIDEWAYS";
-
-        if(pcr > 1.15){
-
-            rowSignal = "BUY";
-
-        }
-
-        else if(pcr < 0.85){
-
-            rowSignal = "SELL";
-
-        }
-
-        // Strongest Strike Detection
-
-        const diff =
-        Math.abs(peOI - ceOI);
-
-        if(diff > maxDifference){
-
-            maxDifference = diff;
-
-            strongestStrike = strike;
-
-            strongestSignal = rowSignal;
-        }
-
-        const row = `
-        <tr class="${strike===atm ? 'atmRow':''}">
-            <td>${strike.toLocaleString()}</td>
-            <td>${ceOI.toLocaleString()}</td>
-            <td>${peOI.toLocaleString()}</td>
-            <td>${oiChange.toLocaleString()}</td>
-            <td>${pcr}</td>
-            <td>
-            ${
-                rowSignal==="BUY"
-                ?
-                '<span class="green font-bold">BUY</span>'
-                :
-                rowSignal==="SELL"
-                ?
-                '<span class="red font-bold">SELL</span>'
-                :
-                '<span class="yellow font-bold">SIDEWAYS</span>'
-            }
-            </td>
-        </tr>
-        `;
-
-        tbody.innerHTML += row;
-    }
-
-    // Final PCR
-
-    const finalPCR =
-    (totalPE / totalCE).toFixed(2);
-
-    document.getElementById("pcrValue").innerHTML =
-    finalPCR;
-
-    let finalSignal = "SIDEWAYS";
-    let trend = "NEUTRAL";
-    let signalClass = "sidewaysBox";
-    let signalColor = "yellow";
-
-    // Strong Filter
-
-    if(finalPCR > 1.12){
-
-        finalSignal = "BUY CALL";
-        trend = "BULLISH";
-        signalClass = "buyBox";
-        signalColor = "#00ff99";
-    }
-
-    else if(finalPCR < 0.88){
-
-        finalSignal = "BUY PUT";
-        trend = "BEARISH";
-        signalClass = "sellBox";
-        signalColor = "#ff4d4d";
-    }
-
-    document.getElementById("trendValue").innerHTML =
-    trend;
-
-    // Entry Strike
-
-    let entryStrike = strongestStrike;
-
-    // Premium Estimation
-
-    let entryPrice = 120;
-
-    if(selectedIndex === "BANKNIFTY"){
-
-        entryPrice = 250;
-    }
-
-    // Risk Management
-
-    const sl =
-    Math.round(entryPrice * 0.75);
-
-    const target1 =
-    Math.round(entryPrice * 1.30);
-
-    const target2 =
-    Math.round(entryPrice * 1.60);
-
-    // Signal Box
-
-    document.getElementById("signalContainer").innerHTML = `
-    
-    <div class="signalBox ${signalClass}">
-
-        <div class="bigText" style="color:${signalColor}">
-            ${finalSignal}
-        </div>
-
-        <div class="smallText">
-            AI Based Option Chain Signal
-        </div>
-
-        <div class="smallText">
-            PCR + OI + OI Change + Strength Analysis
-        </div>
-
-    </div>
-    `;
-
-    // Trade Panel
-
-    document.getElementById("tradePanel").innerHTML = `
-    
-    <div class="tradePanel">
-
-        <div class="tradeTitle">
-        🎯 TRADE SETUP
-        </div>
-
-        <div class="tradeRow">
-            <div>Signal</div>
-            <div style="color:${signalColor};font-weight:bold">
-            ${finalSignal}
-            </div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Recommended Strike</div>
-            <div>${entryStrike}</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Suggested Entry</div>
-            <div>₹ ${entryPrice}</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Stop Loss</div>
-            <div class="red">₹ ${sl}</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Target 1</div>
-            <div class="green">₹ ${target1}</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Target 2</div>
-            <div class="green">₹ ${target2}</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Risk Reward</div>
-            <div>1 : 2</div>
-        </div>
-
-        <div class="tradeRow">
-            <div>Confidence</div>
-            <div>
-            ${
-                finalSignal==="SIDEWAYS"
-                ?
-                "55%"
-                :
-                "82%"
-            }
-            </div>
-        </div>
-
-    </div>
-    `;
 }
 
-// Initial Load
+
+
+/* =====================================
+LIVE PRICE
+===================================== */
+
+document.getElementById("livePrice").innerHTML =
+
+Number(data.spot).toLocaleString();
+
+
+
+/* =====================================
+ATM
+===================================== */
+
+document.getElementById("atmStrike").innerHTML =
+
+data.atm;
+
+
+
+/* =====================================
+PCR
+===================================== */
+
+document.getElementById("pcrValue").innerHTML =
+
+data.finalPCR;
+
+
+
+/* =====================================
+TREND
+===================================== */
+
+let trend = "NEUTRAL";
+
+if(data.finalSignal === "BUY CALL"){
+
+trend = "BULLISH";
+
+}
+
+else if(data.finalSignal === "BUY PUT"){
+
+trend = "BEARISH";
+
+}
+
+document.getElementById("trendValue").innerHTML =
+
+trend;
+
+
+
+/* =====================================
+SIGNAL COLOR
+===================================== */
+
+let signalClass = "sidewaysBox";
+
+let signalColor = "yellow";
+
+if(data.finalSignal === "BUY CALL"){
+
+signalClass = "buyBox";
+
+signalColor = "#00ff99";
+
+}
+
+else if(data.finalSignal === "BUY PUT"){
+
+signalClass = "sellBox";
+
+signalColor = "#ff4d4d";
+
+}
+
+
+
+/* =====================================
+SIGNAL BOX
+===================================== */
+
+document.getElementById("signalContainer").innerHTML = `
+
+<div class="signalBox ${signalClass}">
+
+<div class="bigText"
+style="color:${signalColor}">
+
+${data.finalSignal}
+
+</div>
+
+<div class="smallText">
+
+Realtime AI Trading Signal
+
+</div>
+
+<div class="smallText">
+
+Live Market + AI Engine + PCR Analysis
+
+</div>
+
+</div>
+
+`;
+
+
+
+/* =====================================
+TRADE PANEL
+===================================== */
+
+document.getElementById("tradePanel").innerHTML = `
+
+<div class="tradePanel">
+
+<div class="tradeTitle">
+
+🎯 LIVE TRADE SETUP
+
+</div>
+
+<div class="tradeRow">
+
+<div>Signal</div>
+
+<div style="
+color:${signalColor};
+font-weight:bold">
+
+${data.finalSignal}
+
+</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>ATM Strike</div>
+
+<div>${data.atm}</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>Entry</div>
+
+<div>₹ ${data.entry}</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>Stop Loss</div>
+
+<div class="red">
+
+₹ ${data.sl}
+
+</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>Target 1</div>
+
+<div class="green">
+
+₹ ${data.target1}
+
+</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>Target 2</div>
+
+<div class="green">
+
+₹ ${data.target2}
+
+</div>
+
+</div>
+
+<div class="tradeRow">
+
+<div>Confidence</div>
+
+<div>
+
+${data.confidence}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+
+
+/* =====================================
+OPTION TABLE
+===================================== */
+
+let html = "";
+
+data.chain.forEach((item)=>{
+
+html += `
+
+<tr class="
+${item.strike == data.atm
+?'atmRow'
+:''}">
+
+<td>
+${item.strike}
+</td>
+
+<td>
+${Number(item.ceOI).toLocaleString()}
+</td>
+
+<td>
+${Number(item.peOI).toLocaleString()}
+</td>
+
+<td>
+${item.pcr}
+</td>
+
+<td>
+
+${
+item.signal === "BUY"
+?
+
+'<span class="green font-bold">BUY</span>'
+
+:
+
+item.signal === "SELL"
+?
+
+'<span class="red font-bold">SELL</span>'
+
+:
+
+'<span class="yellow font-bold">SIDEWAYS</span>'
+}
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+document.getElementById("optionData").innerHTML =
+
+html;
+
+
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+
+
+/* =====================================
+INITIAL LOAD
+===================================== */
 
 loadOptionChain();
 
-// Auto Refresh
 
-setInterval(loadOptionChain,15000);
+
+/* =====================================
+AUTO REFRESH
+===================================== */
+
+setInterval(loadOptionChain,10000);
 
 </script>
 
