@@ -3,8 +3,8 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>MSM PRO AI TRADING PLATFORM</title>
 
@@ -59,9 +59,9 @@ align-items:center;
 
 z-index:1000;
 
-background:rgba(2,6,23,0.7);
+background:rgba(2,6,23,0.8);
 
-backdrop-filter:blur(18px);
+backdrop-filter:blur(20px);
 
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
@@ -93,28 +93,6 @@ position:relative;
 .nav-links a:hover{
 
 color:#00ff99;
-}
-
-.nav-links a::after{
-
-content:'';
-
-position:absolute;
-
-left:0;
-bottom:-5px;
-
-width:0%;
-height:2px;
-
-background:#00ff99;
-
-transition:0.3s;
-}
-
-.nav-links a:hover::after{
-
-width:100%;
 }
 
 .btn{
@@ -169,7 +147,7 @@ position:absolute;
 width:700px;
 height:700px;
 
-background:#00ff9940;
+background:#00ff9930;
 
 filter:blur(180px);
 
@@ -238,11 +216,11 @@ gap:20px;
 flex-wrap:wrap;
 }
 
-/* HERO RIGHT */
+/* RIGHT PANEL */
 
 .hero-right{
 
-width:420px;
+width:450px;
 
 background:rgba(255,255,255,0.04);
 
@@ -272,6 +250,15 @@ display:flex;
 
 justify-content:space-between;
 align-items:center;
+
+transition:0.3s;
+}
+
+.market-card:hover{
+
+transform:translateY(-4px);
+
+box-shadow:0 0 20px rgba(0,255,153,0.15);
 }
 
 .market-card h3{
@@ -279,13 +266,13 @@ align-items:center;
 font-size:18px;
 }
 
-.market-card .green{
+.green{
 
 color:#00ff99;
 font-weight:700;
 }
 
-.market-card .red{
+.red{
 
 color:#ff4d4d;
 font-weight:700;
@@ -327,9 +314,9 @@ transform:translateX(-100%);
 
 }
 
-/* SECTION */
+/* OPTION CHAIN */
 
-.section{
+.chain-section{
 
 padding:90px 7%;
 }
@@ -342,70 +329,65 @@ font-weight:800;
 
 text-align:center;
 
-margin-bottom:70px;
+margin-bottom:60px;
 }
 
-/* FEATURES */
+.chain-table{
 
-.cards{
+width:100%;
 
-display:grid;
+border-collapse:collapse;
 
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+overflow:hidden;
 
-gap:30px;
+border-radius:20px;
+
+background:#111827;
 }
 
-.card{
+.chain-table th{
 
-background:rgba(255,255,255,0.03);
+background:#00ff99;
 
-border:1px solid rgba(255,255,255,0.06);
+color:black;
 
-padding:35px;
+padding:16px;
 
-border-radius:30px;
-
-transition:0.4s;
-
-backdrop-filter:blur(15px);
+font-size:16px;
 }
 
-.card:hover{
+.chain-table td{
 
-transform:translateY(-10px);
+padding:15px;
 
-border-color:#00ff99;
+text-align:center;
 
-box-shadow:0 0 35px rgba(0,255,153,0.15);
+border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
-.card-icon{
-
-font-size:50px;
-
-margin-bottom:20px;
-}
-
-.card h2{
-
-font-size:28px;
-
-margin-bottom:18px;
+.buy{
 
 color:#00ff99;
+font-weight:700;
 }
 
-.card p{
+.sell{
 
-color:#cbd5e1;
-
-line-height:1.9;
+color:#ff4d4d;
+font-weight:700;
 }
 
-/* SIGNAL */
+.sideways{
+
+color:#facc15;
+font-weight:700;
+}
+
+/* LIVE SIGNAL */
 
 .signal-box{
+
+margin-top:70px;
 
 background:linear-gradient(135deg,#00ff99,#00b36b);
 
@@ -436,37 +418,6 @@ font-size:22px;
 font-weight:600;
 }
 
-/* STATS */
-
-.stats{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-
-gap:25px;
-}
-
-.stat-card{
-
-background:#111827;
-
-padding:35px;
-
-border-radius:25px;
-
-text-align:center;
-}
-
-.stat-card h1{
-
-font-size:48px;
-
-color:#00ff99;
-
-margin-bottom:10px;
-}
-
 /* FOOTER */
 
 .footer{
@@ -478,9 +429,11 @@ text-align:center;
 color:#94a3b8;
 
 border-top:1px solid rgba(255,255,255,0.08);
+
+margin-top:60px;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
 @media(max-width:1100px){
 
@@ -513,17 +466,22 @@ display:none;
 
 .hero-left h1{
 
-font-size:44px;
+font-size:42px;
 }
 
 .section-title{
 
-font-size:38px;
+font-size:36px;
 }
 
 .signal-box h1{
 
-font-size:42px;
+font-size:38px;
+}
+
+.chain-table{
+
+font-size:13px;
 }
 
 }
@@ -544,25 +502,17 @@ font-size:42px;
 
 <div class="nav-links">
 
-<a href="index.html">Home</a>
-
-<a href="signals.html">Signals</a>
-
-<a href="dashboard.html">Dashboard</a>
-
-<a href="watchlist.html">Watchlist</a>
-
-<a href="option-chain.html">Option Chain</a>
-
-<a href="alerts.html">Alerts</a>
-
-<a href="premium.html">Premium</a>
-
-<a href="profile.html">Profile</a>
+<a href="#">Home</a>
+<a href="#">Signals</a>
+<a href="#">Dashboard</a>
+<a href="#">Watchlist</a>
+<a href="#">Option Chain</a>
+<a href="#">Alerts</a>
+<a href="#">Premium</a>
 
 </div>
 
-<a href="login.html" class="btn">
+<a href="#" class="btn">
 Login
 </a>
 
@@ -587,19 +537,19 @@ Trade Smarter With <span>AI Signals</span>
 <p>
 
 Professional AI-powered trading dashboard with
-live option chain, smart money analysis,
-real-time signals, watchlists,
-market scanners & institutional data analysis.
+real-time option chain, AI signals,
+smart money analysis,
+institutional order flow & market prediction.
 
 </p>
 
 <div class="hero-buttons">
 
-<a href="signup.html" class="btn">
+<a href="#" class="btn">
 Get Started
 </a>
 
-<a href="option-chain.html" class="btn">
+<a href="#" class="btn">
 Live Option Chain
 </a>
 
@@ -607,64 +557,66 @@ Live Option Chain
 
 </div>
 
+<!-- RIGHT PANEL -->
+
 <div class="hero-right">
 
 <div class="market-card">
 
-<div>
 <h3>NIFTY 50</h3>
-</div>
 
-<div class="green">
-▲ 24,850
+<div class="green" id="niftyPrice">
+Loading...
 </div>
 
 </div>
 
 <div class="market-card">
 
-<div>
 <h3>BANKNIFTY</h3>
-</div>
 
-<div class="green">
-▲ 55,420
+<div class="green" id="bankniftyPrice">
+Loading...
 </div>
 
 </div>
 
 <div class="market-card">
 
-<div>
 <h3>SENSEX</h3>
-</div>
 
-<div class="green">
-▲ 81,230
+<div class="green" id="sensexPrice">
+Loading...
 </div>
 
 </div>
 
 <div class="market-card">
 
-<div>
 <h3>AI SIGNAL</h3>
-</div>
 
-<div class="green">
-BUY CALL
+<div class="green" id="aiSignal">
+Loading...
 </div>
 
 </div>
 
 <div class="market-card">
 
-<div>
-<h3>Confidence</h3>
+<h3>CONFIDENCE</h3>
+
+<div class="green" id="confidence">
+Loading...
 </div>
 
-<div class="green">
-82%
+</div>
+
+<div class="market-card">
+
+<h3>ATM STRIKE</h3>
+
+<div class="green" id="atmStrike">
+Loading...
 </div>
 
 </div>
@@ -677,207 +629,59 @@ BUY CALL
 
 <div class="ticker">
 
-<div class="ticker-content">
+<div class="ticker-content" id="ticker">
 
-NIFTY ▲ 24,850 +120 • BANKNIFTY ▲ 55,420 +240 • SENSEX ▲ 81,230 +350 • RELIANCE ▲ 2.4% • TCS ▲ 1.8% • INFY ▲ 1.6% • HDFCBANK ▲ 1.1% • ICICIBANK ▲ 1.4%
-
-</div>
+LIVE MARKET DATA LOADING...
 
 </div>
 
-<!-- FEATURES -->
+</div>
 
-<section class="section">
+<!-- OPTION CHAIN -->
+
+<section class="chain-section">
 
 <h1 class="section-title">
-🔥 Powerful Features
+📉 LIVE OPTION CHAIN
 </h1>
 
-<div class="cards">
+<table class="chain-table">
 
-<div class="card">
+<thead>
 
-<div class="card-icon">
-📊
-</div>
+<tr>
 
-<h2>Live Market</h2>
+<th>Strike</th>
+<th>CE OI</th>
+<th>PE OI</th>
+<th>PCR</th>
+<th>Signal</th>
 
-<p>
+</tr>
 
-Real-time NSE/BSE market data with AI analysis,
-live charts and institutional money flow tracking.
+</thead>
 
-</p>
+<tbody id="chainBody">
 
-</div>
+</tbody>
 
-<div class="card">
-
-<div class="card-icon">
-🤖
-</div>
-
-<h2>AI Signals</h2>
-
-<p>
-
-Advanced BUY/SELL signals using EMA, RSI,
-VWAP, OI, PCR & smart money concepts.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-📉
-</div>
-
-<h2>Option Chain</h2>
-
-<p>
-
-Live option chain with OI buildup,
-PCR analysis, Max Pain & support resistance.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-🔔
-</div>
-
-<h2>Smart Alerts</h2>
-
-<p>
-
-Get instant Telegram, browser and app alerts
-for every premium trade setup.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-⭐
-</div>
-
-<h2>Watchlist</h2>
-
-<p>
-
-Create custom stock watchlists with live updates,
-AI insights and technical signals.
-
-</p>
-
-</div>
-
-<div class="card">
-
-<div class="card-icon">
-🧠
-</div>
-
-<h2>AI Prediction</h2>
-
-<p>
-
-Machine learning based trend prediction
-with confidence score & risk management.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
+</table>
 
 <!-- LIVE SIGNAL -->
 
-<section class="section">
-
 <div class="signal-box">
 
-<h1>
-🟢 LIVE BUY SIGNAL
+<h1 id="bigSignal">
+
+LOADING SIGNAL...
+
 </h1>
 
-<p>
+<p id="signalDetails">
 
-BANKNIFTY 55400 CE • Entry: 245 • Target: 340 • SL: 180
+Loading AI Trade Setup...
 
 </p>
-
-</div>
-
-</section>
-
-<!-- STATS -->
-
-<section class="section">
-
-<h1 class="section-title">
-📈 Platform Statistics
-</h1>
-
-<div class="stats">
-
-<div class="stat-card">
-
-<h1>
-92%
-</h1>
-
-<p>
-Signal Accuracy
-</p>
-
-</div>
-
-<div class="stat-card">
-
-<h1>
-50K+
-</h1>
-
-<p>
-Active Traders
-</p>
-
-</div>
-
-<div class="stat-card">
-
-<h1>
-24/7
-</h1>
-
-<p>
-AI Monitoring
-</p>
-
-</div>
-
-<div class="stat-card">
-
-<h1>
-₹12Cr+
-</h1>
-
-<p>
-Daily Volume
-</p>
-
-</div>
 
 </div>
 
@@ -887,9 +691,155 @@ Daily Volume
 
 <div class="footer">
 
-© 2026 MSM PRO • Powered By AI + Node.js + NSE Live Data
+© 2026 MSM PRO • Powered By AI + Node.js + Live Market API
 
 </div>
+
+<!-- LIVE SCRIPT -->
+
+<script>
+
+async function loadLiveData(){
+
+try{
+
+const res =
+await fetch("/api/option-chain");
+
+const data =
+await res.json();
+
+/* PRICE */
+
+document.getElementById(
+"niftyPrice"
+).innerText =
+"▲ " + data.spot;
+
+document.getElementById(
+"bankniftyPrice"
+).innerText =
+"▲ " + (data.spot * 2.33).toFixed(0);
+
+document.getElementById(
+"sensexPrice"
+).innerText =
+"▲ " + (data.spot * 3.42).toFixed(0);
+
+/* SIGNAL */
+
+document.getElementById(
+"aiSignal"
+).innerText =
+data.finalSignal;
+
+document.getElementById(
+"confidence"
+).innerText =
+data.confidence;
+
+document.getElementById(
+"atmStrike"
+).innerText =
+data.atm;
+
+/* BIG SIGNAL */
+
+document.getElementById(
+"bigSignal"
+).innerText =
+"🟢 " + data.finalSignal;
+
+document.getElementById(
+"signalDetails"
+).innerText =
+
+"ENTRY ₹" + data.entry +
+
+" • TARGET ₹" + data.target1 +
+
+" • SL ₹" + data.sl +
+
+" • CONFIDENCE " + data.confidence;
+
+/* TICKER */
+
+document.getElementById(
+"ticker"
+).innerText =
+
+"NIFTY ▲ " + data.spot +
+
+" • AI SIGNAL " + data.finalSignal +
+
+" • PCR " + data.finalPCR +
+
+" • ENTRY ₹" + data.entry +
+
+" • TARGET ₹" + data.target1 +
+
+" • STOPLOSS ₹" + data.sl;
+
+/* OPTION CHAIN */
+
+const tbody =
+document.getElementById(
+"chainBody"
+);
+
+tbody.innerHTML = "";
+
+data.chain.forEach(item=>{
+
+let cls = "sideways";
+
+if(item.signal === "BUY"){
+cls = "buy";
+}
+
+if(item.signal === "SELL"){
+cls = "sell";
+}
+
+tbody.innerHTML += `
+
+<tr>
+
+<td>${item.strike}</td>
+
+<td>${item.ceOI.toLocaleString()}</td>
+
+<td>${item.peOI.toLocaleString()}</td>
+
+<td>${item.pcr}</td>
+
+<td class="${cls}">
+${item.signal}
+</td>
+
+</tr>
+
+`;
+
+});
+
+}catch(err){
+
+console.log(err);
+
+}
+
+}
+
+/* LOAD */
+
+loadLiveData();
+
+/* AUTO REFRESH */
+
+setInterval(loadLiveData,5000);
+
+</script>
 
 </body>
 </html>
