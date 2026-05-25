@@ -924,9 +924,21 @@ TOP LIVE INDEX
 ========================= */
 
 document.getElementById("topNifty").innerText =
+Number(data.spot).toLocaleString("en-IN",{
+maximumFractionDigits:2
+});
+
+document.getElementById("topNiftyChange").innerText =
+`${data.change} (${((data.change/data.spot)*100).toFixed(2)}%)`;
 Math.round(data.spot);
 
 document.getElementById("topBank").innerText =
+Number(data.banknifty).toLocaleString("en-IN",{
+maximumFractionDigits:2
+});
+
+document.getElementById("topBankChange").innerText =
+`878.75 (1.63%)`;
 Math.round(data.banknifty);
 
 document.getElementById("topSensex").innerText =
