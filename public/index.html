@@ -426,47 +426,105 @@ rgba(255,0,0,0.15),
 transparent
 );
 }
-
 .green-chart::before{
 
 content:"";
 
 position:absolute;
 
-width:120%;
+inset:0;
 
-height:2px;
+background:url("https://www.transparenttextures.com/patterns/cubes.png");
 
-background:#00ff99;
-
-top:50%;
-
-left:-10%;
-
-transform:rotate(-10deg);
+opacity:0.2;
 
 }
 
-.red-chart::before{
+.green-chart::after{
 
 content:"";
 
 position:absolute;
 
-width:120%;
+left:5px;
+right:5px;
+top:5px;
+bottom:5px;
 
-height:2px;
+background:
+linear-gradient(
+135deg,
+transparent 0%,
+transparent 15%,
+#00ff99 15%,
+#00ff99 22%,
+transparent 22%,
+transparent 35%,
+#00ff99 35%,
+#00ff99 45%,
+transparent 45%,
+transparent 58%,
+#00ff99 58%,
+#00ff99 70%,
+transparent 70%
+);
 
-background:#ff4d4d;
+clip-path:polygon(
+0% 80%,
+15% 55%,
+30% 65%,
+45% 30%,
+60% 45%,
+75% 20%,
+100% 0%
+);
 
-top:50%;
-
-left:-10%;
-
-transform:rotate(10deg);
+opacity:0.9;
 
 }
 
+.red-chart::after{
+
+content:"";
+
+position:absolute;
+
+left:5px;
+right:5px;
+top:5px;
+bottom:5px;
+
+background:
+linear-gradient(
+135deg,
+transparent 0%,
+transparent 15%,
+#ff4d4d 15%,
+#ff4d4d 22%,
+transparent 22%,
+transparent 35%,
+#ff4d4d 35%,
+#ff4d4d 45%,
+transparent 45%,
+transparent 58%,
+#ff4d4d 58%,
+#ff4d4d 70%,
+transparent 70%
+);
+
+clip-path:polygon(
+0% 20%,
+15% 40%,
+30% 30%,
+45% 60%,
+60% 50%,
+75% 80%,
+100% 100%
+);
+
+opacity:0.9;
+
+}
 /* FEATURES */
 
 .features{
@@ -579,26 +637,26 @@ grid-template-columns:1fr;
 
 <div class="top-card">
 <h3>BRENT CRUDE</h3>
-<h2>81.62</h2>
-<p class="green">▲ +0.84%</p>
+<h2 id="topBrent">Loading</h2>
+<p class="green">▲ Live</p>
 </div>
 
 <div class="top-card">
 <h3>DOLLAR INDEX</h3>
-<h2>104.37</h2>
-<p class="green">▲ +0.30%</p>
+<h2 id="topDxy">Loading</h2>
+<p class="green">▲ Live</p>
 </div>
 
 <div class="top-card redline">
 <h3>GOLD</h3>
-<h2>2335</h2>
-<p class="red">▼ -0.13%</p>
+<h2 id="topGold">Loading</h2>
+<p class="red">▼ Live</p>
 </div>
 
 <div class="top-card redline">
 <h3>INDIA VIX</h3>
-<h2>13.42</h2>
-<p class="red">▼ -2.04%</p>
+<h2 id="topVix">Loading</h2>
+<p class="red">▼ Live</p>
 </div>
 
 </div>
@@ -867,6 +925,18 @@ data.gold.toFixed(2);
 document.getElementById("vixPrice").innerText =
 data.indiaVix.toFixed(2);
 
+document.getElementById("topBrent").innerText =
+data.brent.toFixed(2);
+
+document.getElementById("topDxy").innerText =
+data.dxy.toFixed(2);
+
+document.getElementById("topGold").innerText =
+data.gold.toFixed(2);
+
+document.getElementById("topVix").innerText =
+data.indiaVix.toFixed(2);
+
 /* =========================
 COLOR LOGIC
 ========================= */
@@ -902,6 +972,7 @@ AUTO REFRESH
 ========================= */
 
 setInterval(loadLiveData,5000);
+
 
 </script>
 
