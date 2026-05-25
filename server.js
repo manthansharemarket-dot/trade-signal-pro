@@ -4,8 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 
-
-
 const {
 RSI,
 EMA,
@@ -26,18 +24,7 @@ SIGNAL LOCK SYSTEM
 ========================================= */
 
 let lastSignal = "SIDEWAYS";
-
 let confirmationCount = 0;
-
-/* =========================================
-HOME
-========================================= */
-
-app.get("/",(req,res)=>{
-
-res.send("🔥 MSM PRO AI SERVER RUNNING");
-
-});
 
 /* =========================================
 TEST API
@@ -46,15 +33,13 @@ TEST API
 app.get("/api/test",(req,res)=>{
 
 res.json({
-
 status:"SERVER WORKING"
-
 });
 
 });
 
 /* =========================================
-ADVANCED AI OPTION CHAIN
+LIVE MARKET API
 ========================================= */
 
 app.get("/api/option-chain",async(req,res)=>{
@@ -62,30 +47,97 @@ app.get("/api/option-chain",async(req,res)=>{
 try{
 
 /* =====================================
-LIVE NIFTY
+LIVE MARKET DATA
 ===================================== */
 
-const niftyRes =
-await axios.get(
+const [
+niftyRes,
+bankRes,
+sensexRes,
+itRes,
+brentRes,
+goldRes,
+vixRes,
+dxyRes
+] = await Promise.all([
 
+axios.get(
 "https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEI"
+),
 
-);
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/%5ENSEBANK"
+),
 
-const meta =
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/%5EBSESN"
+),
+
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/%5ECNXIT"
+),
+
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/BZ=F"
+),
+
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/GC=F"
+),
+
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/%5EINDIAVIX"
+),
+
+axios.get(
+"https://query1.finance.yahoo.com/v8/finance/chart/DX-Y.NYB"
+)
+
+]);
+
+/* =====================================
+MAIN MARKET
+===================================== */
+
+const niftyMeta =
 niftyRes.data.chart.result[0].meta;
 
 const spot =
-meta.regularMarketPrice;
+niftyMeta.regularMarketPrice;
 
 const previousClose =
-meta.previousClose;
+niftyMeta.previousClose;
 
 const change =
 (spot - previousClose).toFixed(2);
 
 /* =====================================
-STABLE MARKET DATA
+LIVE EXTRA MARKETS
+===================================== */
+
+const banknifty =
+bankRes.data.chart.result[0].meta.regularMarketPrice;
+
+const sensex =
+sensexRes.data.chart.result[0].meta.regularMarketPrice;
+
+const niftyIT =
+itRes.data.chart.result[0].meta.regularMarketPrice;
+
+const brent =
+brentRes.data.chart.result[0].meta.regularMarketPrice;
+
+const gold =
+goldRes.data.chart.result[0].meta.regularMarketPrice;
+
+const indiaVix =
+vixRes.data.chart.result[0].meta.regularMarketPrice;
+
+const dxy =
+dxyRes.data.chart.result[0].meta.regularMarketPrice;
+
+/* =====================================
+AI ENGINE DATA
 ===================================== */
 
 const closes = [
@@ -139,6 +191,7 @@ const volumes = [
 420000
 
 ];
+
 /* =====================================
 RSI
 ===================================== */
@@ -147,7 +200,6 @@ const rsi =
 RSI.calculate({
 
 values: closes,
-
 period: 14
 
 });
@@ -163,7 +215,6 @@ const ema20 =
 EMA.calculate({
 
 period:20,
-
 values: closes
 
 });
@@ -181,13 +232,10 @@ MACD.calculate({
 values: closes,
 
 fastPeriod:12,
-
 slowPeriod:26,
-
 signalPeriod:9,
 
 SimpleMAOscillator:false,
-
 SimpleMASignal:false
 
 });
@@ -203,11 +251,8 @@ const atr =
 ATR.calculate({
 
 high: highs,
-
 low: lows,
-
 close: closes,
-
 period:14
 
 });
@@ -223,11 +268,8 @@ const vwap =
 VWAP.calculate({
 
 close: closes,
-
 high: highs,
-
 low: lows,
-
 volume: volumes
 
 });
@@ -243,7 +285,6 @@ const volumeSMA =
 SMA.calculate({
 
 period:10,
-
 values: volumes
 
 });
@@ -281,7 +322,6 @@ spot > latestEMA20 &&
 spot > latestVWAP &&
 
 latestMACD.MACD >
-
 latestMACD.signal &&
 
 volumeBreakout
@@ -292,7 +332,7 @@ currentSignal =
 "🔥 STRONG BUY CALL";
 
 confidence =
-"93%";
+"94%";
 
 finalPCR =
 1.28;
@@ -310,7 +350,6 @@ spot < latestEMA20 &&
 spot < latestVWAP &&
 
 latestMACD.MACD <
-
 latestMACD.signal &&
 
 volumeBreakout
@@ -321,7 +360,7 @@ currentSignal =
 "🔴 STRONG BUY PUT";
 
 confidence =
-"91%";
+"92%";
 
 finalPCR =
 0.72;
@@ -339,7 +378,6 @@ confirmationCount++;
 }else{
 
 confirmationCount = 1;
-
 lastSignal = currentSignal;
 
 }
@@ -353,12 +391,13 @@ finalSignal = currentSignal;
 
 }else{
 
-finalSignal = "WAITING CONFIRMATION";
+finalSignal =
+"WAITING CONFIRMATION";
 
 }
 
 /* =====================================
-AI TRADE SETUP
+TRADE SETUP
 ===================================== */
 
 const atm =
@@ -413,13 +452,9 @@ signal = "SELL";
 chain.push({
 
 strike,
-
 ceOI,
-
 peOI,
-
 pcr,
-
 signal
 
 });
@@ -433,29 +468,29 @@ FINAL RESPONSE
 res.json({
 
 spot,
-
 change,
-
 atm,
 
+banknifty,
+sensex,
+niftyIT,
+
+brent,
+gold,
+indiaVix,
+dxy,
+
 latestRSI,
-
 latestVWAP,
-
 latestATR,
 
 finalPCR,
-
 finalSignal,
-
 confidence,
 
 entry,
-
 sl,
-
 target1,
-
 target2,
 
 confirmationCount,
@@ -469,9 +504,7 @@ chain
 console.log(err.message);
 
 res.json({
-
 error:err.message
-
 });
 
 }
@@ -488,9 +521,7 @@ process.env.PORT || 3000;
 app.listen(PORT,()=>{
 
 console.log(
-
-`🔥 MSM PRO AI SERVER RUNNING ON ${PORT}`
-
+`🔥 MSM PRO LIVE AI SERVER RUNNING ON ${PORT}`
 );
 
 });
