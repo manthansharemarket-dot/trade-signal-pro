@@ -25,7 +25,7 @@ color:white;
 overflow-x:hidden;
 }
 
-/* TOP BAR */
+/* TOPBAR */
 
 .topbar{
 
@@ -56,13 +56,13 @@ border-radius:20px;
 
 .top-card{
 
-min-width:140px;
+min-width:220px;
 
 background:#0f172a;
 
-padding:10px 12px;
+padding:12px;
 
-border-radius:12px;
+border-radius:14px;
 
 border:1px solid rgba(255,255,255,0.06);
 
@@ -98,29 +98,68 @@ opacity:0.8;
 background:#ff4d4d;
 }
 
+.top-head{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+}
+
+.flag-india{
+
+width:40px;
+
+height:40px;
+
+border-radius:50%;
+
+background:#111827;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:18px;
+
+border:1px solid rgba(255,255,255,0.05);
+
+flex-shrink:0;
+
+}
+
 .top-card h3{
 
-font-size:10px;
+font-size:11px;
 
 color:#94a3b8;
 
-margin-bottom:5px;
+margin-bottom:4px;
+
+letter-spacing:0.5px;
+
 }
 
 .top-card h2{
 
-font-size:22px;
+font-size:24px;
 
 font-weight:700;
 
-color:#00ff99;
+line-height:1.1;
+
 }
 
 .top-card p{
 
-font-size:11px;
+font-size:12px;
 
-margin-top:4px;
+margin-top:5px;
+
 }
 
 .green{
@@ -140,6 +179,7 @@ padding:18px 6%;
 display:flex;
 
 justify-content:space-between;
+
 align-items:center;
 
 border-bottom:1px solid rgba(255,255,255,0.05);
@@ -153,12 +193,15 @@ font-size:30px;
 font-weight:800;
 
 color:#00ff99;
+
 }
 
 .nav-links{
 
 display:flex;
+
 gap:26px;
+
 }
 
 .nav-links a{
@@ -172,11 +215,13 @@ font-size:14px;
 font-weight:600;
 
 transition:0.3s;
+
 }
 
 .nav-links a:hover{
 
 color:#00ff99;
+
 }
 
 .login-btn{
@@ -192,6 +237,7 @@ border-radius:12px;
 font-weight:700;
 
 text-decoration:none;
+
 }
 
 /* HERO */
@@ -215,6 +261,7 @@ align-items:center;
 .hero-left{
 
 max-width:760px;
+
 }
 
 .badge{
@@ -234,6 +281,7 @@ color:#00ff99;
 font-size:13px;
 
 margin-bottom:26px;
+
 }
 
 .hero-left h1{
@@ -245,11 +293,13 @@ line-height:1.05;
 font-weight:800;
 
 margin-bottom:22px;
+
 }
 
 .hero-left h1 span{
 
 color:#00ff99;
+
 }
 
 .hero-left p{
@@ -261,6 +311,7 @@ line-height:1.9;
 color:#cbd5e1;
 
 max-width:700px;
+
 }
 
 .hero-buttons{
@@ -270,6 +321,7 @@ display:flex;
 gap:16px;
 
 margin-top:34px;
+
 }
 
 .primary-btn{
@@ -285,6 +337,7 @@ border-radius:14px;
 font-weight:700;
 
 text-decoration:none;
+
 }
 
 .secondary-btn{
@@ -300,9 +353,8 @@ border-radius:14px;
 font-weight:700;
 
 text-decoration:none;
-}
 
-/* RIGHT PANEL */
+}
 
 /* RIGHT PANEL */
 
@@ -424,28 +476,11 @@ overflow:hidden;
 
 border-radius:10px;
 
-background:#0b1220;
-
-border:1px solid rgba(255,255,255,0.04);
-
-}
-
-/* GREEN + RED CHART */
-
-.green-chart,
-.red-chart{
-
 background:#081018;
 
-position:relative;
-
-overflow:hidden;
-
-border-radius:10px;
-
 }
 
-/* GREEN LINE */
+/* CHARTS */
 
 .green-chart::before{
 
@@ -467,8 +502,6 @@ animation:chartMove 2s ease-in-out infinite;
 
 }
 
-/* RED LINE */
-
 .red-chart::before{
 
 content:"";
@@ -488,8 +521,6 @@ filter:drop-shadow(0 0 8px rgba(255,77,77,0.7));
 animation:chartMove 2s ease-in-out infinite;
 
 }
-
-/* GREEN GLOW */
 
 .green-chart::after{
 
@@ -511,8 +542,6 @@ rgba(0,255,153,0.18)
 
 }
 
-/* RED GLOW */
-
 .red-chart::after{
 
 content:"";
@@ -532,8 +561,6 @@ rgba(255,77,77,0.18)
 );
 
 }
-
-/* ANIMATION */
 
 @keyframes chartMove{
 
@@ -562,6 +589,7 @@ display:grid;
 grid-template-columns:repeat(5,1fr);
 
 gap:18px;
+
 }
 
 .feature-card{
@@ -573,6 +601,7 @@ padding:18px;
 border-radius:18px;
 
 border:1px solid rgba(255,255,255,0.05);
+
 }
 
 .feature-card h3{
@@ -582,6 +611,7 @@ font-size:16px;
 margin-top:10px;
 
 margin-bottom:8px;
+
 }
 
 .feature-card p{
@@ -591,6 +621,7 @@ font-size:13px;
 color:#94a3b8;
 
 line-height:1.6;
+
 }
 
 /* RESPONSIVE */
@@ -633,231 +664,96 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- TOP BAR -->
+<!-- TOPBAR -->
+
 <div class="topbar">
 
-<!-- NIFTY -->
-
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-🇮🇳
-</div>
-
+<div class="flag-india">🇮🇳</div>
 <div>
-
 <h3>NIFTY50</h3>
-
-<h2 id="topNifty">
-23,944.65
-</h2>
-
-<p class="green" id="topNiftyChange">
-225.35 (0.95%)
-</p>
-
+<h2 id="topNifty">Loading</h2>
+<p class="green" id="topNiftyChange">Live</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- BANKNIFTY -->
 
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-🏦
-</div>
-
+<div class="flag-india">🏦</div>
 <div>
-
 <h3>NIFTYBANK</h3>
-
-<h2 id="topBank">
-54,934.10
-</h2>
-
-<p class="green" id="topBankChange">
-878.75 (1.63%)
-</p>
-
+<h2 id="topBank">Loading</h2>
+<p class="green" id="topBankChange">Live</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- SENSEX -->
 
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-📊
-</div>
-
+<div class="flag-india">📊</div>
 <div>
-
 <h3>SENSEX</h3>
-
-<h2 id="topSensex">
-78,512.40
-</h2>
-
-<p class="green" id="topSensexChange">
-902.20 (1.16%)
-</p>
-
+<h2 id="topSensex">Loading</h2>
+<p class="green" id="topSensexChange">Live</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- NIFTY IT -->
 
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-💻
-</div>
-
+<div class="flag-india">💻</div>
 <div>
-
 <h3>NIFTY IT</h3>
-
-<h2 id="topIT">
-35,124.45
-</h2>
-
-<p class="green" id="topITChange">
-452.60 (1.30%)
-</p>
-
+<h2 id="topIT">Loading</h2>
+<p class="green" id="topITChange">Live</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- BRENT -->
 
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-🛢️
-</div>
-
+<div class="flag-india">🛢️</div>
 <div>
-
 <h3>BRENT</h3>
-
-<h2 id="topBrent">
-81.62
-</h2>
-
-<p class="green">
-▲ LIVE
-</p>
-
+<h2 id="topBrent">Loading</h2>
+<p class="green">▲ LIVE</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- DXY -->
 
 <div class="top-card">
-
 <div class="top-head">
-
-<div class="flag-india">
-💵
-</div>
-
+<div class="flag-india">💵</div>
 <div>
-
 <h3>DXY</h3>
-
-<h2 id="topDxy">
-104.37
-</h2>
-
-<p class="green">
-▲ LIVE
-</p>
-
+<h2 id="topDxy">Loading</h2>
+<p class="green">▲ LIVE</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- GOLD -->
 
 <div class="top-card redline">
-
 <div class="top-head">
-
-<div class="flag-india">
-🪙
-</div>
-
+<div class="flag-india">🪙</div>
 <div>
-
 <h3>GOLD</h3>
-
-<h2 id="topGold">
-2335.45
-</h2>
-
-<p class="red">
-▼ LIVE
-</p>
-
+<h2 id="topGold">Loading</h2>
+<p class="red">▼ LIVE</p>
 </div>
-
 </div>
-
 </div>
-
-<!-- INDIA VIX -->
 
 <div class="top-card redline">
-
 <div class="top-head">
-
-<div class="flag-india">
-🇮🇳
-</div>
-
+<div class="flag-india">🇮🇳</div>
 <div>
-
 <h3>INDIA VIX</h3>
-
-<h2 id="topVix">
-13.42
-</h2>
-
-<p class="red">
-▼ LIVE
-</p>
-
+<h2 id="topVix">Loading</h2>
+<p class="red">▼ LIVE</p>
 </div>
-
 </div>
-
 </div>
 
 </div>
@@ -871,7 +767,6 @@ grid-template-columns:1fr;
 </div>
 
 <div class="nav-links">
-
 <a href="/index.html">Home</a>
 <a href="/signals.html">Signals</a>
 <a href="/dashboard.html">Dashboard</a>
@@ -879,7 +774,6 @@ grid-template-columns:1fr;
 <a href="/option-chain.html">Option Chain</a>
 <a href="/alerts.html">Alerts</a>
 <a href="/premium.html">Premium</a>
-
 </div>
 
 <a href="#" class="login-btn">
@@ -911,145 +805,68 @@ market prediction.
 </p>
 
 <div class="hero-buttons">
-
-<a href="#" class="primary-btn">
-Get Started
-</a>
-
-<a href="#" class="secondary-btn">
-Live Option Chain
-</a>
-
+<a href="#" class="primary-btn">Get Started</a>
+<a href="#" class="secondary-btn">Live Option Chain</a>
 </div>
 
 </div>
+
 <!-- RIGHT PANEL -->
 
 <div class="side-panel">
 
 <div class="market-mini-card">
-
 <div class="mini-left">
-
 <div class="mini-icon">🛢️</div>
-
 <div>
-
 <h3>BRENT CRUDE</h3>
-
 <h2 id="brentPrice">Loading</h2>
-
-<p class="green">
-▲ Live
-</p>
-
+<p class="green">▲ Live</p>
 </div>
-
 </div>
-
 <div class="mini-chart green-chart"></div>
-
 </div>
 
 <div class="market-mini-card">
-
 <div class="mini-left">
-
 <div class="mini-icon">💵</div>
-
 <div>
-
 <h3>DOLLAR INDEX</h3>
-
 <h2 id="dxyPrice">Loading</h2>
-
-<p class="green">
-▲ Live
-</p>
-
+<p class="green">▲ Live</p>
 </div>
-
 </div>
-
 <div class="mini-chart green-chart"></div>
-
 </div>
 
 <div class="market-mini-card">
-
 <div class="mini-left">
-
 <div class="mini-icon">🪙</div>
-
 <div>
-
 <h3>GOLD (XAU/USD)</h3>
-
 <h2 id="goldPrice">Loading</h2>
-
-<p class="red">
-▼ Live
-</p>
-
+<p class="red">▼ Live</p>
 </div>
-
 </div>
-
 <div class="mini-chart red-chart"></div>
-
 </div>
 
 <div class="market-mini-card">
-
 <div class="mini-left">
-
 <div class="mini-icon">🇮🇳</div>
-
 <div>
-
 <h3>INDIA VIX</h3>
-
 <h2 id="vixPrice">Loading</h2>
-
-<p class="red">
-▼ Live
-</p>
-
+<p class="red">▼ Live</p>
 </div>
-
 </div>
-
 <div class="mini-chart red-chart"></div>
-
-</div>
-
-<div class="market-mini-card">
-
-<div class="mini-left">
-
-<div class="mini-icon">🏦</div>
-
-<div>
-
-<h3>10Y INDIA G-SEC</h3>
-
-<h2 id="gsecPrice">7.082</h2>
-
-<p class="red">
-▼ Live
-</p>
-
-</div>
-
-</div>
-
-<div class="mini-chart red-chart"></div>
-
 </div>
 
 </div>
 
 </section>
+
 <!-- FEATURES -->
 
 <section class="features">
@@ -1081,8 +898,7 @@ Live Option Chain
 
 </section>
 
-
-    <script>
+<script>
 
 async function loadLiveData(){
 
@@ -1093,14 +909,6 @@ await fetch("/api/option-chain");
 
 const data =
 await res.json();
-
-/* =========================
-TOP LIVE INDEX
-========================= */
-
-/* =========================
-TOP LIVE INDEX
-========================= */
 
 /* NIFTY */
 
@@ -1115,9 +923,6 @@ document.getElementById("topNiftyChange").innerText =
 
 /* BANKNIFTY */
 
-const bankChange =
-(data.banknifty * 0.0163);
-
 document.getElementById("topBank").innerText =
 Number(data.banknifty).toLocaleString("en-IN",{
 minimumFractionDigits:2,
@@ -1125,12 +930,9 @@ maximumFractionDigits:2
 });
 
 document.getElementById("topBankChange").innerText =
-`${bankChange.toFixed(2)} (1.63%)`;
+"LIVE";
 
 /* SENSEX */
-
-const sensexChange =
-(data.sensex * 0.0116);
 
 document.getElementById("topSensex").innerText =
 Number(data.sensex).toLocaleString("en-IN",{
@@ -1139,12 +941,9 @@ maximumFractionDigits:2
 });
 
 document.getElementById("topSensexChange").innerText =
-`${sensexChange.toFixed(2)} (1.16%)`;
+"LIVE";
 
 /* NIFTY IT */
-
-const itChange =
-(data.niftyIT * 0.0130);
 
 document.getElementById("topIT").innerText =
 Number(data.niftyIT).toLocaleString("en-IN",{
@@ -1153,11 +952,23 @@ maximumFractionDigits:2
 });
 
 document.getElementById("topITChange").innerText =
-`${itChange.toFixed(2)} (1.30%)`;
+"LIVE";
 
-/* =========================
-LIVE GLOBAL MARKETS
-========================= */
+/* GLOBAL */
+
+document.getElementById("topBrent").innerText =
+data.brent.toFixed(2);
+
+document.getElementById("topDxy").innerText =
+data.dxy.toFixed(2);
+
+document.getElementById("topGold").innerText =
+data.gold.toFixed(2);
+
+document.getElementById("topVix").innerText =
+data.indiaVix.toFixed(2);
+
+/* SIDE */
 
 document.getElementById("brentPrice").innerText =
 data.brent.toFixed(2);
@@ -1170,61 +981,6 @@ data.gold.toFixed(2);
 
 document.getElementById("vixPrice").innerText =
 data.indiaVix.toFixed(2);
-/* =========================
-TOP GLOBAL LIVE
-========================= */
-
-const topBrent =
-document.getElementById("topBrent");
-
-topBrent.innerText =
-data.brent.toFixed(2);
-
-topBrent.style.color =
-"#00ff99";
-
-const topDxy =
-document.getElementById("topDxy");
-
-topDxy.innerText =
-data.dxy.toFixed(2);
-
-topDxy.style.color =
-"#00ff99";
-
-const topGold =
-document.getElementById("topGold");
-
-topGold.innerText =
-data.gold.toFixed(2);
-
-topGold.style.color =
-"#ff4d4d";
-
-const topVix =
-document.getElementById("topVix");
-
-topVix.innerText =
-data.indiaVix.toFixed(2);
-
-topVix.style.color =
-"#ff4d4d";
-
-/* =========================
-COLOR LOGIC
-========================= */
-
-if(data.change > 0){
-
-document.getElementById("topNifty")
-.style.color = "#00ff99";
-
-}else{
-
-document.getElementById("topNifty")
-.style.color = "#ff4d4d";
-
-}
 
 }catch(err){
 
@@ -1234,18 +990,9 @@ console.log(err);
 
 }
 
-/* =========================
-LOAD FIRST
-========================= */
-
 loadLiveData();
 
-/* =========================
-AUTO REFRESH
-========================= */
-
 setInterval(loadLiveData,1000);
-
 
 </script>
 
