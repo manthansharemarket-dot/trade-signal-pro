@@ -664,7 +664,6 @@ Live Option Chain
 </div>
 
 </div>
-
 <!-- RIGHT PANEL -->
 
 <div class="side-panel">
@@ -679,9 +678,11 @@ Live Option Chain
 
 <h3>BRENT CRUDE</h3>
 
-<h2>81.62</h2>
+<h2 id="brentPrice">Loading</h2>
 
-<p class="green">▲ +0.84%</p>
+<p class="green">
+▲ Live
+</p>
 
 </div>
 
@@ -701,9 +702,11 @@ Live Option Chain
 
 <h3>DOLLAR INDEX</h3>
 
-<h2>104.37</h2>
+<h2 id="dxyPrice">Loading</h2>
 
-<p class="green">▲ +0.30%</p>
+<p class="green">
+▲ Live
+</p>
 
 </div>
 
@@ -723,9 +726,11 @@ Live Option Chain
 
 <h3>GOLD (XAU/USD)</h3>
 
-<h2>2335.45</h2>
+<h2 id="goldPrice">Loading</h2>
 
-<p class="red">▼ -0.13%</p>
+<p class="red">
+▼ Live
+</p>
 
 </div>
 
@@ -745,9 +750,11 @@ Live Option Chain
 
 <h3>INDIA VIX</h3>
 
-<h2>13.42</h2>
+<h2 id="vixPrice">Loading</h2>
 
-<p class="red">▼ -2.04%</p>
+<p class="red">
+▼ Live
+</p>
 
 </div>
 
@@ -767,9 +774,11 @@ Live Option Chain
 
 <h3>10Y INDIA G-SEC</h3>
 
-<h2>7.082</h2>
+<h2 id="gsecPrice">7.082</h2>
 
-<p class="red">▼ -0.21%</p>
+<p class="red">
+▼ Live
+</p>
 
 </div>
 
@@ -782,7 +791,6 @@ Live Option Chain
 </div>
 
 </section>
-
 <!-- FEATURES -->
 
 <section class="features">
@@ -814,27 +822,66 @@ Live Option Chain
 
 </section>
 
-<script>
+
+    <script>
 
 async function loadLiveData(){
 
 try{
 
-const res = await fetch("/api/option-chain");
+const res =
+await fetch("/api/option-chain");
 
-const data = await res.json();
+const data =
+await res.json();
+
+/* =========================
+TOP LIVE INDEX
+========================= */
 
 document.getElementById("topNifty").innerText =
 Math.round(data.spot);
 
 document.getElementById("topBank").innerText =
-Math.round(data.spot * 2.30);
+Math.round(data.banknifty);
 
 document.getElementById("topSensex").innerText =
-Math.round(data.spot * 3.27);
+Math.round(data.sensex);
 
 document.getElementById("topIT").innerText =
-Math.round(data.spot * 1.46);
+Math.round(data.niftyIT);
+
+/* =========================
+LIVE GLOBAL MARKETS
+========================= */
+
+document.getElementById("brentPrice").innerText =
+data.brent.toFixed(2);
+
+document.getElementById("dxyPrice").innerText =
+data.dxy.toFixed(2);
+
+document.getElementById("goldPrice").innerText =
+data.gold.toFixed(2);
+
+document.getElementById("vixPrice").innerText =
+data.indiaVix.toFixed(2);
+
+/* =========================
+COLOR LOGIC
+========================= */
+
+if(data.change > 0){
+
+document.getElementById("topNifty")
+.style.color = "#00ff99";
+
+}else{
+
+document.getElementById("topNifty")
+.style.color = "#ff4d4d";
+
+}
 
 }catch(err){
 
@@ -844,7 +891,15 @@ console.log(err);
 
 }
 
+/* =========================
+LOAD FIRST
+========================= */
+
 loadLiveData();
+
+/* =========================
+AUTO REFRESH
+========================= */
 
 setInterval(loadLiveData,5000);
 
