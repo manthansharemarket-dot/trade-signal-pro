@@ -430,7 +430,22 @@ border:1px solid rgba(255,255,255,0.04);
 
 }
 
-/* GREEN CHART */
+/* GREEN + RED CHART */
+
+.green-chart,
+.red-chart{
+
+background:#081018;
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:10px;
+
+}
+
+/* GREEN LINE */
 
 .green-chart::before{
 
@@ -440,17 +455,19 @@ position:absolute;
 
 inset:0;
 
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,34 10,30 20,32 30,20 40,24 50,12 60,18 70,8 80,14 90,4' fill='none' stroke='%2300ff99' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,34 10,30 20,32 30,20 40,24 50,12 60,18 70,8 80,14 90,4' fill='none' stroke='%2300ff99' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
 background-size:100% 100%;
 
 background-repeat:no-repeat;
 
-opacity:0.95;
+filter:drop-shadow(0 0 8px rgba(0,255,153,0.7));
+
+animation:chartMove 2s ease-in-out infinite;
 
 }
 
-/* RED CHART */
+/* RED LINE */
 
 .red-chart::before{
 
@@ -460,17 +477,19 @@ position:absolute;
 
 inset:0;
 
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,8 10,12 20,10 30,18 40,16 50,24 60,22 70,30 80,28 90,38' fill='none' stroke='%23ff4d4d' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,8 10,12 20,10 30,18 40,16 50,24 60,22 70,30 80,28 90,38' fill='none' stroke='%23ff4d4d' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 
 background-size:100% 100%;
 
 background-repeat:no-repeat;
 
-opacity:0.95;
+filter:drop-shadow(0 0 8px rgba(255,77,77,0.7));
+
+animation:chartMove 2s ease-in-out infinite;
 
 }
 
-/* GLOW */
+/* GREEN GLOW */
 
 .green-chart::after{
 
@@ -482,15 +501,17 @@ left:0;
 right:0;
 bottom:0;
 
-height:50%;
+height:55%;
 
 background:linear-gradient(
 180deg,
 transparent,
-rgba(0,255,153,0.10)
+rgba(0,255,153,0.18)
 );
 
 }
+
+/* RED GLOW */
 
 .red-chart::after{
 
@@ -502,28 +523,34 @@ left:0;
 right:0;
 bottom:0;
 
-height:50%;
+height:55%;
 
 background:linear-gradient(
 180deg,
 transparent,
-rgba(255,77,77,0.10)
+rgba(255,77,77,0.18)
 );
-
-
-clip-path:polygon(
-0% 20%,
-15% 40%,
-30% 30%,
-45% 60%,
-60% 50%,
-75% 80%,
-100% 100%
-);
-
-opacity:0.9;
 
 }
+
+/* ANIMATION */
+
+@keyframes chartMove{
+
+0%{
+transform:translateX(0px);
+}
+
+50%{
+transform:translateX(2px);
+}
+
+100%{
+transform:translateX(0px);
+}
+
+}
+
 /* FEATURES */
 
 .features{
@@ -997,7 +1024,7 @@ loadLiveData();
 AUTO REFRESH
 ========================= */
 
-setInterval(loadLiveData,5000);
+setInterval(loadLiveData,1000);
 
 
 </script>
