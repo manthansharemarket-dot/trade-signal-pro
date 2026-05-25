@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>MSM PRO - LIVE OPTION CHAIN</title>
+<title>MSM PRO AI TERMINAL</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -22,246 +22,479 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
+
 background:#020617;
 color:white;
 overflow-x:hidden;
-padding:20px;
+
+background-image:
+radial-gradient(circle at top left,#00ff9920,transparent 30%),
+radial-gradient(circle at bottom right,#3b82f620,transparent 30%);
+
 }
 
-/* HEADER */
+/* NAVBAR */
 
-.header{
-background:linear-gradient(135deg,#0f172a,#111827);
-padding:30px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.08);
-margin-bottom:25px;
+.navbar{
+
+position:sticky;
+top:0;
+z-index:999;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+padding:18px 4%;
+
+background:rgba(2,6,23,0.8);
+
+backdrop-filter:blur(20px);
+
+border-bottom:1px solid rgba(255,255,255,0.06);
+
 }
 
-/* LIVE */
+.logo{
+
+font-size:34px;
+font-weight:800;
+color:#00ff99;
+
+}
 
 .liveBadge{
+
 display:flex;
 align-items:center;
 gap:10px;
-font-weight:bold;
+
+padding:10px 18px;
+
+border-radius:50px;
+
+background:#00ff9920;
+
 color:#00ff99;
+
+font-weight:700;
+
 }
 
-.liveDot{
-width:12px;
-height:12px;
-background:#00ff99;
+.dot{
+
+width:10px;
+height:10px;
+
 border-radius:50%;
+
+background:#00ff99;
+
 animation:blink 1s infinite;
+
 }
 
 @keyframes blink{
+
 50%{
-opacity:0.3;
-}
-}
-
-/* SELECT */
-
-select{
-background:#111827;
-color:white;
-padding:14px 18px;
-border-radius:14px;
-border:1px solid rgba(255,255,255,0.1);
-outline:none;
-font-size:16px;
+opacity:0.2;
 }
 
-/* BUTTON */
-
-.btn{
-background:#00ff99;
-color:black;
-padding:14px 24px;
-border:none;
-border-radius:14px;
-font-weight:bold;
-cursor:pointer;
-transition:0.3s;
 }
 
-.btn:hover{
-transform:scale(1.04);
-}
+/* HERO */
 
-/* GRID */
+.hero{
 
-.gridBox{
+padding:40px 4%;
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-top:25px;
+
+grid-template-columns:1.3fr 0.7fr;
+
+gap:25px;
+
 }
 
-/* CARD */
+.glass{
 
-.card{
-background:#111827;
-padding:25px;
+background:rgba(255,255,255,0.04);
+
+border:1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:28px;
+
+}
+
+/* LEFT */
+
+.left{
+
+padding:28px;
+
+}
+
+.title{
+
+font-size:58px;
+font-weight:800;
+line-height:1.1;
+
+}
+
+.gradient{
+
+background:linear-gradient(to right,#00ff99,#38bdf8);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.subtitle{
+
+margin-top:18px;
+
+font-size:18px;
+
+line-height:1.8;
+
+color:#94a3b8;
+
+}
+
+/* STATS */
+
+.stats{
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+gap:18px;
+
+margin-top:30px;
+
+}
+
+.stat{
+
+padding:22px;
+
 border-radius:22px;
+
+background:#0f172a;
+
 border:1px solid rgba(255,255,255,0.06);
-text-align:center;
+
 }
 
-.label{
-color:#9ca3af;
-font-size:15px;
+.stat p{
+
+font-size:13px;
+color:#94a3b8;
+
 }
 
-.value{
-font-size:38px;
-font-weight:bold;
+.stat h2{
+
 margin-top:12px;
-}
 
-/* COLORS */
+font-size:34px;
+
+font-weight:700;
+
+}
 
 .green{
 color:#00ff99;
 }
 
 .red{
-color:#ff4d4d;
+color:#ff4d6d;
 }
 
 .yellow{
-color:#ffd60a;
+color:#ffd166;
 }
 
 .blue{
-color:#4dabff;
+color:#38bdf8;
 }
 
-/* SIGNAL */
+/* CHART */
 
-.signalBox{
-margin-top:30px;
-padding:35px;
-border-radius:25px;
-text-align:center;
-animation:fade 0.5s ease;
+.chartBox{
+
+margin-top:28px;
+
+padding:18px;
+
+border-radius:24px;
+
+background:#0f172a;
+
+border:1px solid rgba(255,255,255,0.06);
+
+overflow:hidden;
+
 }
 
-.buyBox{
-background:rgba(0,255,153,0.12);
-border:2px solid #00ff99;
+iframe{
+
+width:100%;
+height:520px;
+border:none;
+border-radius:18px;
+
 }
 
-.sellBox{
-background:rgba(255,0,0,0.12);
-border:2px solid #ff4d4d;
+/* RIGHT */
+
+.right{
+
+display:flex;
+flex-direction:column;
+gap:22px;
+
 }
 
-.sidewaysBox{
-background:rgba(255,255,0,0.08);
-border:2px solid #ffd60a;
+/* AI PANEL */
+
+.aiPanel{
+
+padding:28px;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.aiPanel::before{
+
+content:"";
+
+position:absolute;
+
+width:300px;
+height:300px;
+
+background:#00ff9920;
+
+filter:blur(120px);
+
+top:-100px;
+right:-100px;
+
+}
+
+.aiTitle{
+
+font-size:18px;
+color:#94a3b8;
+
 }
 
 .bigSignal{
+
 font-size:60px;
+
 font-weight:800;
+
+margin-top:15px;
+
+line-height:1;
+
 }
 
-.signalSub{
-margin-top:12px;
-font-size:20px;
+.confidence{
+
+margin-top:14px;
+
+font-size:18px;
+
 }
 
-/* TRADE PANEL */
+.meter{
 
-.tradePanel{
-margin-top:25px;
-background:#111827;
-padding:25px;
+margin-top:18px;
+
+height:14px;
+
 border-radius:20px;
-border:1px solid rgba(255,255,255,0.06);
+
+background:#111827;
+
+overflow:hidden;
+
 }
 
-.tradeTitle{
-font-size:32px;
-font-weight:bold;
-margin-bottom:20px;
+.fill{
+
+height:100%;
+
+width:92%;
+
+background:linear-gradient(to right,#00ff99,#38bdf8);
+
+animation:grow 2s ease;
+
 }
 
-.tradeRow{
+@keyframes grow{
+
+from{
+width:0%;
+}
+
+}
+
+/* FLOW */
+
+.flow{
+
+padding:25px;
+
+}
+
+.flow h2{
+
+font-size:28px;
+
+margin-bottom:18px;
+
+font-weight:700;
+
+}
+
+.flowRow{
+
 display:flex;
+
 justify-content:space-between;
+
 padding:14px 0;
+
 border-bottom:1px solid rgba(255,255,255,0.06);
+
 }
 
 /* TABLE */
 
 .tableWrap{
-margin-top:30px;
-background:#111827;
-padding:25px;
-border-radius:22px;
-border:1px solid rgba(255,255,255,0.06);
+
+padding:0 4% 80px;
+
+}
+
+.tableBox{
+
+padding:30px;
+
 overflow:auto;
+
 }
 
 table{
+
 width:100%;
+
 border-collapse:collapse;
+
 margin-top:20px;
+
 }
 
 th,td{
+
 padding:16px;
+
 text-align:center;
+
 border-bottom:1px solid rgba(255,255,255,0.06);
+
 }
 
 th{
+
 background:#00ff99;
+
 color:black;
-font-weight:bold;
-}
 
-.atmRow{
-background:rgba(0,255,153,0.08);
-}
+font-weight:700;
 
-/* LOADER */
-
-.loader{
-position:fixed;
+position:sticky;
 top:0;
-left:0;
-width:100%;
-height:100vh;
-background:#020617;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:34px;
-font-weight:bold;
-color:#00ff99;
-z-index:9999;
+
 }
 
-/* MOBILE */
+.atm{
+
+background:rgba(0,255,153,0.08);
+
+}
+
+/* HEATMAP */
+
+.heatmap{
+
+margin-top:30px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+
+gap:14px;
+
+}
+
+.heat{
+
+padding:18px;
+
+border-radius:18px;
+
+text-align:center;
+
+font-weight:700;
+
+}
+
+.bull{
+background:#00ff9920;
+border:1px solid #00ff99;
+}
+
+.bear{
+background:#ff4d6d20;
+border:1px solid #ff4d6d;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.stats{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
 
 @media(max-width:700px){
 
-.bigSignal{
-font-size:38px;
+.title{
+font-size:42px;
 }
 
-.value{
-font-size:28px;
-}
-
-.tradeTitle{
-font-size:24px;
+.stats{
+grid-template-columns:1fr;
 }
 
 }
@@ -272,144 +505,224 @@ font-size:24px;
 
 <body>
 
-<!-- LOADER -->
+<!-- NAVBAR -->
 
-<div class="loader" id="loader">
-🚀 MSM PRO LIVE
-</div>
+<div class="navbar">
 
-<!-- HEADER -->
-
-<div class="header">
-
-<div class="flex justify-between items-center flex-wrap gap-4">
-
-<div>
-
-<h1 class="text-5xl font-bold green">
+<div class="logo">
 📈 MSM PRO
-</h1>
-
-<p class="text-gray-400 mt-3">
-Realtime AI Option Chain Dashboard
-</p>
-
 </div>
 
 <div class="liveBadge">
 
-<div class="liveDot"></div>
+<div class="dot"></div>
 
-LIVE MARKET
-
-</div>
-
-</div>
-
-<div class="mt-8 flex gap-4 flex-wrap">
-
-<select id="indexSelect">
-
-<option value="NIFTY">NIFTY 50</option>
-
-<option value="BANKNIFTY">BANK NIFTY</option>
-
-<option value="FINNIFTY">FIN NIFTY</option>
-
-<option value="MIDCPNIFTY">MIDCAP NIFTY</option>
-
-<option value="SENSEX">SENSEX</option>
-
-<option value="NIFTYIT">NIFTY IT</option>
-
-</select>
-
-<button
-onclick="loadOptionChain()"
-class="btn">
-
-LOAD LIVE DATA
-
-</button>
-
-</div>
-
-<!-- SIGNAL -->
-
-<div id="signalContainer"></div>
-
-<!-- INFO -->
-
-<div class="gridBox">
-
-<div class="card">
-
-<div class="label">
-LIVE PRICE
-</div>
-
-<div class="value green" id="livePrice">
---
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="label">
-ATM STRIKE
-</div>
-
-<div class="value yellow" id="atmStrike">
---
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="label">
-PCR
-</div>
-
-<div class="value blue" id="pcrValue">
---
-</div>
-
-</div>
-
-<div class="card">
-
-<div class="label">
-TREND
-</div>
-
-<div class="value" id="trendValue">
---
-</div>
+LIVE AI TERMINAL
 
 </div>
 
 </div>
 
-<!-- TRADE -->
+<!-- HERO -->
 
-<div id="tradePanel"></div>
+<div class="hero">
+
+<!-- LEFT -->
+
+<div class="left glass">
+
+<h1 class="title">
+
+Institutional <span class="gradient">AI Option Chain</span>
+
+</h1>
+
+<p class="subtitle">
+
+Realtime AI Signal Engine + Smart Money Flow +
+Institutional PCR + OI Analytics + Advanced Quant Dashboard.
+
+</p>
+
+<!-- STATS -->
+
+<div class="stats">
+
+<div class="stat">
+<p>NIFTY</p>
+<h2 class="green" id="spot">
+Loading
+</h2>
+</div>
+
+<div class="stat">
+<p>PCR</p>
+<h2 class="blue" id="pcr">
+1.12
+</h2>
+</div>
+
+<div class="stat">
+<p>AI CONFIDENCE</p>
+<h2 class="yellow" id="confidence">
+92%
+</h2>
+</div>
+
+<div class="stat">
+<p>TREND</p>
+<h2 class="green" id="trend">
+BULLISH
+</h2>
+</div>
 
 </div>
 
-<!-- TABLE -->
+<!-- LIVE CHART -->
+
+<div class="chartBox">
+
+<iframe
+src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview&symbol=NSE:NIFTY&interval=5&theme=dark&style=1&toolbarbg=1f2937&hide_top_toolbar=false&save_image=false">
+</iframe>
+
+</div>
+
+<!-- HEATMAP -->
+
+<div class="heatmap">
+
+<div class="heat bull">
+RELIANCE +2.3%
+</div>
+
+<div class="heat bear">
+HDFC -1.1%
+</div>
+
+<div class="heat bull">
+INFY +0.9%
+</div>
+
+<div class="heat bull">
+ICICI +1.8%
+</div>
+
+<div class="heat bear">
+TCS -0.5%
+</div>
+
+<div class="heat bull">
+SBIN +2.1%
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="right">
+
+<!-- AI SIGNAL -->
+
+<div class="aiPanel glass">
+
+<div class="aiTitle">
+
+AI SIGNAL ENGINE
+
+</div>
+
+<div class="bigSignal green" id="signal">
+
+BUY CALL
+
+</div>
+
+<div class="confidence">
+
+92% Institutional Confidence
+
+</div>
+
+<div class="meter">
+
+<div class="fill"></div>
+
+</div>
+
+</div>
+
+<!-- SMART MONEY -->
+
+<div class="flow glass">
+
+<h2 class="green">
+
+🧠 SMART MONEY FLOW
+
+</h2>
+
+<div class="flowRow">
+<div>FII FLOW</div>
+<div class="green">+ ₹1,245 Cr</div>
+</div>
+
+<div class="flowRow">
+<div>DII FLOW</div>
+<div class="red">- ₹512 Cr</div>
+</div>
+
+<div class="flowRow">
+<div>PUT WRITING</div>
+<div class="green">Strong</div>
+</div>
+
+<div class="flowRow">
+<div>OI BUILDUP</div>
+<div class="yellow">Long Build-up</div>
+</div>
+
+<div class="flowRow">
+<div>VWAP</div>
+<div class="blue">Bullish</div>
+</div>
+
+<div class="flowRow">
+<div>MAX PAIN</div>
+<div>24000</div>
+</div>
+
+<div class="flowRow">
+<div>GAMMA ZONE</div>
+<div class="green">Positive</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- OPTION CHAIN -->
 
 <div class="tableWrap">
 
+<div class="tableBox glass">
+
 <div class="flex justify-between items-center flex-wrap gap-4">
 
-<h2 class="text-3xl font-bold green">
+<h2 class="text-4xl font-bold green">
+
 📊 LIVE OPTION CHAIN
+
 </h2>
 
 <div class="yellow font-bold">
-AUTO REFRESH 10 SEC
+
+AUTO REFRESH 2 SEC
+
 </div>
 
 </div>
@@ -430,7 +743,7 @@ AUTO REFRESH 10 SEC
 
 </thead>
 
-<tbody id="optionData">
+<tbody id="optionBody">
 
 </tbody>
 
@@ -438,284 +751,40 @@ AUTO REFRESH 10 SEC
 
 </div>
 
-<!-- SCRIPT -->
+</div>
 
 <script>
 
-/* =========================================
-LOADER
-========================================= */
-
-window.onload = ()=>{
-
-setTimeout(()=>{
-
-document.getElementById("loader").style.display = "none";
-
-},1200);
-
-};
-
-
-
-/* =========================================
-LOAD LIVE DATA
-========================================= */
-
-async function loadOptionChain(){
+async function loadData(){
 
 try{
 
-const selectedIndex =
-document.getElementById("indexSelect").value;
+const res =
+await fetch("/api/option-chain");
 
+const data =
+await res.json();
 
+/* STATS */
 
-/* =====================================
-LIVE API
-===================================== */
+document.getElementById("spot").innerText =
+Number(data.spot).toLocaleString("en-IN",{
+maximumFractionDigits:2
+});
 
-const response = await fetch(
-
-`/api/option-chain?index=${selectedIndex}`
-
-);
-
-const data = await response.json();
-
-
-
-/* =====================================
-ERROR
-===================================== */
-
-if(data.error){
-
-console.log(data.error);
-
-return;
-
-}
-
-
-
-/* =====================================
-LIVE PRICE
-===================================== */
-
-document.getElementById("livePrice").innerHTML =
-
-Number(data.spot).toLocaleString();
-
-
-
-/* =====================================
-ATM
-===================================== */
-
-document.getElementById("atmStrike").innerHTML =
-
-data.atm;
-
-
-
-/* =====================================
-PCR
-===================================== */
-
-document.getElementById("pcrValue").innerHTML =
-
+document.getElementById("pcr").innerText =
 data.finalPCR;
 
+document.getElementById("confidence").innerText =
+data.confidence;
 
+document.getElementById("trend").innerText =
+data.finalSignal;
 
-/* =====================================
-TREND
-===================================== */
+document.getElementById("signal").innerText =
+data.finalSignal;
 
-let trend = "SIDEWAYS";
-
-let trendColor = "yellow";
-
-if(data.finalSignal === "BUY CALL"){
-
-trend = "BULLISH";
-trendColor = "#00ff99";
-
-}
-
-else if(data.finalSignal === "BUY PUT"){
-
-trend = "BEARISH";
-trendColor = "#ff4d4d";
-
-}
-
-document.getElementById("trendValue").innerHTML =
-
-`<span style="color:${trendColor}">
-${trend}
-</span>`;
-
-
-/* =====================================
-SIGNAL STYLE
-===================================== */
-
-let signalClass = "sidewaysBox";
-
-let signalColor = "#ffd60a";
-
-if(data.finalSignal === "BUY CALL"){
-
-signalClass = "buyBox";
-signalColor = "#00ff99";
-
-}
-
-else if(data.finalSignal === "BUY PUT"){
-
-signalClass = "sellBox";
-signalColor = "#ff4d4d";
-
-}
-
-
-
-/* =====================================
-SIGNAL BOX
-===================================== */
-
-document.getElementById("signalContainer").innerHTML = `
-
-<div class="signalBox ${signalClass}">
-
-<div class="bigSignal"
-style="color:${signalColor}">
-
-${data.finalSignal}
-
-</div>
-
-<div class="signalSub">
-
-Realtime AI Trading Signal
-
-</div>
-
-<div class="signalSub">
-
-Live Market + AI Engine + PCR Analysis
-
-</div>
-
-</div>
-
-`;
-
-
-
-/* =====================================
-TRADE PANEL
-===================================== */
-
-document.getElementById("tradePanel").innerHTML = `
-
-<div class="tradePanel">
-
-<div class="tradeTitle">
-
-🎯 LIVE TRADE SETUP
-
-</div>
-
-<div class="tradeRow">
-
-<div>Signal</div>
-
-<div style="
-color:${signalColor};
-font-weight:bold">
-
-${data.finalSignal}
-
-</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>ATM Strike</div>
-
-<div>${data.atm}</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>Entry</div>
-
-<div>₹ ${data.entry}</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>Stop Loss</div>
-
-<div class="red">
-
-₹ ${data.sl}
-
-</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>Target 1</div>
-
-<div class="green">
-
-₹ ${data.target1}
-
-</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>Target 2</div>
-
-<div class="green">
-
-₹ ${data.target2}
-
-</div>
-
-</div>
-
-<div class="tradeRow">
-
-<div>Confidence</div>
-
-<div>
-
-${data.confidence}
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-
-
-/* =====================================
-OPTION TABLE
-===================================== */
+/* OPTION CHAIN */
 
 let html = "";
 
@@ -723,26 +792,23 @@ data.chain.forEach((item)=>{
 
 html += `
 
-<tr class="
-${item.strike == data.atm
-?'atmRow'
-:''}">
+<tr class="${
+item.strike == data.atm
+?'atm'
+:''
+}">
 
-<td>
-${item.strike}
-</td>
+<td>${item.strike}</td>
 
-<td>
+<td class="green">
 ${Number(item.ceOI).toLocaleString()}
 </td>
 
-<td>
+<td class="red">
 ${Number(item.peOI).toLocaleString()}
 </td>
 
-<td>
-${item.pcr}
-</td>
+<td>${item.pcr}</td>
 
 <td>
 
@@ -772,10 +838,8 @@ item.signal === "SELL"
 
 });
 
-document.getElementById("optionData").innerHTML =
+document.getElementById("optionBody").innerHTML =
 html;
-
-
 
 }catch(err){
 
@@ -785,24 +849,11 @@ console.log(err);
 
 }
 
+loadData();
 
-
-/* =========================================
-INITIAL LOAD
-========================================= */
-
-loadOptionChain();
-
-
-
-/* =========================================
-AUTO REFRESH
-========================================= */
-
-setInterval(loadOptionChain,10000);
+setInterval(loadData,2000);
 
 </script>
 
 </body>
-
 </html>
