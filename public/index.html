@@ -20,11 +20,9 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-
 background:#020617;
 color:white;
 overflow-x:hidden;
-
 }
 
 /* TOP BAR */
@@ -35,7 +33,7 @@ width:100%;
 
 background:#06111f;
 
-padding:10px 14px;
+padding:8px 10px;
 
 display:flex;
 
@@ -43,12 +41,12 @@ gap:10px;
 
 overflow-x:auto;
 
-border-bottom:1px solid rgba(255,255,255,0.06);
+border-bottom:1px solid rgba(255,255,255,0.05);
 
 }
 
 .topbar::-webkit-scrollbar{
-height:4px;
+height:3px;
 }
 
 .topbar::-webkit-scrollbar-thumb{
@@ -58,30 +56,60 @@ border-radius:20px;
 
 .top-card{
 
-min-width:150px;
+min-width:140px;
 
 background:#0f172a;
 
-padding:10px 14px;
+padding:10px 12px;
 
 border-radius:12px;
 
 border:1px solid rgba(255,255,255,0.06);
 
+position:relative;
+
+overflow:hidden;
+
+}
+
+.top-card::after{
+
+content:"";
+
+position:absolute;
+
+width:120%;
+
+height:2px;
+
+background:#00ff99;
+
+bottom:8px;
+
+left:-10%;
+
+transform:rotate(-4deg);
+
+opacity:0.8;
+
+}
+
+.top-card.redline::after{
+background:#ff4d4d;
 }
 
 .top-card h3{
 
-font-size:11px;
+font-size:10px;
 
 color:#94a3b8;
 
-margin-bottom:4px;
+margin-bottom:5px;
 }
 
 .top-card h2{
 
-font-size:24px;
+font-size:22px;
 
 font-weight:700;
 
@@ -90,7 +118,7 @@ color:#00ff99;
 
 .top-card p{
 
-font-size:12px;
+font-size:11px;
 
 margin-top:4px;
 }
@@ -120,7 +148,7 @@ border-bottom:1px solid rgba(255,255,255,0.05);
 
 .logo{
 
-font-size:28px;
+font-size:30px;
 
 font-weight:800;
 
@@ -130,7 +158,7 @@ color:#00ff99;
 .nav-links{
 
 display:flex;
-gap:28px;
+gap:26px;
 }
 
 .nav-links a{
@@ -139,7 +167,7 @@ text-decoration:none;
 
 color:white;
 
-font-size:15px;
+font-size:14px;
 
 font-weight:600;
 
@@ -170,21 +198,23 @@ text-decoration:none;
 
 .hero{
 
-padding:50px 6%;
+padding:55px 6%;
 
-display:flex;
+display:grid;
 
-justify-content:space-between;
-align-items:flex-start;
+grid-template-columns:1.2fr 0.8fr;
 
 gap:40px;
+
+align-items:center;
+
 }
 
 /* LEFT */
 
 .hero-left{
 
-flex:1;
+max-width:760px;
 }
 
 .badge{
@@ -195,26 +225,26 @@ padding:10px 18px;
 
 background:rgba(0,255,153,0.08);
 
-border:1px solid rgba(0,255,153,0.25);
+border:1px solid rgba(0,255,153,0.2);
 
 border-radius:40px;
 
 color:#00ff99;
 
-font-size:14px;
+font-size:13px;
 
-margin-bottom:28px;
+margin-bottom:26px;
 }
 
 .hero-left h1{
 
-font-size:76px;
+font-size:74px;
 
 line-height:1.05;
 
 font-weight:800;
 
-margin-bottom:24px;
+margin-bottom:22px;
 }
 
 .hero-left h1 span{
@@ -224,27 +254,27 @@ color:#00ff99;
 
 .hero-left p{
 
-font-size:20px;
+font-size:18px;
 
-line-height:1.8;
+line-height:1.9;
 
 color:#cbd5e1;
 
-max-width:720px;
+max-width:700px;
 }
 
 .hero-buttons{
 
 display:flex;
 
-gap:18px;
+gap:16px;
 
-margin-top:36px;
+margin-top:34px;
 }
 
 .primary-btn{
 
-padding:18px 30px;
+padding:16px 28px;
 
 background:#00ff99;
 
@@ -259,7 +289,7 @@ text-decoration:none;
 
 .secondary-btn{
 
-padding:18px 30px;
+padding:16px 28px;
 
 border:1px solid #00ff99;
 
@@ -276,58 +306,165 @@ text-decoration:none;
 
 .side-panel{
 
-width:320px;
-
 display:flex;
 
 flex-direction:column;
 
 gap:14px;
+
 }
 
-.side-card{
+.market-mini-card{
 
 background:#0f172a;
 
 border:1px solid rgba(255,255,255,0.06);
 
-padding:18px;
+padding:16px;
 
 border-radius:18px;
 
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
 transition:0.3s;
+
 }
 
-.side-card:hover{
-
-transform:translateY(-3px);
+.market-mini-card:hover{
 
 border-color:#00ff99;
+
+transform:translateY(-2px);
+
 }
 
-.side-card h3{
+.mini-left{
 
-font-size:16px;
+display:flex;
 
-margin-bottom:8px;
+align-items:center;
 
-color:#e2e8f0;
+gap:14px;
+
 }
 
-.side-card h2{
+.mini-icon{
 
-font-size:34px;
+width:44px;
+
+height:44px;
+
+border-radius:50%;
+
+background:#111827;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:18px;
+
+}
+
+.mini-left h3{
+
+font-size:12px;
+
+color:#cbd5e1;
+
+margin-bottom:5px;
+}
+
+.mini-left h2{
+
+font-size:28px;
 
 font-weight:700;
 
 color:#00ff99;
 }
 
-.side-card p{
+.mini-left p{
 
-margin-top:6px;
+font-size:12px;
+}
 
-font-size:14px;
+.mini-chart{
+
+width:80px;
+
+height:40px;
+
+position:relative;
+
+overflow:hidden;
+
+border-radius:8px;
+
+}
+
+.green-chart{
+background:
+linear-gradient(
+180deg,
+rgba(0,255,153,0.15),
+transparent
+);
+}
+
+.red-chart{
+background:
+linear-gradient(
+180deg,
+rgba(255,0,0,0.15),
+transparent
+);
+}
+
+.green-chart::before{
+
+content:"";
+
+position:absolute;
+
+width:120%;
+
+height:2px;
+
+background:#00ff99;
+
+top:50%;
+
+left:-10%;
+
+transform:rotate(-10deg);
+
+}
+
+.red-chart::before{
+
+content:"";
+
+position:absolute;
+
+width:120%;
+
+height:2px;
+
+background:#ff4d4d;
+
+top:50%;
+
+left:-10%;
+
+transform:rotate(10deg);
+
 }
 
 /* FEATURES */
@@ -356,7 +493,7 @@ border:1px solid rgba(255,255,255,0.05);
 
 .feature-card h3{
 
-font-size:17px;
+font-size:16px;
 
 margin-top:10px;
 
@@ -365,7 +502,7 @@ margin-bottom:8px;
 
 .feature-card p{
 
-font-size:14px;
+font-size:13px;
 
 color:#94a3b8;
 
@@ -377,17 +514,10 @@ line-height:1.6;
 @media(max-width:1200px){
 
 .hero{
-
-flex-direction:column;
-}
-
-.side-panel{
-
-width:100%;
+grid-template-columns:1fr;
 }
 
 .features{
-
 grid-template-columns:repeat(2,1fr);
 }
 
@@ -396,22 +526,18 @@ grid-template-columns:repeat(2,1fr);
 @media(max-width:800px){
 
 .hero-left h1{
-
-font-size:52px;
+font-size:48px;
 }
 
 .hero-left p{
-
 font-size:16px;
 }
 
 .nav-links{
-
 display:none;
 }
 
 .features{
-
 grid-template-columns:1fr;
 }
 
@@ -423,32 +549,32 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- TOP MARKET BAR -->
+<!-- TOP BAR -->
 
 <div class="topbar">
 
 <div class="top-card">
 <h3>NIFTY 50</h3>
-<h2 id="topNifty">Loading</h2>
-<p class="green">▲ Live</p>
+<h2 id="topNifty">23986</h2>
+<p class="green">▲ +1.13%</p>
 </div>
 
 <div class="top-card">
 <h3>BANKNIFTY</h3>
-<h2 id="topBank">Loading</h2>
-<p class="green">▲ Live</p>
+<h2 id="topBank">55085</h2>
+<p class="green">▲ +1.90%</p>
 </div>
 
 <div class="top-card">
 <h3>SENSEX</h3>
-<h2 id="topSensex">Loading</h2>
-<p class="green">▲ Live</p>
+<h2 id="topSensex">78512</h2>
+<p class="green">▲ +1.16%</p>
 </div>
 
 <div class="top-card">
 <h3>NIFTY IT</h3>
-<h2 id="topIT">Loading</h2>
-<p class="green">▲ Live</p>
+<h2 id="topIT">35124</h2>
+<p class="green">▲ +1.30%</p>
 </div>
 
 <div class="top-card">
@@ -463,13 +589,13 @@ grid-template-columns:1fr;
 <p class="green">▲ +0.30%</p>
 </div>
 
-<div class="top-card">
+<div class="top-card redline">
 <h3>GOLD</h3>
 <h2>2335</h2>
 <p class="red">▼ -0.13%</p>
 </div>
 
-<div class="top-card">
+<div class="top-card redline">
 <h3>INDIA VIX</h3>
 <h2>13.42</h2>
 <p class="red">▼ -2.04%</p>
@@ -543,34 +669,114 @@ Live Option Chain
 
 <div class="side-panel">
 
-<div class="side-card">
+<div class="market-mini-card">
+
+<div class="mini-left">
+
+<div class="mini-icon">🛢️</div>
+
+<div>
+
 <h3>BRENT CRUDE</h3>
+
 <h2>81.62</h2>
+
 <p class="green">▲ +0.84%</p>
+
 </div>
 
-<div class="side-card">
+</div>
+
+<div class="mini-chart green-chart"></div>
+
+</div>
+
+<div class="market-mini-card">
+
+<div class="mini-left">
+
+<div class="mini-icon">💵</div>
+
+<div>
+
 <h3>DOLLAR INDEX</h3>
+
 <h2>104.37</h2>
+
 <p class="green">▲ +0.30%</p>
+
 </div>
 
-<div class="side-card">
+</div>
+
+<div class="mini-chart green-chart"></div>
+
+</div>
+
+<div class="market-mini-card">
+
+<div class="mini-left">
+
+<div class="mini-icon">🪙</div>
+
+<div>
+
 <h3>GOLD (XAU/USD)</h3>
+
 <h2>2335.45</h2>
+
 <p class="red">▼ -0.13%</p>
+
 </div>
 
-<div class="side-card">
+</div>
+
+<div class="mini-chart red-chart"></div>
+
+</div>
+
+<div class="market-mini-card">
+
+<div class="mini-left">
+
+<div class="mini-icon">🇮🇳</div>
+
+<div>
+
 <h3>INDIA VIX</h3>
+
 <h2>13.42</h2>
+
 <p class="red">▼ -2.04%</p>
+
 </div>
 
-<div class="side-card">
+</div>
+
+<div class="mini-chart red-chart"></div>
+
+</div>
+
+<div class="market-mini-card">
+
+<div class="mini-left">
+
+<div class="mini-icon">🏦</div>
+
+<div>
+
 <h3>10Y INDIA G-SEC</h3>
+
 <h2>7.082</h2>
+
 <p class="red">▼ -0.21%</p>
+
+</div>
+
+</div>
+
+<div class="mini-chart red-chart"></div>
+
 </div>
 
 </div>
@@ -619,16 +825,16 @@ const res = await fetch("/api/option-chain");
 const data = await res.json();
 
 document.getElementById("topNifty").innerText =
-data.spot;
+Math.round(data.spot);
 
 document.getElementById("topBank").innerText =
-(data.spot * 2.33).toFixed(0);
+Math.round(data.spot * 2.30);
 
 document.getElementById("topSensex").innerText =
-(data.spot * 3.42).toFixed(0);
+Math.round(data.spot * 3.27);
 
 document.getElementById("topIT").innerText =
-(data.spot * 1.47).toFixed(0);
+Math.round(data.spot * 1.46);
 
 }catch(err){
 
