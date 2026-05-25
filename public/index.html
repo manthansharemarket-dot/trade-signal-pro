@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>MSM PRO AI TRADING PLATFORM</title>
@@ -19,7 +18,6 @@ margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
 }
 
 body{
@@ -28,47 +26,92 @@ color:white;
 overflow-x:hidden;
 }
 
-/* SCROLLBAR */
+/* TOP MARKET BAR */
 
-::-webkit-scrollbar{
-width:10px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#00ff99;
-border-radius:10px;
-}
-
-/* NAVBAR */
-
-.navbar{
-
-position:fixed;
-
-top:0;
-left:0;
+.topbar{
 
 width:100%;
+padding:14px 20px;
 
-padding:18px 7%;
+background:#06111f;
+
+border-bottom:1px solid rgba(255,255,255,0.08);
 
 display:flex;
 
 justify-content:space-between;
 align-items:center;
 
-z-index:1000;
+gap:14px;
 
-background:rgba(2,6,23,0.8);
+overflow-x:auto;
+}
 
-backdrop-filter:blur(20px);
+.top-card{
 
-border-bottom:1px solid rgba(255,255,255,0.08);
+min-width:170px;
+
+background:#0f172a;
+
+border:1px solid rgba(255,255,255,0.06);
+
+padding:14px;
+
+border-radius:14px;
+}
+
+.top-card h3{
+
+font-size:13px;
+
+color:#cbd5e1;
+
+margin-bottom:8px;
+}
+
+.top-card h2{
+
+font-size:26px;
+
+color:#00ff99;
+
+font-weight:700;
+}
+
+.top-card p{
+
+font-size:13px;
+
+margin-top:5px;
+}
+
+.green{
+color:#00ff99;
+}
+
+.red{
+color:#ff4d4d;
+}
+
+/* NAVBAR */
+
+.navbar{
+
+padding:22px 7%;
+
+display:flex;
+
+justify-content:space-between;
+align-items:center;
+
+background:#020617;
+
+border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .logo{
 
-font-size:34px;
+font-size:42px;
 
 font-weight:800;
 
@@ -78,16 +121,18 @@ color:#00ff99;
 .nav-links{
 
 display:flex;
-gap:28px;
+gap:35px;
 }
 
 .nav-links a{
 
 text-decoration:none;
+
 color:white;
-font-weight:500;
+
+font-weight:600;
+
 transition:0.3s;
-position:relative;
 }
 
 .nav-links a:hover{
@@ -97,7 +142,7 @@ color:#00ff99;
 
 .btn{
 
-padding:12px 28px;
+padding:14px 28px;
 
 background:#00ff99;
 
@@ -108,85 +153,51 @@ font-weight:700;
 border-radius:14px;
 
 text-decoration:none;
-
-transition:0.3s;
-}
-
-.btn:hover{
-
-transform:translateY(-3px);
-
-box-shadow:0 0 25px rgba(0,255,153,0.4);
 }
 
 /* HERO */
 
 .hero{
 
-min-height:100vh;
+padding:70px 7%;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
+align-items:flex-start;
 
-padding:140px 7% 90px;
-
-position:relative;
-
-overflow:hidden;
-}
-
-.hero::before{
-
-content:'';
-
-position:absolute;
-
-width:700px;
-height:700px;
-
-background:#00ff9930;
-
-filter:blur(180px);
-
-top:-250px;
-right:-200px;
+gap:40px;
 }
 
 .hero-left{
 
-max-width:720px;
-
-position:relative;
-z-index:2;
+flex:1;
 }
 
 .badge{
 
 display:inline-block;
 
-padding:10px 18px;
-
-background:rgba(0,255,153,0.12);
+padding:12px 20px;
 
 border:1px solid rgba(0,255,153,0.3);
 
-border-radius:30px;
+background:rgba(0,255,153,0.08);
+
+border-radius:40px;
 
 color:#00ff99;
 
-font-weight:600;
+margin-bottom:28px;
 
-margin-bottom:25px;
+font-weight:600;
 }
 
 .hero-left h1{
 
-font-size:78px;
+font-size:90px;
 
-line-height:1.1;
+line-height:1.05;
 
 font-weight:800;
 
@@ -200,259 +211,206 @@ color:#00ff99;
 
 .hero-left p{
 
-font-size:20px;
+font-size:22px;
 
-line-height:1.9;
+line-height:1.8;
 
 color:#cbd5e1;
 
-margin-bottom:40px;
+max-width:800px;
 }
 
 .hero-buttons{
 
 display:flex;
 gap:20px;
-flex-wrap:wrap;
+
+margin-top:40px;
 }
 
-/* RIGHT PANEL */
+.hero-buttons a{
 
-.hero-right{
+padding:18px 34px;
 
-width:450px;
+border-radius:16px;
 
-background:rgba(255,255,255,0.04);
+text-decoration:none;
+
+font-weight:700;
+}
+
+.primary-btn{
+
+background:#00ff99;
+color:black;
+}
+
+.secondary-btn{
+
+border:1px solid #00ff99;
+color:#00ff99;
+}
+
+/* CENTER PANEL */
+
+.center-panel{
+
+width:430px;
+
+background:#0f172a;
 
 border:1px solid rgba(255,255,255,0.08);
 
-border-radius:30px;
+border-radius:26px;
 
-padding:30px;
-
-backdrop-filter:blur(20px);
-
-position:relative;
-z-index:2;
+padding:25px;
 }
 
-.market-card{
-
-background:#111827;
-
-padding:18px;
-
-border-radius:18px;
-
-margin-bottom:18px;
+.market-row{
 
 display:flex;
 
 justify-content:space-between;
 align-items:center;
 
-transition:0.3s;
-}
-
-.market-card:hover{
-
-transform:translateY(-4px);
-
-box-shadow:0 0 20px rgba(0,255,153,0.15);
-}
-
-.market-card h3{
-
-font-size:18px;
-}
-
-.green{
-
-color:#00ff99;
-font-weight:700;
-}
-
-.red{
-
-color:#ff4d4d;
-font-weight:700;
-}
-
-/* TICKER */
-
-.ticker{
-
-background:#00ff99;
-
-color:black;
-
-padding:14px 0;
-
-font-weight:700;
-
-overflow:hidden;
-
-white-space:nowrap;
-}
-
-.ticker-content{
-
-display:inline-block;
-
-animation:ticker 25s linear infinite;
-}
-
-@keyframes ticker{
-
-0%{
-transform:translateX(100%);
-}
-
-100%{
-transform:translateX(-100%);
-}
-
-}
-
-/* OPTION CHAIN */
-
-.chain-section{
-
-padding:90px 7%;
-}
-
-.section-title{
-
-font-size:52px;
-
-font-weight:800;
-
-text-align:center;
-
-margin-bottom:60px;
-}
-
-.chain-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-overflow:hidden;
-
-border-radius:20px;
-
-background:#111827;
-}
-
-.chain-table th{
-
-background:#00ff99;
-
-color:black;
-
-padding:16px;
-
-font-size:16px;
-}
-
-.chain-table td{
-
-padding:15px;
-
-text-align:center;
+padding:18px 0;
 
 border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
-.buy{
+.market-row:last-child{
+border:none;
+}
+
+.market-left{
+
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.market-icon{
+
+width:55px;
+height:55px;
+
+border-radius:50%;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:26px;
+
+font-weight:700;
+}
+
+.purple{
+background:#4c1d95;
+}
+
+.blue{
+background:#1d4ed8;
+}
+
+.orange{
+background:#ea580c;
+}
+
+.greenbg{
+background:#166534;
+}
+
+.market-name{
+
+font-size:28px;
+
+font-weight:700;
+}
+
+.market-price{
+
+font-size:20px;
+
+margin-top:6px;
+}
+
+.market-right{
+
+text-align:right;
+}
+
+.market-right h2{
+
+font-size:42px;
 
 color:#00ff99;
-font-weight:700;
 }
 
-.sell{
+.market-right p{
 
-color:#ff4d4d;
-font-weight:700;
+margin-top:8px;
+
+font-size:18px;
 }
 
-.sideways{
+/* RIGHT PANEL */
 
-color:#facc15;
-font-weight:700;
+.side-panel{
+
+width:320px;
+
+display:flex;
+flex-direction:column;
+gap:18px;
 }
 
-/* LIVE SIGNAL */
+.side-card{
 
-.signal-box{
+background:#0f172a;
 
-margin-top:70px;
+border:1px solid rgba(255,255,255,0.08);
 
-background:linear-gradient(135deg,#00ff99,#00b36b);
+padding:18px;
 
-padding:55px;
-
-border-radius:35px;
-
-text-align:center;
-
-color:black;
-
-box-shadow:0 0 40px rgba(0,255,153,0.25);
+border-radius:22px;
 }
 
-.signal-box h1{
+.side-card h3{
 
-font-size:60px;
+font-size:20px;
 
-font-weight:800;
-
-margin-bottom:20px;
+margin-bottom:8px;
 }
 
-.signal-box p{
+.side-card h2{
 
-font-size:22px;
+font-size:38px;
 
-font-weight:600;
+color:#00ff99;
 }
 
-/* FOOTER */
+.side-card p{
 
-.footer{
-
-padding:40px 7%;
-
-text-align:center;
-
-color:#94a3b8;
-
-border-top:1px solid rgba(255,255,255,0.08);
-
-margin-top:60px;
+margin-top:10px;
 }
 
-/* MOBILE */
-
-@media(max-width:1100px){
+@media(max-width:1400px){
 
 .hero{
 
 flex-direction:column;
-gap:50px;
-text-align:center;
 }
 
-.hero-right{
+.center-panel,
+.side-panel{
 
 width:100%;
-max-width:500px;
 }
 
 .hero-left h1{
 
-font-size:56px;
+font-size:60px;
 }
 
 }
@@ -460,7 +418,6 @@ font-size:56px;
 @media(max-width:900px){
 
 .nav-links{
-
 display:none;
 }
 
@@ -469,19 +426,9 @@ display:none;
 font-size:42px;
 }
 
-.section-title{
+.hero-left p{
 
-font-size:36px;
-}
-
-.signal-box h1{
-
-font-size:38px;
-}
-
-.chain-table{
-
-font-size:13px;
+font-size:18px;
 }
 
 }
@@ -491,6 +438,60 @@ font-size:13px;
 </head>
 
 <body>
+
+<!-- TOP BAR -->
+
+<div class="topbar">
+
+<div class="top-card">
+<h3>NIFTY 50</h3>
+<h2 id="topNifty">Loading</h2>
+<p class="green">▲ Live</p>
+</div>
+
+<div class="top-card">
+<h3>BANKNIFTY</h3>
+<h2 id="topBank">Loading</h2>
+<p class="green">▲ Live</p>
+</div>
+
+<div class="top-card">
+<h3>SENSEX</h3>
+<h2 id="topSensex">Loading</h2>
+<p class="green">▲ Live</p>
+</div>
+
+<div class="top-card">
+<h3>NIFTY IT</h3>
+<h2 id="topIT">Loading</h2>
+<p class="green">▲ Live</p>
+</div>
+
+<div class="top-card">
+<h3>BRENT CRUDE</h3>
+<h2>81.62</h2>
+<p class="green">▲ 0.84%</p>
+</div>
+
+<div class="top-card">
+<h3>DOLLAR INDEX</h3>
+<h2>104.37</h2>
+<p class="green">▲ 0.30%</p>
+</div>
+
+<div class="top-card">
+<h3>GOLD</h3>
+<h2>2335</h2>
+<p class="red">▼ 0.13%</p>
+</div>
+
+<div class="top-card">
+<h3>INDIA VIX</h3>
+<h2>13.42</h2>
+<p class="red">▼ 2.04%</p>
+</div>
+
+</div>
 
 <!-- NAVBAR -->
 
@@ -502,33 +503,13 @@ font-size:13px;
 
 <div class="nav-links">
 
-<a href="/index.html">
-Home
-</a>
-
-<a href="/signals.html">
-Signals
-</a>
-
-<a href="/dashboard.html">
-Dashboard
-</a>
-
-<a href="/watchlist.html">
-Watchlist
-</a>
-
-<a href="/option-chain.html">
-Option Chain
-</a>
-
-<a href="/alerts.html">
-Alerts
-</a>
-
-<a href="/premium.html">
-Premium
-</a>
+<a href="/index.html">Home</a>
+<a href="/signals.html">Signals</a>
+<a href="/dashboard.html">Dashboard</a>
+<a href="/watchlist.html">Watchlist</a>
+<a href="/option-chain.html">Option Chain</a>
+<a href="/alerts.html">Alerts</a>
+<a href="/premium.html">Premium</a>
 
 </div>
 
@@ -549,27 +530,24 @@ Login
 </div>
 
 <h1>
-
-Trade Smarter With <span>AI Signals</span>
-
+Trade Smarter <br>
+With <span>AI Signals</span>
 </h1>
 
 <p>
-
 Professional AI-powered trading dashboard with
 real-time option chain, AI signals,
-smart money analysis,
-institutional order flow & market prediction.
-
+smart money analysis, institutional order flow &
+market prediction.
 </p>
 
 <div class="hero-buttons">
 
-<a href="#" class="btn">
+<a href="#" class="primary-btn">
 Get Started
 </a>
 
-<a href="#" class="btn">
+<a href="#" class="secondary-btn">
 Live Option Chain
 </a>
 
@@ -577,145 +555,193 @@ Live Option Chain
 
 </div>
 
-<!-- RIGHT PANEL -->
+<!-- CENTER PANEL -->
 
-<div class="hero-right">
+<div class="center-panel">
 
-<div class="market-card">
+<div class="market-row">
 
-<h3>NIFTY 50</h3>
+<div class="market-left">
 
-<div class="green" id="niftyPrice">
-Loading...
+<div class="market-icon purple">
+N
 </div>
 
+<div>
+
+<div class="market-name">
+NIFTY 50
 </div>
 
-<div class="market-card">
-
-<h3>BANKNIFTY</h3>
-
-<div class="green" id="bankniftyPrice">
-Loading...
-</div>
-
-</div>
-
-<div class="market-card">
-
-<h3>SENSEX</h3>
-
-<div class="green" id="sensexPrice">
-Loading...
-</div>
-
-</div>
-
-<div class="market-card">
-
-<h3>AI SIGNAL</h3>
-
-<div class="green" id="aiSignal">
-Loading...
-</div>
-
-</div>
-
-<div class="market-card">
-
-<h3>CONFIDENCE</h3>
-
-<div class="green" id="confidence">
-Loading...
-</div>
-
-</div>
-
-<div class="market-card">
-
-<h3>ATM STRIKE</h3>
-
-<div class="green" id="atmStrike">
-Loading...
+<div class="market-price" id="niftySub">
+Loading
 </div>
 
 </div>
 
 </div>
 
-</section>
+<div class="market-right">
 
-<!-- TICKER -->
+<h2 id="niftyMain">
+Loading
+</h2>
 
-<div class="ticker">
-
-<div class="ticker-content" id="ticker">
-
-LIVE MARKET DATA LOADING...
-
-</div>
-
-</div>
-
-<!-- OPTION CHAIN -->
-
-<section class="chain-section">
-
-<h1 class="section-title">
-📉 LIVE OPTION CHAIN
-</h1>
-
-<table class="chain-table">
-
-<thead>
-
-<tr>
-
-<th>Strike</th>
-<th>CE OI</th>
-<th>PE OI</th>
-<th>PCR</th>
-<th>Signal</th>
-
-</tr>
-
-</thead>
-
-<tbody id="chainBody">
-
-</tbody>
-
-</table>
-
-<!-- LIVE SIGNAL -->
-
-<div class="signal-box">
-
-<h1 id="bigSignal">
-
-LOADING SIGNAL...
-
-</h1>
-
-<p id="signalDetails">
-
-Loading AI Trade Setup...
-
+<p class="green">
+▲ +1.13%
 </p>
 
 </div>
 
-</section>
+</div>
 
-<!-- FOOTER -->
+<div class="market-row">
 
-<div class="footer">
+<div class="market-left">
 
-© 2026 MSM PRO • Powered By AI + Node.js + Live Market API
+<div class="market-icon greenbg">
+🏦
+</div>
+
+<div>
+
+<div class="market-name">
+BANKNIFTY
+</div>
+
+<div class="market-price" id="bankSub">
+Loading
+</div>
 
 </div>
 
-<!-- LIVE SCRIPT -->
+</div>
+
+<div class="market-right">
+
+<h2 id="bankMain">
+Loading
+</h2>
+
+<p class="green">
+▲ +1.90%
+</p>
+
+</div>
+
+</div>
+
+<div class="market-row">
+
+<div class="market-left">
+
+<div class="market-icon blue">
+S
+</div>
+
+<div>
+
+<div class="market-name">
+SENSEX
+</div>
+
+<div class="market-price" id="sensexSub">
+Loading
+</div>
+
+</div>
+
+</div>
+
+<div class="market-right">
+
+<h2 id="sensexMain">
+Loading
+</h2>
+
+<p class="green">
+▲ +1.16%
+</p>
+
+</div>
+
+</div>
+
+<div class="market-row">
+
+<div class="market-left">
+
+<div class="market-icon orange">
+IT
+</div>
+
+<div>
+
+<div class="market-name">
+NIFTY IT
+</div>
+
+<div class="market-price" id="itSub">
+Loading
+</div>
+
+</div>
+
+</div>
+
+<div class="market-right">
+
+<h2 id="itMain">
+Loading
+</h2>
+
+<p class="green">
+▲ +1.30%
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SIDE PANEL -->
+
+<div class="side-panel">
+
+<div class="side-card">
+<h3>BRENT CRUDE</h3>
+<h2>81.62</h2>
+<p class="green">▲ +0.84%</p>
+</div>
+
+<div class="side-card">
+<h3>DOLLAR INDEX</h3>
+<h2>104.37</h2>
+<p class="green">▲ +0.30%</p>
+</div>
+
+<div class="side-card">
+<h3>GOLD (XAU/USD)</h3>
+<h2>2335.45</h2>
+<p class="red">▼ -0.13%</p>
+</div>
+
+<div class="side-card">
+<h3>INDIA VIX</h3>
+<h2>13.42</h2>
+<p class="red">▼ -2.04%</p>
+</div>
+
+<div class="side-card">
+<h3>10Y INDIA G-SEC</h3>
+<h2>7.082</h2>
+<p class="red">▼ -0.21%</p>
+</div>
+
+</div>
+
+</section>
 
 <script>
 
@@ -723,125 +749,45 @@ async function loadLiveData(){
 
 try{
 
-const res =
-await fetch("/api/option-chain");
+const res = await fetch("/api/option-chain");
 
-const data =
-await res.json();
+const data = await res.json();
 
-/* PRICE */
+document.getElementById("topNifty").innerText =
+data.spot;
 
-document.getElementById(
-"niftyPrice"
-).innerText =
-"▲ " + data.spot;
+document.getElementById("topBank").innerText =
+(data.spot * 2.33).toFixed(0);
 
-document.getElementById(
-"bankniftyPrice"
-).innerText =
-"▲ " + (data.spot * 2.33).toFixed(0);
+document.getElementById("topSensex").innerText =
+(data.spot * 3.42).toFixed(0);
 
-document.getElementById(
-"sensexPrice"
-).innerText =
-"▲ " + (data.spot * 3.42).toFixed(0);
+document.getElementById("topIT").innerText =
+(data.spot * 1.47).toFixed(0);
 
-/* SIGNAL */
+document.getElementById("niftyMain").innerText =
+data.spot;
 
-document.getElementById(
-"aiSignal"
-).innerText =
-data.finalSignal;
+document.getElementById("niftySub").innerText =
+data.spot;
 
-document.getElementById(
-"confidence"
-).innerText =
-data.confidence;
+document.getElementById("bankMain").innerText =
+(data.spot * 2.33).toFixed(0);
 
-document.getElementById(
-"atmStrike"
-).innerText =
-data.atm;
+document.getElementById("bankSub").innerText =
+(data.spot * 2.33).toFixed(0);
 
-/* BIG SIGNAL */
+document.getElementById("sensexMain").innerText =
+(data.spot * 3.42).toFixed(0);
 
-document.getElementById(
-"bigSignal"
-).innerText =
-"🟢 " + data.finalSignal;
+document.getElementById("sensexSub").innerText =
+(data.spot * 3.42).toFixed(0);
 
-document.getElementById(
-"signalDetails"
-).innerText =
+document.getElementById("itMain").innerText =
+(data.spot * 1.47).toFixed(0);
 
-"ENTRY ₹" + data.entry +
-
-" • TARGET ₹" + data.target1 +
-
-" • SL ₹" + data.sl +
-
-" • CONFIDENCE " + data.confidence;
-
-/* TICKER */
-
-document.getElementById(
-"ticker"
-).innerText =
-
-"NIFTY ▲ " + data.spot +
-
-" • AI SIGNAL " + data.finalSignal +
-
-" • PCR " + data.finalPCR +
-
-" • ENTRY ₹" + data.entry +
-
-" • TARGET ₹" + data.target1 +
-
-" • STOPLOSS ₹" + data.sl;
-
-/* OPTION CHAIN */
-
-const tbody =
-document.getElementById(
-"chainBody"
-);
-
-tbody.innerHTML = "";
-
-data.chain.forEach(item=>{
-
-let cls = "sideways";
-
-if(item.signal === "BUY"){
-cls = "buy";
-}
-
-if(item.signal === "SELL"){
-cls = "sell";
-}
-
-tbody.innerHTML += `
-
-<tr>
-
-<td>${item.strike}</td>
-
-<td>${item.ceOI.toLocaleString()}</td>
-
-<td>${item.peOI.toLocaleString()}</td>
-
-<td>${item.pcr}</td>
-
-<td class="${cls}">
-${item.signal}
-</td>
-
-</tr>
-
-`;
-
-});
+document.getElementById("itSub").innerText =
+(data.spot * 1.47).toFixed(0);
 
 }catch(err){
 
@@ -851,11 +797,7 @@ console.log(err);
 
 }
 
-/* LOAD */
-
 loadLiveData();
-
-/* AUTO REFRESH */
 
 setInterval(loadLiveData,5000);
 
