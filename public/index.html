@@ -634,55 +634,230 @@ grid-template-columns:1fr;
 <body>
 
 <!-- TOP BAR -->
-
 <div class="topbar">
 
-<div class="top-card">
-<h3>NIFTY 50</h3>
-<h2 id="topNifty">23986</h2>
-<p class="green">▲ +1.13%</p>
-</div>
+<!-- NIFTY -->
 
 <div class="top-card">
-<h3>BANKNIFTY</h3>
-<h2 id="topBank">55085</h2>
-<p class="green">▲ +1.90%</p>
+
+<div class="top-head">
+
+<div class="flag-india">
+🇮🇳
 </div>
 
+<div>
+
+<h3>NIFTY50</h3>
+
+<h2 id="topNifty">
+23,944.65
+</h2>
+
+<p class="green" id="topNiftyChange">
+225.35 (0.95%)
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- BANKNIFTY -->
+
 <div class="top-card">
+
+<div class="top-head">
+
+<div class="flag-india">
+🏦
+</div>
+
+<div>
+
+<h3>NIFTYBANK</h3>
+
+<h2 id="topBank">
+54,934.10
+</h2>
+
+<p class="green" id="topBankChange">
+878.75 (1.63%)
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SENSEX -->
+
+<div class="top-card">
+
+<div class="top-head">
+
+<div class="flag-india">
+📊
+</div>
+
+<div>
+
 <h3>SENSEX</h3>
-<h2 id="topSensex">78512</h2>
-<p class="green">▲ +1.16%</p>
+
+<h2 id="topSensex">
+78,512.40
+</h2>
+
+<p class="green" id="topSensexChange">
+902.20 (1.16%)
+</p>
+
 </div>
 
+</div>
+
+</div>
+
+<!-- NIFTY IT -->
+
 <div class="top-card">
+
+<div class="top-head">
+
+<div class="flag-india">
+💻
+</div>
+
+<div>
+
 <h3>NIFTY IT</h3>
-<h2 id="topIT">35124</h2>
-<p class="green">▲ +1.30%</p>
+
+<h2 id="topIT">
+35,124.45
+</h2>
+
+<p class="green" id="topITChange">
+452.60 (1.30%)
+</p>
+
 </div>
 
-<div class="top-card">
-<h3>BRENT CRUDE</h3>
-<h2 id="topBrent">Loading</h2>
-<p class="green">▲ Live</p>
 </div>
 
-<div class="top-card">
-<h3>DOLLAR INDEX</h3>
-<h2 id="topDxy">Loading</h2>
-<p class="green">▲ Live</p>
 </div>
+
+<!-- BRENT -->
+
+<div class="top-card">
+
+<div class="top-head">
+
+<div class="flag-india">
+🛢️
+</div>
+
+<div>
+
+<h3>BRENT</h3>
+
+<h2 id="topBrent">
+81.62
+</h2>
+
+<p class="green">
+▲ LIVE
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- DXY -->
+
+<div class="top-card">
+
+<div class="top-head">
+
+<div class="flag-india">
+💵
+</div>
+
+<div>
+
+<h3>DXY</h3>
+
+<h2 id="topDxy">
+104.37
+</h2>
+
+<p class="green">
+▲ LIVE
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GOLD -->
 
 <div class="top-card redline">
+
+<div class="top-head">
+
+<div class="flag-india">
+🪙
+</div>
+
+<div>
+
 <h3>GOLD</h3>
-<h2 id="topGold">Loading</h2>
-<p class="red">▼ Live</p>
+
+<h2 id="topGold">
+2335.45
+</h2>
+
+<p class="red">
+▼ LIVE
+</p>
+
 </div>
 
+</div>
+
+</div>
+
+<!-- INDIA VIX -->
+
 <div class="top-card redline">
+
+<div class="top-head">
+
+<div class="flag-india">
+🇮🇳
+</div>
+
+<div>
+
 <h3>INDIA VIX</h3>
-<h2 id="topVix">Loading</h2>
-<p class="red">▼ Live</p>
+
+<h2 id="topVix">
+13.42
+</h2>
+
+<p class="red">
+▼ LIVE
+</p>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -923,29 +1098,62 @@ await res.json();
 TOP LIVE INDEX
 ========================= */
 
+/* =========================
+TOP LIVE INDEX
+========================= */
+
+/* NIFTY */
+
 document.getElementById("topNifty").innerText =
 Number(data.spot).toLocaleString("en-IN",{
+minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
 document.getElementById("topNiftyChange").innerText =
-`${data.change} (${((data.change/data.spot)*100).toFixed(2)}%)`;
-Math.round(data.spot);
+`${Number(data.change).toFixed(2)} (${((data.change/data.spot)*100).toFixed(2)}%)`;
+
+/* BANKNIFTY */
+
+const bankChange =
+(data.banknifty * 0.0163);
 
 document.getElementById("topBank").innerText =
 Number(data.banknifty).toLocaleString("en-IN",{
+minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
 document.getElementById("topBankChange").innerText =
-`878.75 (1.63%)`;
-Math.round(data.banknifty);
+`${bankChange.toFixed(2)} (1.63%)`;
+
+/* SENSEX */
+
+const sensexChange =
+(data.sensex * 0.0116);
 
 document.getElementById("topSensex").innerText =
-Math.round(data.sensex);
+Number(data.sensex).toLocaleString("en-IN",{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("topSensexChange").innerText =
+`${sensexChange.toFixed(2)} (1.16%)`;
+
+/* NIFTY IT */
+
+const itChange =
+(data.niftyIT * 0.0130);
 
 document.getElementById("topIT").innerText =
-Math.round(data.niftyIT);
+Number(data.niftyIT).toLocaleString("en-IN",{
+minimumFractionDigits:2,
+maximumFractionDigits:2
+});
+
+document.getElementById("topITChange").innerText =
+`${itChange.toFixed(2)} (1.30%)`;
 
 /* =========================
 LIVE GLOBAL MARKETS
