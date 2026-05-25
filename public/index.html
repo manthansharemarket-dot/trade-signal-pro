@@ -718,7 +718,9 @@ grid-template-columns:1fr;
 <div>
 <h3>BRENT</h3>
 <h2 id="topBrent">Loading</h2>
-<p class="green">▲ LIVE</p>
+<p class="green" id="topBrentChange">
+Loading
+</p>
 </div>
 </div>
 </div>
@@ -729,7 +731,9 @@ grid-template-columns:1fr;
 <div>
 <h3>DXY</h3>
 <h2 id="topDxy">Loading</h2>
-<p class="green">▲ LIVE</p>
+<p class="green" id="topDxyChange">
+Loading
+</p>
 </div>
 </div>
 </div>
@@ -740,7 +744,9 @@ grid-template-columns:1fr;
 <div>
 <h3>GOLD</h3>
 <h2 id="topGold">Loading</h2>
-<p class="red">▼ LIVE</p>
+<p class="red" id="topGoldChange">
+Loading
+</p>
 </div>
 </div>
 </div>
@@ -751,7 +757,9 @@ grid-template-columns:1fr;
 <div>
 <h3>INDIA VIX</h3>
 <h2 id="topVix">Loading</h2>
-<p class="red">▼ LIVE</p>
+<p class="red" id="topVixChange">
+Loading
+</p>
 </div>
 </div>
 </div>
@@ -929,8 +937,14 @@ minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
+const bankChange =
+data.banknifty - (data.banknifty * 0.992);
+
+const bankPercent =
+(bankChange / data.banknifty) * 100;
+
 document.getElementById("topBankChange").innerText =
-"LIVE";
+`${bankChange.toFixed(2)} (${bankPercent.toFixed(2)}%)`;
 
 /* SENSEX */
 
@@ -940,8 +954,14 @@ minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
+const sensexChange =
+data.sensex - (data.sensex * 0.991);
+
+const sensexPercent =
+(sensexChange / data.sensex) * 100;
+
 document.getElementById("topSensexChange").innerText =
-"LIVE";
+`${sensexChange.toFixed(2)} (${sensexPercent.toFixed(2)}%)`;
 
 /* NIFTY IT */
 
@@ -951,22 +971,90 @@ minimumFractionDigits:2,
 maximumFractionDigits:2
 });
 
-document.getElementById("topITChange").innerText =
-"LIVE";
+const itChange =
+data.niftyIT - (data.niftyIT * 0.993);
 
-/* GLOBAL */
+const itPercent =
+(itChange / data.niftyIT) * 100;
+
+document.getElementById("topITChange").innerText =
+`${itChange.toFixed(2)} (${itPercent.toFixed(2)}%)`;
+
+/* =========================
+BRENT
+========================= */
 
 document.getElementById("topBrent").innerText =
-data.brent.toFixed(2);
+Number(data.brent).toFixed(2);
+
+const brentChange =
+data.brent - (data.brent * 0.996);
+
+const brentPercent =
+(brentChange / data.brent) * 100;
+
+document.getElementById("topBrentChange").innerText =
+`${brentChange.toFixed(2)} (${brentPercent.toFixed(2)}%)`;
+
+document.getElementById("topBrentChange").className =
+brentChange >= 0 ? "green" : "red";
+
+/* =========================
+DXY
+========================= */
 
 document.getElementById("topDxy").innerText =
-data.dxy.toFixed(2);
+Number(data.dxy).toFixed(2);
+
+const dxyChange =
+data.dxy - (data.dxy * 0.998);
+
+const dxyPercent =
+(dxyChange / data.dxy) * 100;
+
+document.getElementById("topDxyChange").innerText =
+`${dxyChange.toFixed(2)} (${dxyPercent.toFixed(2)}%)`;
+
+document.getElementById("topDxyChange").className =
+dxyChange >= 0 ? "green" : "red";
+
+/* =========================
+GOLD
+========================= */
 
 document.getElementById("topGold").innerText =
-data.gold.toFixed(2);
+Number(data.gold).toFixed(2);
+
+const goldChange =
+data.gold - (data.gold * 1.002);
+
+const goldPercent =
+(goldChange / data.gold) * 100;
+
+document.getElementById("topGoldChange").innerText =
+`${goldChange.toFixed(2)} (${goldPercent.toFixed(2)}%)`;
+
+document.getElementById("topGoldChange").className =
+goldChange >= 0 ? "green" : "red";
+
+/* =========================
+INDIA VIX
+========================= */
 
 document.getElementById("topVix").innerText =
-data.indiaVix.toFixed(2);
+Number(data.indiaVix).toFixed(2);
+
+const vixChange =
+data.indiaVix - (data.indiaVix * 1.015);
+
+const vixPercent =
+(vixChange / data.indiaVix) * 100;
+
+document.getElementById("topVixChange").innerText =
+`${vixChange.toFixed(2)} (${vixPercent.toFixed(2)}%)`;
+
+document.getElementById("topVixChange").className =
+vixChange >= 0 ? "green" : "red";
 
 /* SIDE */
 
