@@ -25,6 +25,11 @@ GLOBAL CACHE
 
 let activeTrade = null;
 
+let signalHistory = [];
+
+let lastStableSignal =
+"SIDEWAYS";
+
 let cachedResponse = null;
 
 let lastFetch = 0;
@@ -335,6 +340,9 @@ latestVolume > avgVolume;
 /* =====================================
 AI SIGNAL
 ===================================== */
+/* =====================================
+ULTRA AI SIGNAL ENGINE
+===================================== */
 
 let currentSignal =
 "SIDEWAYS";
@@ -345,52 +353,165 @@ let confidence =
 let finalPCR =
 1.00;
 
+/* =====================================
+BULLISH SCORE
+===================================== */
+
+let bullishScore = 0;
+
+if(change > 50)
+bullishScore++;
+
+if(latestRSI > 60)
+bullishScore++;
+
+if(spot > latestEMA20)
+bullishScore++;
+
+if(spot > latestVWAP)
+bullishScore++;
+
 if(
-
-change > 50 &&
-latestRSI > 60 &&
-spot > latestEMA20 &&
-spot > latestVWAP &&
 latestMACD.MACD >
-latestMACD.signal &&
-volumeBreakout
+latestMACD.signal
+)
+bullishScore++;
 
-){
+if(volumeBreakout)
+bullishScore++;
+
+/* =====================================
+BEARISH SCORE
+===================================== */
+
+let bearishScore = 0;
+
+if(change < -50)
+bearishScore++;
+
+if(latestRSI < 40)
+bearishScore++;
+
+if(spot < latestEMA20)
+bearishScore++;
+
+if(spot < latestVWAP)
+bearishScore++;
+
+if(
+latestMACD.MACD <
+latestMACD.signal
+)
+bearishScore++;
+
+if(volumeBreakout)
+bearishScore++;
+
+/* =====================================
+FINAL SIGNAL
+===================================== */
+
+if(bullishScore >= 5){
 
 currentSignal =
 "BUY CALL";
 
 confidence =
-"94%";
+`${88 + bullishScore}%`;
 
 finalPCR =
 1.28;
 
 }
 
-else if(
-
-change < -50 &&
-latestRSI < 40 &&
-spot < latestEMA20 &&
-spot < latestVWAP &&
-latestMACD.MACD <
-latestMACD.signal &&
-volumeBreakout
-
-){
+else if(bearishScore >= 5){
 
 currentSignal =
 "BUY PUT";
 
 confidence =
-"92%";
+`${88 + bearishScore}%`;
 
 finalPCR =
 0.72;
 
 }
 
+else{
+
+currentSignal =
+"SIDEWAYS";
+
+confidence =
+"72%";
+
+}
+
+/* =====================================
+SIGNAL STABILITY
+===================================== */
+
+signalHistory.push(currentSignal);
+
+if(signalHistory.length > 5){
+
+signalHistory.shift();
+
+}
+
+/* =====================================
+COUNT SIGNALS
+===================================== */
+
+const buyCount =
+signalHistory.filter(
+s => s === "BUY CALL"
+).length;
+
+const putCount =
+signalHistory.filter(
+s => s === "BUY PUT"
+).length;
+
+/* =====================================
+LOCK FINAL SIGNAL
+===================================== */
+
+if(buyCount >= 4){
+
+lastStableSignal =
+"BUY CALL";
+
+}
+
+else if(putCount >= 4){
+
+lastStableSignal =
+"BUY PUT";
+
+}
+
+/* =====================================
+FINAL OUTPUT
+===================================== */
+
+currentSignal =
+lastStableSignal;
+
+/* =====================================
+NO RAPID CHANGE
+===================================== */
+
+if(
+activeTrade &&
+Date.now() - activeTrade.createdAt <
+180000
+){
+
+currentSignal =
+activeTrade.signal;
+
+}
 /* =====================================
 TRADE SETUP
 ===================================== */
@@ -429,9 +550,12 @@ strike: atm,
 
 status:"ACTIVE",
 
-createdAt: Date.now()
+createdAt: Date.now(),
+
+holdMinutes:3
 
 };
+
 
 }
 
