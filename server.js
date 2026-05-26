@@ -20,14 +20,29 @@ app.use(cors());
 app.use(express.static("public"));
 
 /* =========================================
-SIGNAL LOCK SYSTEM
+GLOBAL CACHE
 ========================================= */
 
-let lastSignal = "SIDEWAYS";
-let confirmationCount = 0;
+let activeTrade = null;
+
+let cachedResponse = null;
+
+let lastFetch = 0;
 
 /* =========================================
-TEST API
+HELPER
+========================================= */
+
+function round(num){
+
+return parseFloat(
+Number(num).toFixed(2)
+);
+
+}
+
+/* =========================================
+TEST
 ========================================= */
 
 app.get("/api/test",(req,res)=>{
@@ -39,7 +54,7 @@ status:"SERVER WORKING"
 });
 
 /* =========================================
-LIVE MARKET API
+OPTION CHAIN API
 ========================================= */
 
 app.get("/api/option-chain",async(req,res)=>{
@@ -47,10 +62,24 @@ app.get("/api/option-chain",async(req,res)=>{
 try{
 
 /* =====================================
+CACHE SYSTEM
+===================================== */
+
+if(
+cachedResponse &&
+Date.now() - lastFetch < 15000
+){
+
+return res.json(cachedResponse);
+
+}
+
+/* =====================================
 LIVE MARKET DATA
 ===================================== */
 
 const [
+
 niftyRes,
 bankRes,
 sensexRes,
@@ -59,6 +88,7 @@ brentRes,
 goldRes,
 vixRes,
 dxyRes
+
 ] = await Promise.all([
 
 axios.get(
@@ -96,45 +126,73 @@ axios.get(
 ]);
 
 /* =====================================
-MAIN MARKET
+LIVE VALUES
 ===================================== */
 
 const niftyMeta =
 niftyRes.data.chart.result[0].meta;
 
 const spot =
-niftyMeta.regularMarketPrice;
+round(
+niftyMeta.regularMarketPrice
+);
 
 const previousClose =
-niftyMeta.previousClose;
+round(
+niftyMeta.previousClose
+);
 
 const change =
-(spot - previousClose).toFixed(2);
+round(
+spot - previousClose
+);
 
-/* =====================================
-LIVE EXTRA MARKETS
-===================================== */
+const changePercent =
+round(
+(change / previousClose) * 100
+);
 
 const banknifty =
-bankRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+bankRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const sensex =
-sensexRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+sensexRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const niftyIT =
-itRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+itRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const brent =
-brentRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+brentRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const gold =
-goldRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+goldRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const indiaVix =
-vixRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+vixRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 const dxy =
-dxyRes.data.chart.result[0].meta.regularMarketPrice;
+round(
+dxyRes.data.chart.result[0]
+.meta.regularMarketPrice
+);
 
 /* =====================================
 AI ENGINE DATA
@@ -193,38 +251,26 @@ const volumes = [
 ];
 
 /* =====================================
-RSI
+INDICATORS
 ===================================== */
 
 const rsi =
 RSI.calculate({
-
 values: closes,
 period: 14
-
 });
 
 const latestRSI =
 rsi[rsi.length-1] || 50;
 
-/* =====================================
-EMA
-===================================== */
-
 const ema20 =
 EMA.calculate({
-
 period:20,
 values: closes
-
 });
 
 const latestEMA20 =
 ema20[ema20.length-1] || spot;
-
-/* =====================================
-MACD
-===================================== */
 
 const macd =
 MACD.calculate({
@@ -243,10 +289,6 @@ SimpleMASignal:false
 const latestMACD =
 macd[macd.length-1] || {};
 
-/* =====================================
-ATR
-===================================== */
-
 const atr =
 ATR.calculate({
 
@@ -260,10 +302,6 @@ period:14
 const latestATR =
 atr[atr.length-1] || 50;
 
-/* =====================================
-VWAP
-===================================== */
-
 const vwap =
 VWAP.calculate({
 
@@ -276,10 +314,6 @@ volume: volumes
 
 const latestVWAP =
 vwap[vwap.length-1] || spot;
-
-/* =====================================
-VOLUME BREAKOUT
-===================================== */
 
 const volumeSMA =
 SMA.calculate({
@@ -299,7 +333,7 @@ const volumeBreakout =
 latestVolume > avgVolume;
 
 /* =====================================
-AI SIGNAL ENGINE
+AI SIGNAL
 ===================================== */
 
 let currentSignal =
@@ -314,22 +348,17 @@ let finalPCR =
 if(
 
 change > 50 &&
-
 latestRSI > 60 &&
-
 spot > latestEMA20 &&
-
 spot > latestVWAP &&
-
 latestMACD.MACD >
 latestMACD.signal &&
-
 volumeBreakout
 
 ){
 
 currentSignal =
-"🔥 STRONG BUY CALL";
+"BUY CALL";
 
 confidence =
 "94%";
@@ -342,57 +371,23 @@ finalPCR =
 else if(
 
 change < -50 &&
-
 latestRSI < 40 &&
-
 spot < latestEMA20 &&
-
 spot < latestVWAP &&
-
 latestMACD.MACD <
 latestMACD.signal &&
-
 volumeBreakout
 
 ){
 
 currentSignal =
-"🔴 STRONG BUY PUT";
+"BUY PUT";
 
 confidence =
 "92%";
 
 finalPCR =
 0.72;
-
-}
-
-/* =====================================
-SIGNAL LOCK
-===================================== */
-
-if(currentSignal === lastSignal){
-
-confirmationCount++;
-
-}else{
-
-confirmationCount = 1;
-lastSignal = currentSignal;
-
-}
-
-let finalSignal =
-"SIDEWAYS";
-
-if(confirmationCount >= 3){
-
-finalSignal = currentSignal;
-
-}else{
-
-finalSignal =
-"WAITING CONFIRMATION";
 
 }
 
@@ -404,16 +399,119 @@ const atm =
 Math.round(spot / 50) * 50;
 
 const entry =
-Math.round(latestATR * 4);
+round(latestATR * 4);
 
 const sl =
-Math.round(entry - latestATR);
+round(entry - latestATR);
 
 const target1 =
-Math.round(entry + latestATR * 2);
+round(entry + latestATR * 2);
 
 const target2 =
-Math.round(entry + latestATR * 4);
+round(entry + latestATR * 4);
+
+/* =====================================
+LOCK TRADE
+===================================== */
+
+if(!activeTrade){
+
+activeTrade = {
+
+signal: currentSignal,
+
+entry,
+sl,
+target1,
+target2,
+
+strike: atm,
+
+status:"ACTIVE",
+
+createdAt: Date.now()
+
+};
+
+}
+
+/* =====================================
+TARGET HIT
+===================================== */
+
+if(
+
+activeTrade.signal === "BUY CALL" &&
+spot >= activeTrade.target1
+
+){
+
+activeTrade.status =
+"TARGET HIT";
+
+}
+
+if(
+
+activeTrade.signal === "BUY PUT" &&
+spot <= activeTrade.target1
+
+){
+
+activeTrade.status =
+"TARGET HIT";
+
+}
+
+/* =====================================
+SL HIT
+===================================== */
+
+if(
+
+activeTrade.signal === "BUY CALL" &&
+spot <= activeTrade.sl
+
+){
+
+activeTrade.status =
+"SL HIT";
+
+}
+
+if(
+
+activeTrade.signal === "BUY PUT" &&
+spot >= activeTrade.sl
+
+){
+
+activeTrade.status =
+"SL HIT";
+
+}
+
+/* =====================================
+RESET TRADE
+===================================== */
+
+if(
+
+activeTrade.status === "TARGET HIT" ||
+activeTrade.status === "SL HIT"
+
+){
+
+if(
+Date.now() - activeTrade.createdAt >
+60000
+){
+
+activeTrade = null;
+
+}
+
+}
 
 /* =====================================
 OPTION CHAIN
@@ -433,7 +531,7 @@ const peOI =
 Math.floor(Math.random()*500000)+100000;
 
 const pcr =
-(peOI / ceOI).toFixed(2);
+round(peOI / ceOI);
 
 let signal = "SIDEWAYS";
 
@@ -465,10 +563,12 @@ signal
 FINAL RESPONSE
 ===================================== */
 
-res.json({
+cachedResponse = {
 
 spot,
 change,
+changePercent,
+
 atm,
 
 banknifty,
@@ -480,12 +580,20 @@ gold,
 indiaVix,
 dxy,
 
-latestRSI,
-latestVWAP,
-latestATR,
+latestRSI:
+round(latestRSI),
+
+latestVWAP:
+round(latestVWAP),
+
+latestATR:
+round(latestATR),
 
 finalPCR,
-finalSignal,
+
+finalSignal:
+activeTrade.signal,
+
 confidence,
 
 entry,
@@ -493,18 +601,35 @@ sl,
 target1,
 target2,
 
-confirmationCount,
+trade:
+activeTrade,
 
 chain
 
-});
+};
+
+lastFetch = Date.now();
+
+res.json(cachedResponse);
 
 }catch(err){
 
 console.log(err.message);
 
 res.json({
-error:err.message
+
+spot:0,
+banknifty:0,
+sensex:0,
+niftyIT:0,
+
+brent:0,
+gold:0,
+indiaVix:0,
+dxy:0,
+
+error:true
+
 });
 
 }
