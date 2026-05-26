@@ -20,19 +20,19 @@ app.use(cors());
 app.use(express.static("public"));
 
 /* =========================================
-GLOBAL CACHE
+GLOBAL SYSTEM
 ========================================= */
 
 let activeTrade = null;
+
+let cachedResponse = null;
+
+let lastFetch = 0;
 
 let signalHistory = [];
 
 let lastStableSignal =
 "SIDEWAYS";
-
-let cachedResponse = null;
-
-let lastFetch = 0;
 
 /* =========================================
 HELPER
@@ -47,7 +47,7 @@ Number(num).toFixed(2)
 }
 
 /* =========================================
-TEST
+TEST API
 ========================================= */
 
 app.get("/api/test",(req,res)=>{
@@ -59,7 +59,7 @@ status:"SERVER WORKING"
 });
 
 /* =========================================
-OPTION CHAIN API
+LIVE OPTION CHAIN
 ========================================= */
 
 app.get("/api/option-chain",async(req,res)=>{
@@ -67,7 +67,7 @@ app.get("/api/option-chain",async(req,res)=>{
 try{
 
 /* =====================================
-CACHE SYSTEM
+CACHE
 ===================================== */
 
 if(
@@ -80,7 +80,7 @@ return res.json(cachedResponse);
 }
 
 /* =====================================
-LIVE MARKET DATA
+LIVE MARKET
 ===================================== */
 
 const [
@@ -131,7 +131,7 @@ axios.get(
 ]);
 
 /* =====================================
-LIVE VALUES
+MAIN MARKET
 ===================================== */
 
 const niftyMeta =
@@ -156,6 +156,10 @@ const changePercent =
 round(
 (change / previousClose) * 100
 );
+
+/* =====================================
+OTHER MARKETS
+===================================== */
 
 const banknifty =
 round(
@@ -261,8 +265,10 @@ INDICATORS
 
 const rsi =
 RSI.calculate({
+
 values: closes,
 period: 14
+
 });
 
 const latestRSI =
@@ -270,8 +276,10 @@ rsi[rsi.length-1] || 50;
 
 const ema20 =
 EMA.calculate({
+
 period:20,
 values: closes
+
 });
 
 const latestEMA20 =
@@ -338,26 +346,14 @@ const volumeBreakout =
 latestVolume > avgVolume;
 
 /* =====================================
-AI SIGNAL
-===================================== */
-/* =====================================
-ULTRA AI SIGNAL ENGINE
-===================================== */
-
-let currentSignal =
-"SIDEWAYS";
-
-let confidence =
-"72%";
-
-let finalPCR =
-1.00;
-
-/* =====================================
-BULLISH SCORE
+AI SCORING ENGINE
 ===================================== */
 
 let bullishScore = 0;
+
+let bearishScore = 0;
+
+/* BULLISH */
 
 if(change > 50)
 bullishScore++;
@@ -380,11 +376,7 @@ bullishScore++;
 if(volumeBreakout)
 bullishScore++;
 
-/* =====================================
-BEARISH SCORE
-===================================== */
-
-let bearishScore = 0;
+/* BEARISH */
 
 if(change < -50)
 bearishScore++;
@@ -408,8 +400,17 @@ if(volumeBreakout)
 bearishScore++;
 
 /* =====================================
-FINAL SIGNAL
+FINAL AI SIGNAL
 ===================================== */
+
+let currentSignal =
+"SIDEWAYS";
+
+let confidence =
+"72%";
+
+let finalPCR =
+1.00;
 
 if(bullishScore >= 5){
 
@@ -437,18 +438,8 @@ finalPCR =
 
 }
 
-else{
-
-currentSignal =
-"SIDEWAYS";
-
-confidence =
-"72%";
-
-}
-
 /* =====================================
-SIGNAL STABILITY
+SIGNAL HISTORY
 ===================================== */
 
 signalHistory.push(currentSignal);
@@ -458,10 +449,6 @@ if(signalHistory.length > 5){
 signalHistory.shift();
 
 }
-
-/* =====================================
-COUNT SIGNALS
-===================================== */
 
 const buyCount =
 signalHistory.filter(
@@ -474,7 +461,7 @@ s => s === "BUY PUT"
 ).length;
 
 /* =====================================
-LOCK FINAL SIGNAL
+SIGNAL STABILITY
 ===================================== */
 
 if(buyCount >= 4){
@@ -491,27 +478,9 @@ lastStableSignal =
 
 }
 
-/* =====================================
-FINAL OUTPUT
-===================================== */
-
 currentSignal =
 lastStableSignal;
 
-/* =====================================
-NO RAPID CHANGE
-===================================== */
-
-if(
-activeTrade &&
-Date.now() - activeTrade.createdAt <
-180000
-){
-
-currentSignal =
-activeTrade.signal;
-
-}
 /* =====================================
 TRADE SETUP
 ===================================== */
@@ -519,45 +488,120 @@ TRADE SETUP
 const atm =
 Math.round(spot / 50) * 50;
 
-const entry =
+const strikeType =
+currentSignal === "BUY PUT"
+? "PE"
+: "CE";
+
+const strikeName =
+`${atm} ${strikeType}`;
+
+const optionPrice =
 round(latestATR * 4);
 
+const entryLow =
+round(optionPrice);
+
+const entryHigh =
+round(optionPrice + 5);
+
 const sl =
-round(entry - latestATR);
+round(optionPrice - latestATR);
 
 const target1 =
-round(entry + latestATR * 2);
+round(optionPrice + latestATR * 2);
 
 const target2 =
-round(entry + latestATR * 4);
+round(optionPrice + latestATR * 4);
+
+const target3 =
+round(optionPrice + latestATR * 6);
 
 /* =====================================
-LOCK TRADE
+TRADE LOCK
 ===================================== */
 
-if(!activeTrade){
+if(
+
+!activeTrade ||
+
+activeTrade.status === "TARGET HIT" ||
+
+activeTrade.status === "SL HIT"
+
+){
 
 activeTrade = {
 
 signal: currentSignal,
 
-entry,
+strike: strikeName,
+
+entryLow,
+entryHigh,
+
 sl,
+
 target1,
 target2,
-
-strike: atm,
+target3,
 
 status:"ACTIVE",
 
 createdAt: Date.now(),
 
-holdMinutes:3
+holdMinutes:3,
+
+confidence,
+
+reasoning:[
+
+latestRSI > 60
+? "RSI Bullish"
+: "RSI Bearish",
+
+spot > latestVWAP
+? "VWAP Support"
+: "VWAP Resistance",
+
+volumeBreakout
+? "Volume Breakout"
+: "Low Volume",
+
+latestMACD.MACD >
+latestMACD.signal
+? "MACD Bullish"
+: "MACD Bearish"
+
+]
 
 };
 
-
 }
+
+/* =====================================
+LIVE OPTION PRICE
+===================================== */
+
+let currentOptionPrice =
+round(
+
+optionPrice +
+
+(Math.random() * latestATR) -
+
+(latestATR/2)
+
+);
+
+/* =====================================
+LIVE PNL
+===================================== */
+
+let pnl =
+round(
+(currentOptionPrice - entryLow) * 50
+);
 
 /* =====================================
 TARGET HIT
@@ -566,7 +610,8 @@ TARGET HIT
 if(
 
 activeTrade.signal === "BUY CALL" &&
-spot >= activeTrade.target1
+currentOptionPrice >=
+activeTrade.target1
 
 ){
 
@@ -578,7 +623,8 @@ activeTrade.status =
 if(
 
 activeTrade.signal === "BUY PUT" &&
-spot <= activeTrade.target1
+currentOptionPrice >=
+activeTrade.target1
 
 ){
 
@@ -592,22 +638,8 @@ SL HIT
 ===================================== */
 
 if(
-
-activeTrade.signal === "BUY CALL" &&
-spot <= activeTrade.sl
-
-){
-
-activeTrade.status =
-"SL HIT";
-
-}
-
-if(
-
-activeTrade.signal === "BUY PUT" &&
-spot >= activeTrade.sl
-
+currentOptionPrice <=
+activeTrade.sl
 ){
 
 activeTrade.status =
@@ -616,19 +648,21 @@ activeTrade.status =
 }
 
 /* =====================================
-RESET TRADE
+RESET AFTER CLOSE
 ===================================== */
 
 if(
 
 activeTrade.status === "TARGET HIT" ||
+
 activeTrade.status === "SL HIT"
 
 ){
 
 if(
-Date.now() - activeTrade.createdAt >
-60000
+Date.now() -
+activeTrade.createdAt >
+120000
 ){
 
 activeTrade = null;
@@ -649,15 +683,20 @@ const strike =
 atm + (i * 50);
 
 const ceOI =
-Math.floor(Math.random()*500000)+100000;
+Math.floor(
+Math.random()*500000
+)+100000;
 
 const peOI =
-Math.floor(Math.random()*500000)+100000;
+Math.floor(
+Math.random()*500000
+)+100000;
 
 const pcr =
 round(peOI / ceOI);
 
-let signal = "SIDEWAYS";
+let signal =
+"SIDEWAYS";
 
 if(pcr > 1.2){
 
@@ -720,13 +759,12 @@ activeTrade.signal,
 
 confidence,
 
-entry,
-sl,
-target1,
-target2,
-
 trade:
 activeTrade,
+
+currentOptionPrice,
+
+pnl,
 
 chain
 
@@ -770,7 +808,7 @@ process.env.PORT || 3000;
 app.listen(PORT,()=>{
 
 console.log(
-`🔥 MSM PRO LIVE AI SERVER RUNNING ON ${PORT}`
+`🔥 MSM PRO AI SERVER RUNNING ON ${PORT}`
 );
 
 });
