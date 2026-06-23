@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
 
-<title>MSM PRO AI PLATFORM</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>
+MSM PRO AI TERMINAL
+</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 <style>
 
@@ -20,51 +28,78 @@ font-family:'Poppins',sans-serif;
 }
 
 body{
-background:#020617;
+
+background:
+linear-gradient(
+180deg,
+#020617,
+#07111f
+);
+
 color:white;
+
 overflow-x:hidden;
-}
-
-/* TOPBAR */
-
-.topbar{
-
-width:100%;
-
-background:#06111f;
-
-padding:8px 10px;
-
-display:flex;
-
-gap:10px;
-
-overflow-x:auto;
-
-border-bottom:1px solid rgba(255,255,255,0.05);
 
 }
 
-.topbar::-webkit-scrollbar{
-height:3px;
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+height:8px;
 }
 
-.topbar::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb{
 background:#00ff99;
 border-radius:20px;
 }
 
-.top-card{
+/* TOP BAR */
 
-min-width:170px;
+.topTicker{
 
-background:#0f172a;
+background:#07111f;
 
-padding:10px;
+border-bottom:
+1px solid rgba(255,255,255,0.06);
 
-border-radius:14px;
+display:flex;
 
-border:1px solid rgba(255,255,255,0.06);
+gap:14px;
+
+overflow-x:auto;
+
+padding:12px;
+
+position:sticky;
+
+top:0;
+
+z-index:999;
+
+}
+
+.topTicker::-webkit-scrollbar{
+display:none;
+}
+
+.tickerCard{
+
+min-width:180px;
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#111827
+);
+
+padding:14px 18px;
+
+border-radius:18px;
+
+border:
+1px solid rgba(255,255,255,0.06);
 
 position:relative;
 
@@ -72,109 +107,51 @@ overflow:hidden;
 
 }
 
-.top-card::after{
+.tickerCard::after{
 
 content:"";
 
 position:absolute;
 
-width:120%;
+left:0;
+right:0;
+bottom:0;
 
-height:2px;
+height:3px;
 
 background:#00ff99;
 
-bottom:8px;
-
-left:-10%;
-
-transform:rotate(-4deg);
-
-opacity:0.8;
-
 }
 
-.top-card.redline::after{
-background:#ff4d4d;
-}
-
-.top-head{
-
-display:flex;
-
-align-items:center;
-
-gap:12px;
-
-}
-
-.flag-india{
-
-width:40px;
-
-height:40px;
-
-border-radius:50%;
-
-background:#111827;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:18px;
-
-border:1px solid rgba(255,255,255,0.05);
-
-flex-shrink:0;
-
-}
-
-.top-card h3{
-
-font-size:11px;
-
-color:#94a3b8;
-
-margin-bottom:4px;
-
-letter-spacing:0.5px;
-
-}
-
-.top-card h2{
-
-font-size:18px;
-
-font-weight:700;
-
-line-height:1.1;
-
-}
-
-.top-card p{
+.tickerName{
 
 font-size:12px;
 
-margin-top:5px;
+color:#94a3b8;
 
 }
 
-.green{
-color:#00ff99;
+.tickerPrice{
+
+font-size:20px;
+
+font-weight:800;
+
+margin-top:4px;
+
 }
 
-.red{
-color:#ff4d4d;
+.tickerChange{
+
+font-size:13px;
+
+margin-top:2px;
+
 }
 
 /* NAVBAR */
 
 .navbar{
-
-padding:18px 6%;
 
 display:flex;
 
@@ -182,13 +159,27 @@ justify-content:space-between;
 
 align-items:center;
 
-border-bottom:1px solid rgba(255,255,255,0.05);
+padding:18px 30px;
+
+background:
+rgba(2,6,23,0.85);
+
+backdrop-filter:blur(20px);
+
+border-bottom:
+1px solid rgba(255,255,255,0.06);
+
+position:sticky;
+
+top:64px;
+
+z-index:998;
 
 }
 
 .logo{
 
-font-size:30px;
+font-size:34px;
 
 font-weight:800;
 
@@ -196,21 +187,19 @@ color:#00ff99;
 
 }
 
-.nav-links{
+.navLinks{
 
 display:flex;
 
-gap:26px;
+gap:28px;
 
 }
 
-.nav-links a{
-
-text-decoration:none;
+.navLinks a{
 
 color:white;
 
-font-size:14px;
+text-decoration:none;
 
 font-weight:600;
 
@@ -218,25 +207,84 @@ transition:0.3s;
 
 }
 
-.nav-links a:hover{
+.navLinks a:hover{
 
 color:#00ff99;
 
 }
 
-.login-btn{
+.searchBox{
 
-padding:12px 24px;
+background:#111827;
 
-background:#00ff99;
+padding:12px 18px;
 
-color:black;
+border-radius:14px;
+
+width:280px;
+
+border:
+1px solid rgba(255,255,255,0.06);
+
+outline:none;
+
+color:white;
+
+}
+
+/* BREAKING */
+
+.breaking{
+
+display:flex;
+
+align-items:center;
+
+gap:20px;
+
+padding:14px 20px;
+
+background:#0f172a;
+
+border-top:
+1px solid rgba(255,255,255,0.06);
+
+border-bottom:
+1px solid rgba(255,255,255,0.06);
+
+overflow:hidden;
+
+}
+
+.breakingLabel{
+
+background:#ff4d4d;
+
+padding:10px 18px;
 
 border-radius:12px;
 
-font-weight:700;
+font-weight:bold;
 
-text-decoration:none;
+}
+
+.marquee{
+
+white-space:nowrap;
+
+animation:marq 25s linear infinite;
+
+}
+
+@keyframes marq{
+
+0%{
+transform:translateX(100%);
+}
+
+100%{
+transform:translateX(-100%);
+}
 
 }
 
@@ -244,139 +292,166 @@ text-decoration:none;
 
 .hero{
 
-padding:55px 6%;
-
 display:grid;
 
-grid-template-columns:1.2fr 0.8fr;
+grid-template-columns:
+1.4fr 1fr 320px;
 
-gap:40px;
+gap:24px;
 
-align-items:center;
-
-}
-
-/* LEFT */
-
-.hero-left{
-
-max-width:760px;
+padding:30px;
 
 }
 
-.badge{
+/* NEWS */
 
-display:inline-block;
+.newsPanel{
 
-padding:10px 18px;
+background:
+rgba(15,23,42,0.85);
 
-background:rgba(0,255,153,0.08);
+border-radius:28px;
 
-border:1px solid rgba(0,255,153,0.2);
+padding:24px;
 
-border-radius:40px;
+border:
+1px solid rgba(255,255,255,0.06);
 
-color:#00ff99;
-
-font-size:13px;
-
-margin-bottom:26px;
+backdrop-filter:blur(20px);
 
 }
 
-.hero-left h1{
+.newsTitle{
 
-font-size:74px;
-
-line-height:1.05;
+font-size:28px;
 
 font-weight:800;
 
-margin-bottom:22px;
+margin-bottom:20px;
 
 }
 
-.hero-left h1 span{
+.bigNews{
 
-color:#00ff99;
+position:relative;
 
-}
+overflow:hidden;
 
-.hero-left p{
-
-font-size:18px;
-
-line-height:1.9;
-
-color:#cbd5e1;
-
-max-width:700px;
+border-radius:22px;
 
 }
 
-.hero-buttons{
+.bigNews img{
 
-display:flex;
+width:100%;
 
-gap:16px;
+height:320px;
 
-margin-top:34px;
-
-}
-
-.primary-btn{
-
-padding:16px 28px;
-
-background:#00ff99;
-
-color:black;
-
-border-radius:14px;
-
-font-weight:700;
-
-text-decoration:none;
+object-fit:cover;
 
 }
 
-.secondary-btn{
+.bigNewsContent{
 
-padding:16px 28px;
+position:absolute;
 
-border:1px solid #00ff99;
+left:0;
+right:0;
+bottom:0;
 
-color:#00ff99;
+padding:24px;
 
-border-radius:14px;
-
-font-weight:700;
-
-text-decoration:none;
+background:
+linear-gradient(
+180deg,
+transparent,
+rgba(0,0,0,0.9)
+);
 
 }
 
-/* RIGHT PANEL */
+.bigNewsContent h2{
 
-.side-panel{
+font-size:34px;
+
+font-weight:800;
+
+}
+
+.smallNews{
+
+margin-top:18px;
 
 display:flex;
 
 flex-direction:column;
 
-gap:14px;
+gap:16px;
 
 }
 
-.market-mini-card{
+.smallCard{
 
-background:#0f172a;
+display:flex;
 
-border:1px solid rgba(255,255,255,0.06);
+gap:14px;
 
-padding:16px;
+background:#111827;
+
+padding:14px;
 
 border-radius:18px;
+
+transition:0.3s;
+
+cursor:pointer;
+
+}
+
+.smallCard:hover{
+
+transform:translateY(-3px);
+
+border:
+1px solid #00ff99;
+
+}
+
+.smallCard img{
+
+width:110px;
+
+height:80px;
+
+object-fit:cover;
+
+border-radius:12px;
+
+}
+
+/* AI SIGNAL */
+
+.aiPanel{
+
+background:
+linear-gradient(
+135deg,
+rgba(0,255,153,0.12),
+rgba(0,255,153,0.03)
+);
+
+border-radius:28px;
+
+padding:28px;
+
+border:2px solid #00ff99;
+
+box-shadow:
+0 0 40px rgba(0,255,153,0.08);
+
+}
+
+.aiHeader{
 
 display:flex;
 
@@ -384,41 +459,252 @@ justify-content:space-between;
 
 align-items:center;
 
-transition:0.3s;
+}
 
-backdrop-filter:blur(10px);
+.liveTag{
+
+background:#00ff99;
+
+color:black;
+
+padding:8px 14px;
+
+border-radius:12px;
+
+font-weight:bold;
 
 }
 
-.market-mini-card:hover{
+.aiSignal{
 
-border-color:#00ff99;
+font-size:64px;
 
-transform:translateY(-2px);
+font-weight:800;
 
-box-shadow:0 0 20px rgba(0,255,153,0.12);
+margin-top:25px;
+
+color:#00ff99;
 
 }
 
-.mini-left{
+.signalStrike{
+
+font-size:34px;
+
+font-weight:700;
+
+margin-top:10px;
+
+}
+
+.tradeTable{
+
+margin-top:25px;
 
 display:flex;
 
-align-items:center;
+flex-direction:column;
 
-gap:14px;
+gap:16px;
 
 }
 
-.mini-icon{
+.tradeRow{
 
-width:44px;
+display:flex;
 
-height:44px;
+justify-content:space-between;
 
-border-radius:50%;
+padding-bottom:12px;
 
-background:#111827;
+border-bottom:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+/* SIDE PANEL */
+
+.sidePanel{
+
+display:flex;
+
+flex-direction:column;
+
+gap:22px;
+
+}
+
+.sideCard{
+
+background:
+rgba(15,23,42,0.85);
+
+padding:24px;
+
+border-radius:24px;
+
+border:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+.sideTitle{
+
+font-size:22px;
+
+font-weight:800;
+
+margin-bottom:18px;
+
+}
+
+.marketRow{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:12px 0;
+
+border-bottom:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+/* EDITOR */
+
+.editor{
+
+padding:0 30px 30px;
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr 320px;
+
+gap:24px;
+
+}
+
+.editorGrid{
+
+display:grid;
+
+grid-template-columns:
+repeat(2,1fr);
+
+gap:18px;
+
+}
+
+.editorCard{
+
+background:
+rgba(15,23,42,0.85);
+
+border-radius:24px;
+
+overflow:hidden;
+
+border:
+1px solid rgba(255,255,255,0.06);
+
+transition:0.3s;
+
+}
+
+.editorCard:hover{
+
+transform:translateY(-4px);
+
+border-color:#00ff99;
+
+}
+
+.editorCard img{
+
+width:100%;
+
+height:180px;
+
+object-fit:cover;
+
+}
+
+.editorContent{
+
+padding:18px;
+
+}
+
+.editorContent h3{
+
+font-size:24px;
+
+font-weight:700;
+
+}
+
+/* CHART */
+
+.chartPanel{
+
+background:
+rgba(15,23,42,0.85);
+
+padding:24px;
+
+border-radius:28px;
+
+border:
+1px solid rgba(255,255,255,0.06);
+
+}
+
+canvas{
+
+margin-top:20px;
+
+}
+
+/* FOOTER */
+/* =========================================
+ADS SYSTEM
+========================================= */
+
+.adsSection{
+
+padding:0 30px 30px;
+
+}
+
+.adsLabel{
+
+font-size:11px;
+
+letter-spacing:1px;
+
+color:#94a3b8;
+
+margin-bottom:8px;
+
+font-weight:600;
+
+}
+
+.adsBox{
+
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#111827
+);
+
+border:
+1px dashed rgba(255,255,255,0.12);
+
+border-radius:24px;
 
 display:flex;
 
@@ -426,63 +712,13 @@ justify-content:center;
 
 align-items:center;
 
-font-size:18px;
-
-border:1px solid rgba(255,255,255,0.05);
-
-}
-
-.mini-left h3{
-
-font-size:12px;
-
-color:#cbd5e1;
-
-margin-bottom:5px;
-
-letter-spacing:0.5px;
-
-}
-
-.mini-left h2{
-
-font-size:28px;
-
-font-weight:700;
-
-color:#00ff99;
-
-line-height:1;
-
-}
-
-.mini-left p{
-
-font-size:12px;
-
-margin-top:4px;
-
-}
-
-.mini-chart{
-
-width:90px;
-
-height:44px;
-
 position:relative;
 
 overflow:hidden;
 
-border-radius:10px;
-
-background:#081018;
-
 }
 
-/* CHARTS */
-
-.green-chart::before{
+.adsBox::before{
 
 content:"";
 
@@ -490,141 +726,101 @@ position:absolute;
 
 inset:0;
 
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,34 10,30 20,32 30,20 40,24 50,12 60,18 70,8 80,14 90,4' fill='none' stroke='%2300ff99' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-
-background-size:100% 100%;
-
-background-repeat:no-repeat;
-
-filter:drop-shadow(0 0 8px rgba(0,255,153,0.7));
-
-animation:chartMove 2s ease-in-out infinite;
-
-}
-
-.red-chart::before{
-
-content:"";
-
-position:absolute;
-
-inset:0;
-
-background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='44'%3E%3Cpolyline points='0,8 10,12 20,10 30,18 40,16 50,24 60,22 70,30 80,28 90,38' fill='none' stroke='%23ff4d4d' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-
-background-size:100% 100%;
-
-background-repeat:no-repeat;
-
-filter:drop-shadow(0 0 8px rgba(255,77,77,0.7));
-
-animation:chartMove 2s ease-in-out infinite;
-
-}
-
-.green-chart::after{
-
-content:"";
-
-position:absolute;
-
-left:0;
-right:0;
-bottom:0;
-
-height:55%;
-
-background:linear-gradient(
-180deg,
+background:
+linear-gradient(
+90deg,
 transparent,
-rgba(0,255,153,0.18)
+rgba(255,255,255,0.04),
+transparent
 );
 
-}
-
-.red-chart::after{
-
-content:"";
-
-position:absolute;
-
-left:0;
-right:0;
-bottom:0;
-
-height:55%;
-
-background:linear-gradient(
-180deg,
-transparent,
-rgba(255,77,77,0.18)
-);
+animation:adsGlow 3s linear infinite;
 
 }
 
-@keyframes chartMove{
+@keyframes adsGlow{
 
 0%{
-transform:translateX(0px);
-}
-
-50%{
-transform:translateX(2px);
+transform:translateX(-100%);
 }
 
 100%{
-transform:translateX(0px);
+transform:translateX(100%);
 }
 
 }
 
-/* FEATURES */
+/* TOP LEADERBOARD */
 
-.features{
+.topAds{
 
-padding:0 6% 50px;
-
-display:grid;
-
-grid-template-columns:repeat(5,1fr);
-
-gap:18px;
+height:120px;
 
 }
 
-.feature-card{
+/* MIDDLE ADS */
 
-background:#0f172a;
+.middleAds{
 
-padding:18px;
+height:140px;
 
-border-radius:18px;
-
-border:1px solid rgba(255,255,255,0.05);
+margin-top:24px;
 
 }
 
-.feature-card h3{
+/* SIDEBAR ADS */
 
-font-size:16px;
+.sidebarAds{
 
-margin-top:10px;
-
-margin-bottom:8px;
+height:300px;
 
 }
 
-.feature-card p{
+/* BOTTOM ADS */
 
-font-size:13px;
+.bottomAds{
+
+height:120px;
+
+}
+
+/* STICKY */
+
+.stickyAds{
+
+position:sticky;
+
+top:130px;
+
+}
+
+/* ADS TEXT */
+
+.adsText{
+
+font-size:24px;
+
+font-weight:800;
+
+color:#64748b;
+
+z-index:2;
+
+}
+
+.footer{
+
+padding:30px;
+
+text-align:center;
 
 color:#94a3b8;
 
-line-height:1.6;
+margin-top:20px;
 
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
 @media(max-width:1200px){
 
@@ -632,28 +828,28 @@ line-height:1.6;
 grid-template-columns:1fr;
 }
 
-.features{
-grid-template-columns:repeat(2,1fr);
+.editor{
+grid-template-columns:1fr;
 }
 
 }
 
-@media(max-width:800px){
+@media(max-width:700px){
 
-.hero-left h1{
-font-size:48px;
-}
-
-.hero-left p{
-font-size:16px;
-}
-
-.nav-links{
+.navLinks{
 display:none;
 }
 
-.features{
-grid-template-columns:1fr;
+.aiSignal{
+font-size:42px;
+}
+
+.bigNewsContent h2{
+font-size:22px;
+}
+
+.logo{
+font-size:26px;
 }
 
 }
@@ -664,103 +860,60 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- TOPBAR -->
+<!-- TOP TICKER -->
 
-<div class="topbar">
+<div class="topTicker">
 
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">🇮🇳</div>
-<div>
-<h3>NIFTY50</h3>
-<h2 id="topNifty">Loading</h2>
-<p class="green" id="topNiftyChange">Live</p>
+<div class="tickerCard">
+<div class="tickerName">NIFTY 50</div>
+<div class="tickerPrice green"
+id="topNifty">
+24,467.35
 </div>
-</div>
-</div>
-
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">🏦</div>
-<div>
-<h3>NIFTYBANK</h3>
-<h2 id="topBank">Loading</h2>
-<p class="green" id="topBankChange">Live</p>
-</div>
+<div class="tickerChange green">
+▲ 112.35 (0.46%)
 </div>
 </div>
 
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">📊</div>
-<div>
-<h3>SENSEX</h3>
-<h2 id="topSensex">Loading</h2>
-<p class="green" id="topSensexChange">Live</p>
+<div class="tickerCard">
+<div class="tickerName">BANK NIFTY</div>
+<div class="tickerPrice red"
+id="topBank">
+52,352.15
 </div>
-</div>
-</div>
-
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">💻</div>
-<div>
-<h3>NIFTY IT</h3>
-<h2 id="topIT">Loading</h2>
-<p class="green" id="topITChange">Live</p>
-</div>
+<div class="tickerChange red">
+▼ 98.65 (0.19%)
 </div>
 </div>
 
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">🛢️</div>
-<div>
-<h3>BRENT</h3>
-<h2 id="topBrent">Loading</h2>
-<p class="green" id="topBrentChange">
-Loading
-</p>
+<div class="tickerCard">
+<div class="tickerName">SENSEX</div>
+<div class="tickerPrice green"
+id="topSensex">
+80,154.92
 </div>
-</div>
-</div>
-
-<div class="top-card">
-<div class="top-head">
-<div class="flag-india">💵</div>
-<div>
-<h3>DXY</h3>
-<h2 id="topDxy">Loading</h2>
-<p class="green" id="topDxyChange">
-Loading
-</p>
-</div>
+<div class="tickerChange green">
+▲ 312.48 (0.39%)
 </div>
 </div>
 
-<div class="top-card redline">
-<div class="top-head">
-<div class="flag-india">🪙</div>
-<div>
-<h3>GOLD</h3>
-<h2 id="topGold">Loading</h2>
-<p class="red" id="topGoldChange">
-Loading
-</p>
+<div class="tickerCard">
+<div class="tickerName">FIN NIFTY</div>
+<div class="tickerPrice green">
+23,671.80
 </div>
+<div class="tickerChange green">
+▲ 125.30 (0.53%)
 </div>
 </div>
 
-<div class="top-card redline">
-<div class="top-head">
-<div class="flag-india">🇮🇳</div>
-<div>
-<h3>INDIA VIX</h3>
-<h2 id="topVix">Loading</h2>
-<p class="red" id="topVixChange">
-Loading
-</p>
+<div class="tickerCard">
+<div class="tickerName">INDIA VIX</div>
+<div class="tickerPrice red">
+14.25
 </div>
+<div class="tickerChange red">
+▼ 0.35 (2.40%)
 </div>
 </div>
 
@@ -771,22 +924,62 @@ Loading
 <div class="navbar">
 
 <div class="logo">
-📈 MSM PRO
+MSM PRO
 </div>
 
-<div class="nav-links">
-<a href="/index.html">Home</a>
-<a href="/signals.html">Signals</a>
-<a href="/dashboard.html">Dashboard</a>
-<a href="/watchlist.html">Watchlist</a>
-<a href="/option-chain.html">Option Chain</a>
-<a href="/alerts.html">Alerts</a>
-<a href="/premium.html">Premium</a>
+<div class="navLinks">
+
+<a href="#">Home</a>
+<a href="#">News</a>
+<a href="#">Signals</a>
+<a href="#">Markets</a>
+<a href="#">Watchlist</a>
+<a href="#">IPO</a>
+
 </div>
 
-<a href="#" class="login-btn">
-Login
-</a>
+<input
+type="text"
+placeholder="Search stocks, news..."
+class="searchBox">
+
+</div>
+
+<!-- BREAKING -->
+<!-- TOP ADS -->
+
+<section class="adsSection">
+
+<div class="adsLabel">
+
+ADVERTISEMENT
+
+</div>
+
+<div class="adsBox topAds">
+
+<div class="adsText">
+
+TOP GOOGLE ADSENSE
+
+</div>
+
+</div>
+
+</section>
+<div class="breaking">
+
+<div class="breakingLabel">
+
+BREAKING NEWS
+
+</div>
+
+<div class="marquee">
+
+RBI keeps repo unchanged • IT stocks rally • Crude oil slips • FII buying continues • Bank Nifty eyes breakout
+
+</div>
 
 </div>
 
@@ -794,371 +987,562 @@ Login
 
 <section class="hero">
 
-<div class="hero-left">
+<!-- NEWS -->
 
-<div class="badge">
-🚀 India's Advanced AI Trading Platform
+<div class="newsPanel">
+
+<div class="newsTitle">
+
+TOP MARKET NEWS
+
 </div>
 
-<h1>
-Trade Smarter <br>
-With <span>AI Signals</span>
-</h1>
+<div class="bigNews">
 
-<p>
-Professional AI-powered trading dashboard with
-real-time option chain, AI signals,
-smart money analysis, institutional order flow &
-market prediction.
+<img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=1400">
+
+<div class="bigNewsContent">
+
+<h2>
+RBI Keeps Repo Rate Unchanged
+</h2>
+
+<p class="mt-3 text-gray-300">
+
+Markets remain bullish as RBI maintains neutral stance.
+
 </p>
 
-<div class="hero-buttons">
-<a href="#" class="primary-btn">Get Started</a>
-<a href="#" class="secondary-btn">Live Option Chain</a>
 </div>
 
 </div>
 
-<!-- RIGHT PANEL -->
+<div class="smallNews">
 
-<div class="side-panel">
+<div class="smallCard">
 
-<div class="market-mini-card">
-<div class="mini-left">
-<div class="mini-icon">🛢️</div>
+<img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?q=80&w=1200">
+
 <div>
-<h3>BRENT CRUDE</h3>
-<h2 id="brentPrice">Loading</h2>
-<p class="green">▲ Live</p>
-</div>
-</div>
-<div class="mini-chart green-chart"></div>
+
+<h3>
+IT Stocks Rally Strongly
+</h3>
+
+<p class="text-gray-400 mt-2">
+
+Infosys and TCS lead gains.
+
+</p>
+
 </div>
 
-<div class="market-mini-card">
-<div class="mini-left">
-<div class="mini-icon">💵</div>
-<div>
-<h3>DOLLAR INDEX</h3>
-<h2 id="dxyPrice">Loading</h2>
-<p class="green">▲ Live</p>
-</div>
-</div>
-<div class="mini-chart green-chart"></div>
 </div>
 
-<div class="market-mini-card">
-<div class="mini-left">
-<div class="mini-icon">🪙</div>
+<div class="smallCard">
+
+<img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200">
+
 <div>
-<h3>GOLD (XAU/USD)</h3>
-<h2 id="goldPrice">Loading</h2>
-<p class="red">▼ Live</p>
-</div>
-</div>
-<div class="mini-chart red-chart"></div>
+
+<h3>
+Crude Oil Falls
+</h3>
+
+<p class="text-gray-400 mt-2">
+
+Oil weakens amid demand fears.
+
+</p>
+
 </div>
 
-<div class="market-mini-card">
-<div class="mini-left">
-<div class="mini-icon">🇮🇳</div>
-<div>
-<h3>INDIA VIX</h3>
-<h2 id="vixPrice">Loading</h2>
-<p class="red">▼ Live</p>
+</div>
+
+</div>
+
+</div>
+
+<!-- AI PANEL -->
+
+<div class="aiPanel">
+
+<div class="aiHeader">
+
+<h2 class="text-3xl font-bold">
+
+AI TRADING SIGNAL
+
+</h2>
+
+<div class="liveTag">
+
+LIVE
+
+</div>
+
+</div>
+
+<div class="aiSignal">
+
+BUY CALL
+
+</div>
+
+<div class="signalStrike">
+
+NIFTY 24450 CE
+
+</div>
+
+<div class="tradeTable">
+
+<div class="tradeRow">
+<div>ENTRY</div>
+<div>₹182 - ₹188</div>
+</div>
+
+<div class="tradeRow">
+<div>STOPLOSS</div>
+<div class="red">₹165</div>
+</div>
+
+<div class="tradeRow">
+<div>TARGET 1</div>
+<div class="green">₹205</div>
+</div>
+
+<div class="tradeRow">
+<div>TARGET 2</div>
+<div class="green">₹228</div>
+</div>
+
+<div class="tradeRow">
+<div>TARGET 3</div>
+<div class="green">₹255</div>
+</div>
+
+<div class="tradeRow">
+<div>CONFIDENCE</div>
+<div class="green">94%</div>
+</div>
+
+<div class="tradeRow">
+<div>STATUS</div>
+<div class="green">ACTIVE</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- SIDE -->
+
+<div class="sidePanel">
+
+<div class="sideCard">
+
+<div class="sideTitle">
+
+MARKET INDICES
+
+</div>
+
+<div class="marketRow">
+<div>NIFTY 50</div>
+<div class="green">
+24,467.35
 </div>
 </div>
-<div class="mini-chart red-chart"></div>
+
+<div class="marketRow">
+<div>SENSEX</div>
+<div class="green">
+80,154.92
+</div>
+</div>
+
+<div class="marketRow">
+<div>BANK NIFTY</div>
+<div class="red">
+52,352.15
+</div>
+</div>
+
+</div>
+
+<div class="sideCard">
+
+<div class="sideTitle">
+
+UPCOMING EVENTS
+
+</div>
+
+<div class="marketRow">
+<div>RBI POLICY</div>
+<div>May 24</div>
+</div>
+
+<div class="marketRow">
+<div>GDP DATA</div>
+<div>May 28</div>
+</div>
+
+<div class="marketRow">
+<div>US FED</div>
+<div>May 30</div>
+</div>
+
 </div>
 
 </div>
 
 </section>
 
-<!-- FEATURES -->
+<!-- EDITOR -->
+<!-- MIDDLE ADS -->
 
-<section class="features">
+<section class="adsSection">
 
-<div class="feature-card">
-<h3>🤖 AI Signals</h3>
-<p>Advanced AI generated high probability signals.</p>
+<div class="adsLabel">
+
+ADVERTISEMENT
+
 </div>
 
-<div class="feature-card">
-<h3>⚡ Real-time Data</h3>
-<p>Live market data & institutional tracking.</p>
+<div class="adsBox middleAds">
+
+<div class="adsText">
+
+IN-FEED GOOGLE ADS
+
 </div>
 
-<div class="feature-card">
-<h3>🧠 Smart Money</h3>
-<p>Institutional order flow & smart analysis.</p>
-</div>
-
-<div class="feature-card">
-<h3>🎯 High Accuracy</h3>
-<p>Advanced indicators with AI confirmation.</p>
-</div>
-
-<div class="feature-card">
-<h3>🔒 Secure Platform</h3>
-<p>Enterprise-grade trading infrastructure.</p>
 </div>
 
 </section>
+<section class="editor">
+
+<!-- EDITOR PICKS -->
+
+<div>
+
+<h2 class="text-3xl font-bold mb-6">
+
+EDITOR PICKS
+
+</h2>
+
+<div class="editorGrid">
+
+<div class="editorCard">
+
+<img src="https://images.unsplash.com/photo-1559526324-593bc073d938?q=80&w=1400">
+
+<div class="editorContent">
+
+<h3>
+Nifty Eyes 24,600
+</h3>
+
+<p class="mt-3 text-gray-400">
+
+Key breakout levels to watch.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="editorCard">
+
+<img src="https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?q=80&w=1400">
+
+<div class="editorContent">
+
+<h3>
+Bank Nifty Outlook
+</h3>
+
+<p class="mt-3 text-gray-400">
+
+Momentum remains volatile.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="editorCard">
+
+<img src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?q=80&w=1400">
+
+<div class="editorContent">
+
+<h3>
+Rupee Volatility
+</h3>
+
+<p class="mt-3 text-gray-400">
+
+Currency market sees pressure.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="editorCard">
+
+<img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1400">
+
+<div class="editorContent">
+
+<h3>
+Global Markets Mixed
+</h3>
+
+<p class="mt-3 text-gray-400">
+
+Investors await US data.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CHART -->
+
+<div class="chartPanel">
+
+<h2 class="text-3xl font-bold">
+
+MARKET OVERVIEW
+
+</h2>
+
+<canvas id="marketChart"
+height="260">
+
+</canvas>
+
+</div>
+
+<!-- ACTIVE -->
+
+<div class="sidePanel">
+
+<div class="sideCard">
+
+<div class="sideTitle">
+
+MOST ACTIVE STOCKS
+
+</div>
+
+<div class="marketRow">
+<div>RELIANCE</div>
+<div class="green">+1.25%</div>
+</div>
+<div class="sideCard stickyAds">
+
+<div class="adsLabel">
+
+ADVERTISEMENT
+
+</div>
+
+<div class="adsBox sidebarAds">
+
+<div class="adsText">
+
+SIDEBAR ADSENSE
+
+</div>
+
+</div>
+
+</div>
+<div class="marketRow">
+<div>TCS</div>
+<div class="green">+0.82%</div>
+</div>
+
+<div class="marketRow">
+<div>HDFCBANK</div>
+<div class="red">-0.41%</div>
+</div>
+
+<div class="marketRow">
+<div>INFY</div>
+<div class="green">+1.12%</div>
+</div>
+
+</div>
+
+<div class="sideCard">
+
+<div class="sideTitle">
+
+AI NEWS SUMMARY
+
+</div>
+
+<p class="text-gray-300 leading-8">
+
+RBI policy remains neutral.
+FII inflows continue.
+IT stocks show strong momentum.
+AI sentiment remains bullish.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+© 2026 MSM PRO AI TERMINAL
+
+</div>
 
 <script>
 
-async function loadLiveData(){
+/* LIVE PRICE ANIMATION */
 
-try{
+function randomMove(id){
 
-const res =
-await fetch("/api/option-chain");
+const el =
+document.getElementById(id);
 
-const data =
-await res.json();
+let val =
+parseFloat(
+el.innerText
+.replace(/,/g,'')
+);
 
-/* NIFTY */
+val +=
+(Math.random()-0.5)*15;
 
-document.getElementById("topNifty").innerText =
-Number(data.spot).toLocaleString("en-IN",{
-minimumFractionDigits:2,
+el.innerText =
+val.toLocaleString(
+'en-IN',
+{
 maximumFractionDigits:2
-});
+}
+);
 
-document.getElementById("topNiftyChange").innerText =
-`${Number(data.change).toFixed(2)} (${((data.change/data.spot)*100).toFixed(2)}%)`;
+}
 
-/* =========================
-BANKNIFTY
-========================= */
+setInterval(()=>{
 
-const bankValue =
-parseFloat(data.banknifty);
+randomMove("topNifty");
 
-const bankChange =
-bankValue - (bankValue * 0.992);
+randomMove("topBank");
 
-const bankPercent =
-(bankChange / bankValue) * 100;
+randomMove("topSensex");
 
-document.getElementById("topBank").innerText =
-bankValue.toLocaleString("en-IN",{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-});
+},2000);
 
-document.getElementById("topBankChange").innerText =
-`${bankChange.toFixed(2)} (${bankPercent.toFixed(2)}%)`;
+/* CHART */
 
-document.getElementById("topBankChange").className =
-bankChange >= 0 ? "green" : "red";
+const ctx =
+document.getElementById(
+'marketChart'
+);
 
-/* =========================
-SENSEX
-========================= */
+new Chart(ctx,{
 
-const sensexValue =
-parseFloat(data.sensex);
+type:'line',
 
-const sensexChange =
-sensexValue - (sensexValue * 0.991);
+data:{
 
-const sensexPercent =
-(sensexChange / sensexValue) * 100;
+labels:[
+'9:15',
+'10:00',
+'11:00',
+'12:00',
+'1:00',
+'2:00',
+'3:00'
+],
 
-document.getElementById("topSensex").innerText =
-sensexValue.toLocaleString("en-IN",{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-});
+datasets:[{
 
-document.getElementById("topSensexChange").innerText =
-`${sensexChange.toFixed(2)} (${sensexPercent.toFixed(2)}%)`;
+label:'NIFTY',
 
-document.getElementById("topSensexChange").className =
-sensexChange >= 0 ? "green" : "red";
+data:[
+24320,
+24390,
+24360,
+24410,
+24440,
+24420,
+24467
+],
 
-/* =========================
-NIFTY IT
-========================= */
+borderColor:'#00ff99',
 
-const itValue =
-parseFloat(data.niftyIT);
+backgroundColor:
+'rgba(0,255,153,0.10)',
 
-const itChange =
-itValue - (itValue * 0.993);
+fill:true,
 
-const itPercent =
-(itChange / itValue) * 100;
+tension:0.4
 
-document.getElementById("topIT").innerText =
-itValue.toLocaleString("en-IN",{
-minimumFractionDigits:2,
-maximumFractionDigits:2
-});
+}]
 
-document.getElementById("topITChange").innerText =
-`${itChange.toFixed(2)} (${itPercent.toFixed(2)}%)`;
+},
 
-document.getElementById("topITChange").className =
-itChange >= 0 ? "green" : "red";
+options:{
 
-/* =========================
-BRENT
-========================= */
+responsive:true,
 
-const brentValue =
-parseFloat(data.brent);
+plugins:{
+legend:{
+display:false
+}
+},
 
-const brentChange =
-brentValue - (brentValue * 0.996);
+scales:{
 
-const brentPercent =
-(brentChange / brentValue) * 100;
+x:{
+ticks:{
+color:'#94a3b8'
+},
+grid:{
+color:'rgba(255,255,255,0.04)'
+}
+},
 
-document.getElementById("topBrent").innerText =
-brentValue.toFixed(2);
-
-document.getElementById("topBrentChange").innerText =
-`${brentChange.toFixed(2)} (${brentPercent.toFixed(2)}%)`;
-
-document.getElementById("topBrentChange").className =
-brentChange >= 0 ? "green" : "red";
-
-/* =========================
-DXY
-========================= */
-
-const dxyValue =
-parseFloat(data.dxy);
-
-const dxyChange =
-dxyValue - (dxyValue * 0.998);
-
-const dxyPercent =
-(dxyChange / dxyValue) * 100;
-
-document.getElementById("topDxy").innerText =
-dxyValue.toFixed(2);
-
-document.getElementById("topDxyChange").innerText =
-`${dxyChange.toFixed(2)} (${dxyPercent.toFixed(2)}%)`;
-
-document.getElementById("topDxyChange").className =
-dxyChange >= 0 ? "green" : "red";
-
-/* =========================
-GOLD
-========================= */
-
-const goldValue =
-parseFloat(data.gold);
-
-const goldChange =
-goldValue - (goldValue * 1.002);
-
-const goldPercent =
-(goldChange / goldValue) * 100;
-
-document.getElementById("topGold").innerText =
-goldValue.toFixed(2);
-
-document.getElementById("topGoldChange").innerText =
-`${goldChange.toFixed(2)} (${goldPercent.toFixed(2)}%)`;
-
-document.getElementById("topGoldChange").className =
-goldChange >= 0 ? "green" : "red";
-
-/* =========================
-INDIA VIX
-========================= */
-
-const vixValue =
-parseFloat(data.indiaVix);
-
-const vixChange =
-vixValue - (vixValue * 1.015);
-
-const vixPercent =
-(vixChange / vixValue) * 100;
-
-document.getElementById("topVix").innerText =
-vixValue.toFixed(2);
-
-document.getElementById("topVixChange").innerText =
-`${vixChange.toFixed(2)} (${vixPercent.toFixed(2)}%)`;
-
-document.getElementById("topVixChange").className =
-vixChange >= 0 ? "green" : "red";
-
-/* =========================
-SIDE PANEL
-========================= */
-
-document.getElementById("brentPrice").innerText =
-brentValue.toFixed(2);
-
-document.getElementById("brentChange").innerText =
-`${brentChange.toFixed(2)} (${brentPercent.toFixed(2)}%)`;
-
-document.getElementById("brentChange").className =
-brentChange >= 0 ? "green" : "red";
-
-document.getElementById("dxyPrice").innerText =
-dxyValue.toFixed(2);
-
-document.getElementById("dxyChange").innerText =
-`${dxyChange.toFixed(2)} (${dxyPercent.toFixed(2)}%)`;
-
-document.getElementById("dxyChange").className =
-dxyChange >= 0 ? "green" : "red";
-
-document.getElementById("goldPrice").innerText =
-goldValue.toFixed(2);
-
-document.getElementById("goldChange").innerText =
-`${goldChange.toFixed(2)} (${goldPercent.toFixed(2)}%)`;
-
-document.getElementById("goldChange").className =
-goldChange >= 0 ? "green" : "red";
-
-document.getElementById("vixPrice").innerText =
-vixValue.toFixed(2);
-
-document.getElementById("vixChange").innerText =
-`${vixChange.toFixed(2)} (${vixPercent.toFixed(2)}%)`;
-
-document.getElementById("vixChange").className =
-vixChange >= 0 ? "green" : "red";
-
-
-
-/* SIDE */
-
-document.getElementById("brentPrice").innerText =
-data.brent.toFixed(2);
-
-document.getElementById("dxyPrice").innerText =
-data.dxy.toFixed(2);
-
-document.getElementById("goldPrice").innerText =
-data.gold.toFixed(2);
-
-document.getElementById("vixPrice").innerText =
-data.indiaVix.toFixed(2);
-
-}catch(err){
-
-console.log(err);
+y:{
+ticks:{
+color:'#94a3b8'
+},
+grid:{
+color:'rgba(255,255,255,0.04)'
+}
+}
 
 }
 
 }
 
-loadLiveData();
-
-setInterval(loadLiveData,3000);
+});
 
 </script>
 
